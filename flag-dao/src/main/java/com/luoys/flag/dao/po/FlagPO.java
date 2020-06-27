@@ -15,6 +15,7 @@ public class FlagPO {
     private Integer priority;
     private Date startDate;
     private Date endDate;
+    private boolean isDelete;
     private Date gmtCreated;
     private Date gmtModified;
 }
