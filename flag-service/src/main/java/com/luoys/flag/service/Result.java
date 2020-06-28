@@ -1,5 +1,6 @@
 package com.luoys.flag.service;
 import lombok.Data;
+import com.alibaba.fastjson.JSON;
 
 @Data
 public class Result<T> {
