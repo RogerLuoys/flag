@@ -1,4 +1,4 @@
-package com.luoys.flag.dao.po;
+package com.luoys.upgrade.flag.dao.po;
 
 import lombok.Data;
 

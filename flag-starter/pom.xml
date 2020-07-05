@@ -3,17 +3,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.luoys.getfun</groupId>
-        <artifactId>flag</artifactId>
+        <groupId>com.luoys.upgrade.flag</groupId>
+        <artifactId>flag-parent</artifactId>
         <version>1.0.0</version>
     </parent>
-    <groupId>com.luoys.getfun</groupId>
+    <!--<groupId>com.luoys.upgrade.flag</groupId>-->
     <artifactId>flag-starter</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>flag-starter</name>
-    <description>Demo project for Spring Boot</description>
+
 
     <!--<properties>-->
         <!--<java.version>1.8</java.version>-->
@@ -43,22 +43,22 @@
         </dependency>
 
         <dependency>
-            <groupId>com.luoys.getfun</groupId>
+            <groupId>com.luoys.upgrade.flag</groupId>
             <artifactId>flag-api</artifactId>
             <version>1.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.luoys.getfun</groupId>
+            <groupId>com.luoys.upgrade.flag</groupId>
             <artifactId>flag-dao</artifactId>
             <version>1.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.luoys.getfun</groupId>
+            <groupId>com.luoys.upgrade.flag</groupId>
             <artifactId>flag-manage</artifactId>
             <version>1.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.luoys.getfun</groupId>
+            <groupId>com.luoys.upgrade.flag</groupId>
             <artifactId>flag-service</artifactId>
             <version>1.0.1-SNAPSHOT</version>
         </dependency>

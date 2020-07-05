@@ -1,13 +1,14 @@
-package com.luoys.flag.service.impl;
+package com.luoys.upgrade.flag.service.impl;
 
-import com.luoys.flag.dao.po.FlagPO;
-import com.luoys.flag.manage.FlagManager;
-import com.luoys.flag.service.Result;
+import com.luoys.upgrade.flag.dao.po.FlagPO;
+import com.luoys.upgrade.flag.manage.FlagManager;
+import com.luoys.upgrade.flag.api.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @RestController

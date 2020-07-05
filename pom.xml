@@ -16,11 +16,11 @@
         <version>2.2.7.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.luoys.getfun</groupId>
-    <artifactId>flag</artifactId>
+    <groupId>com.luoys.upgrade.flag</groupId>
+    <artifactId>flag-parent</artifactId>
     <version>1.0.0</version>
     <name>flag</name>
-    <description>Demo project for Spring Boot</description>
+    <description>your flag and interest in social</description>
 
     <properties>
         <java.version>1.8</java.version>

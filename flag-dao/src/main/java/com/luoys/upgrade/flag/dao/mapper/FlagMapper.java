@@ -1,6 +1,6 @@
-package com.luoys.flag.dao.mapper;
+package com.luoys.upgrade.flag.dao.mapper;
 
-import com.luoys.flag.dao.po.FlagPO;
+import com.luoys.upgrade.flag.dao.po.FlagPO;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 

@@ -1,10 +1,9 @@
-package com.luoys.flag.manage;
+package com.luoys.upgrade.flag.manage;
 
-import com.luoys.flag.dao.po.FlagPO;
+import com.luoys.upgrade.flag.dao.po.FlagPO;
 
 import java.util.List;
 
 public interface FlagManager {
-
     List<FlagPO> page();
 }
