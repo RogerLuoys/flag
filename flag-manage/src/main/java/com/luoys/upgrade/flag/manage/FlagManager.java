@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface FlagManager {
     List<FlagPO> page();
+
+    int insert(FlagPO flagPO);
+
+    int update(FlagPO flagPO);
 }

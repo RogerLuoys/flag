@@ -26,4 +26,15 @@ public class FlagManagerImpl implements FlagManager {
         return allFlags;
 //        return null;
     }
+
+    @Override
+    public int insert(FlagPO flagPO) {
+        int num = flagMapper.insert(flagPO);
+        return 0;
+    }
+
+    @Override
+    public int update(FlagPO flagPO) {
+        return 0;
+    }
 }
