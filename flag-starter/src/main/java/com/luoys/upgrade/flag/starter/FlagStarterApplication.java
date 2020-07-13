@@ -1,4 +1,4 @@
-package com.luoys.flagstarter;
+package com.luoys.upgrade.flag.starter;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

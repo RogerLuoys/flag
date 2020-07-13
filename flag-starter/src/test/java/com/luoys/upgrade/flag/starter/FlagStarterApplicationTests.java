@@ -1,4 +1,4 @@
-package com.luoys.flagstarter;
+package com.luoys.upgrade.flag.starter;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
