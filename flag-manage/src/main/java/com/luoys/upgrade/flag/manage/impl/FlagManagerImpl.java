@@ -1,8 +1,11 @@
 package com.luoys.upgrade.flag.manage.impl;
 
+import com.luoys.upgrade.flag.api.NumberSender;
+import com.luoys.upgrade.flag.api.bo.FlagBO;
 import com.luoys.upgrade.flag.dao.mapper.FlagMapper;
 import com.luoys.upgrade.flag.dao.po.FlagPO;
 import com.luoys.upgrade.flag.manage.FlagManager;
+import com.luoys.upgrade.flag.manage.util.Transform;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import java.util.List;
 @Component
 public class FlagManagerImpl implements FlagManager {
 
+//    private static final int  = 472;
     private static Logger logger = LoggerFactory.getLogger(com.luoys.upgrade.flag.manage.impl.FlagManagerImpl.class);
 
     @Autowired
@@ -28,9 +32,13 @@ public class FlagManagerImpl implements FlagManager {
     }
 
     @Override
-    public int insert(FlagPO flagPO) {
-        int num = flagMapper.insert(flagPO);
-        return 0;
+    public FlagPO insert(FlagBO flagBO) {
+        // 填入业务ID
+        flagBO.setFlagId(NumberSender.createFlagID());
+//        flagBO.setStatus(1);
+        FlagPO po = Transform.TransformFlagBO2PO(flagBO);
+        flagMapper.insert(po);
+        return po;
     }
 
     @Override

@@ -3,15 +3,21 @@ package com.luoys.upgrade.flag.api;
 import java.util.Random;
 
 public class NumberSender {
+
     static Random rd = new Random();
 
-    public static String flagID() throws InterruptedException {
+    public static String createFlagID() {
 
-        Thread.sleep(1);
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
+
         long time1 = System.currentTimeMillis();
         int num = rd.nextInt(9);
         String id = "1" + Long.toString(time1) + Long.toString(num);
-        System.out.println(id);
+        return id;
     }
 
 }

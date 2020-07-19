@@ -1,13 +1,11 @@
-package com.luoys.upgrade.flag.dao.po;
+package com.luoys.upgrade.flag.api.bo;
 
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class FlagPO {
-
-    private Integer id;
+public class FlagBO {
     private String flagId;
     private String flagName;
     private String description;
@@ -16,6 +14,4 @@ public class FlagPO {
     private Date startDate;
     private Date endDate;
     private Boolean deleted;
-    private Date gmtCreated;
-    private Date gmtModified;
 }
