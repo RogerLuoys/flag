@@ -35,8 +35,18 @@ public class FlagManagerImpl implements FlagManager {
     public FlagPO insert(FlagBO flagBO) {
         // 填入业务ID
         flagBO.setFlagId(NumberSender.createFlagID());
-//        flagBO.setStatus(1);
+        if (flagBO.getDeleted()==null) {
+            flagBO.setDeleted(false);
+        }
+        if (flagBO.getPriority()==null) {
+            flagBO.setPriority(1);
+        }
+        if (flagBO.getStatus()==null) {
+            flagBO.setStatus(1);
+        }
+
         FlagPO po = Transform.TransformFlagBO2PO(flagBO);
+        logger.info("=====>flag创建填充后param：{}", po);
         flagMapper.insert(po);
         return po;
     }
