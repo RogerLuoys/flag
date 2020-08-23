@@ -12,10 +12,10 @@
     <!--<groupId>com.luoys.upgrade.flag</groupId>-->
     <artifactId>flag-api</artifactId>
     <version>1.0.1-SNAPSHOT</version>
-<dependencies>
-    <dependency>
-        <groupId>org.projectlombok</groupId>
-        <artifactId>lombok</artifactId>
-    </dependency>
-</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
 </project>

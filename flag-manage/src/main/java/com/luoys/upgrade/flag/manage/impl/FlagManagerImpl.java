@@ -17,7 +17,7 @@ import java.util.List;
 public class FlagManagerImpl implements FlagManager {
 
 //    private static final int  = 472;
-    private static Logger logger = LoggerFactory.getLogger(com.luoys.upgrade.flag.manage.impl.FlagManagerImpl.class);
+    private static Logger logger = LoggerFactory.getLogger(FlagManagerImpl.class);
 
     @Autowired
     FlagMapper flagMapper;

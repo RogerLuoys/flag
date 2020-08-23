@@ -17,7 +17,6 @@ public class Transform {
         po.setPriority(bo.getPriority());
         po.setStartDate(bo.getStartDate());
         po.setEndDate(bo.getEndDate());
-        po.setDeleted(bo.getDeleted());
         return po;
     }
 }
