@@ -14,11 +14,11 @@ public interface FlagMapper {
 
     int insert(FlagPO record);
 
-    int insertSelective(FlagPO record);
+//    int insertSelective(FlagPO record);
 
-    FlagPO selectByPrimaryKey(Integer id);
+    FlagPO selectByFlagID(Integer id);
 
-    int updateByPrimaryKeySelective(FlagPO record);
+    int updateByFlagID(FlagPO record);
 
-    int updateByPrimaryKey(FlagPO record);
+//    int updateByPrimaryKey(FlagPO record);
 }
