@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.luoys.upgrade.flag.dao.mapper.FlagMapper">
+
   <resultMap id="BaseResultMap" type="com.luoys.upgrade.flag.dao.po.FlagPO">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="flag_id" jdbcType="VARCHAR" property="flagId" />
@@ -14,26 +15,31 @@
     <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
+
   <sql id="Base_Column_List">
     id, flag_id, flag_name, description, `status`, priority, start_date, end_date, creator_id, 
     gmt_created, gmt_modified
   </sql>
+
   <select id="listAllFlag" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from flag
     where is_delete=0
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+  <select id="selectByFlagID" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from flag
-    where id = #{id,jdbcType=INTEGER}
+    where flag_id = #{flagID,jdbcType=VARCHAR}
   </select>
+
   <delete id="deleteByFlagID" parameterType="java.lang.String">
     delete from flag
     where flag_id = #{flagID,jdbcType=VARCHAR}
   </delete>
+
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.FlagPO" useGeneratedKeys="true">
     insert into flag (flag_id, flag_name, description, 
       `status`, priority, start_date, 
@@ -44,80 +50,8 @@
       #{endDate,jdbcType=TIMESTAMP}, #{creatorId,jdbcType=VARCHAR}, 0,
       now(), now())
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.FlagPO" useGeneratedKeys="true">
-    insert into flag
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="flagId != null">
-        flag_id,
-      </if>
-      <if test="flagName != null">
-        flag_name,
-      </if>
-      <if test="description != null">
-        description,
-      </if>
-      <if test="status != null">
-        `status`,
-      </if>
-      <if test="priority != null">
-        priority,
-      </if>
-      <if test="startDate != null">
-        start_date,
-      </if>
-      <if test="endDate != null">
-        end_date,
-      </if>
-      <if test="creatorId != null">
-        creator_id,
-      </if>
-      <if test="isDelete != null">
-        is_delete,
-      </if>
-      <if test="gmtCreated != null">
-        gmt_created,
-      </if>
-      <if test="gmtModified != null">
-        gmt_modified,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="flagId != null">
-        #{flagId,jdbcType=VARCHAR},
-      </if>
-      <if test="flagName != null">
-        #{flagName,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null">
-        #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
-      </if>
-      <if test="priority != null">
-        #{priority,jdbcType=TINYINT},
-      </if>
-      <if test="startDate != null">
-        #{startDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endDate != null">
-        #{endDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="creatorId != null">
-        #{creatorId,jdbcType=VARCHAR},
-      </if>
-      <if test="isDelete != null">
-        #{isDelete,jdbcType=TINYINT},
-      </if>
-      <if test="gmtCreated != null">
-        #{gmtCreated,jdbcType=TIMESTAMP},
-      </if>
-      <if test="gmtModified != null">
-        #{gmtModified,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.luoys.upgrade.flag.dao.po.FlagPO">
+
+  <update id="updateByFlagID" parameterType="com.luoys.upgrade.flag.dao.po.FlagPO">
     update flag
     <set>
       <if test="flagId != null">
@@ -154,21 +88,7 @@
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where flag_id = #{flagID,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.luoys.upgrade.flag.dao.po.FlagPO">
-    update flag
-    set flag_id = #{flagId,jdbcType=VARCHAR},
-      flag_name = #{flagName,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
-      `status` = #{status,jdbcType=TINYINT},
-      priority = #{priority,jdbcType=TINYINT},
-      start_date = #{startDate,jdbcType=TIMESTAMP},
-      end_date = #{endDate,jdbcType=TIMESTAMP},
-      creator_id = #{creatorId,jdbcType=VARCHAR},
-      is_delete = #{isDelete,jdbcType=TINYINT},
-      gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
-      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
 </mapper>
