@@ -8,10 +8,7 @@ import com.luoys.upgrade.flag.api.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Pattern;
 import java.util.List;
@@ -25,8 +22,9 @@ public class FlagServiceImpl {
     FlagManager flagManager;
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public Result<String> hello() {
-        return Result.success("Hello, it is a big big flag! good luck.");
+    public Result<String> hello(@CookieValue("testCookie") String userID) {
+        LOG.info("hello"+userID);
+        return Result.success("Hello"+ userID +", it is a big big flag! good luck.");
 //        return "Hello, it is my flag!";
     }
 
