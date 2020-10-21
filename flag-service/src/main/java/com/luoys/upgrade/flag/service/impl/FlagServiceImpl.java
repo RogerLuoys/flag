@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @RestController
@@ -30,8 +29,14 @@ public class FlagServiceImpl {
 
     @RequestMapping(value = "/allFlag", method = RequestMethod.GET)
     public Result<List<FlagPO>> allFlag() {
-        return Result.success(flagManager.page());
+        return Result.success(flagManager.pageAll());
     }
+
+    @RequestMapping(value = "/Flag", method = RequestMethod.GET)
+    public Result<List<FlagPO>> listFlag(String UserID) {
+        return Result.success(flagManager.page(UserID));
+    }
+
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public Result<FlagPO> insertFlag(@RequestBody FlagBO flagBO) {

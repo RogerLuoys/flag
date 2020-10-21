@@ -18,6 +18,8 @@ public interface FlagMapper {
 
     FlagPO selectByFlagID(Integer id);
 
+    List<FlagPO> selectByUserID(String userID);
+
     int updateByFlagID(FlagPO record);
 
 //    int updateByPrimaryKey(FlagPO record);

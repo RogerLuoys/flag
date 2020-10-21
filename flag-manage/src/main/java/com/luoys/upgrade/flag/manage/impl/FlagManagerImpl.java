@@ -19,11 +19,13 @@ public class FlagManagerImpl implements FlagManager {
 //    private static final int  = 472;
     private static Logger logger = LoggerFactory.getLogger(FlagManagerImpl.class);
 
+    private final Integer FLAGTYPE = 1;
+
     @Autowired
     FlagMapper flagMapper;
 
     @Override
-    public List<FlagPO> page() {
+    public List<FlagPO> pageAll() {
 
         List<FlagPO> allFlags = flagMapper.listAllFlag();
         logger.info(allFlags.get(0).toString());
@@ -32,18 +34,27 @@ public class FlagManagerImpl implements FlagManager {
     }
 
     @Override
+    public List<FlagBO> page(String userId) {
+
+        List<FlagPO> myFlags = flagMapper.selectByUserID(userId);
+        List<FlagBO> bo = Transform.TransformFlagPO2BO(myFlags);
+        logger.info(myFlags.get(0).toString());
+        return bo;
+    }
+
+    @Override
     public FlagPO insert(FlagBO flagBO) {
         // 填入业务ID
         flagBO.setFlagId(NumberSender.createFlagID());
-        if (flagBO.getDeleted()==null) {
-            flagBO.setDeleted(false);
+        if (flagBO.getType()==null) {
+            flagBO.setType(FLAGTYPE);
         }
         if (flagBO.getPriority()==null) {
             flagBO.setPriority(1);
         }
-        if (flagBO.getStatus()==null) {
-            flagBO.setStatus(1);
-        }
+//        if (flagBO.getStatus()==null) {
+//            flagBO.setStatus(1);
+//        }
 
         FlagPO po = Transform.TransformFlagBO2PO(flagBO);
         logger.info("=====>flag创建填充后param：{}", po);

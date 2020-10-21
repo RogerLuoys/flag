@@ -7,7 +7,9 @@
     <result column="flag_id" jdbcType="VARCHAR" property="flagId" />
     <result column="flag_name" jdbcType="VARCHAR" property="flagName" />
     <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="expected" jdbcType="VARCHAR" property="description" />
+    <result column="actual" jdbcType="VARCHAR" property="description" />
+    <result column="type" jdbcType="TINYINT" property="type" />
     <result column="priority" jdbcType="TINYINT" property="priority" />
     <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
     <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
@@ -17,7 +19,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, flag_id, flag_name, description, `status`, priority, start_date, end_date, creator_id, 
+    id, flag_id, flag_name, description, expected, actual, `type`, priority, start_date, end_date, creator_id,
     gmt_created, gmt_modified
   </sql>
 
@@ -32,12 +34,19 @@
     select
     <include refid="Base_Column_List" />
     from flag
-    where flag_id = #{flagID,jdbcType=VARCHAR}
+    where flag_id = #{flagId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByUserID" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from flag
+    where creator_id = #{creatorId,jdbcType=VARCHAR}
   </select>
 
   <delete id="deleteByFlagID" parameterType="java.lang.String">
     delete from flag
-    where flag_id = #{flagID,jdbcType=VARCHAR}
+    where flag_id = #{flagId,jdbcType=VARCHAR}
   </delete>
 
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.FlagPO" useGeneratedKeys="true">

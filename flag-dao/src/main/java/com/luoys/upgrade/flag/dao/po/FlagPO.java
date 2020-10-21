@@ -17,7 +17,11 @@ public class FlagPO {
 
     private String description;
 
-    private Integer status;
+    private String expected;
+
+    private String actual;
+
+    private Integer type;
 
     private Integer priority;
 

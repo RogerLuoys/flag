@@ -9,9 +9,14 @@ public class FlagBO {
     private String flagId;
     private String flagName;
     private String description;
-    private Integer status;
+    private String expected;
+    private String actual;
+    private Integer type;
     private Integer priority;
     private Date startDate;
     private Date endDate;
-    private Boolean deleted;
+    private String createId;
+    private Date gmtCreate;
+    private Date gmtModify;
+
 }
