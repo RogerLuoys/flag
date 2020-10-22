@@ -6,7 +6,7 @@ public class NumberSender {
 
     static Random rd = new Random();
 
-    public static String createFlagID() {
+    public static String createFlagId() {
 
         try {
             Thread.sleep(1);

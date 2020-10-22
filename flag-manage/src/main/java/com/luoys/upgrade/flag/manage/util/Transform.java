@@ -3,6 +3,7 @@ package com.luoys.upgrade.flag.manage.util;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
 import com.luoys.upgrade.flag.dao.po.FlagPO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Transform {
@@ -44,9 +45,10 @@ public class Transform {
     }
 
     public static List<FlagBO> TransformFlagPO2BO(List<FlagPO> po) {
-//        for (FlagPO item in po) {
-//
-//        }
-        return null;
+        List<FlagBO> bo = new ArrayList<>();
+        for (FlagPO item : po) {
+            bo.add(TransformFlagPO2BO(item));
+        }
+        return bo;
     }
 }

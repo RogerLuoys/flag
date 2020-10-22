@@ -31,8 +31,8 @@ public class FlagPO {
 
     private String creatorId;
 
-    private Date gmtCreated;
+    private Date gmtCreate;
 
-    private Date gmtModified;
+    private Date gmtModify;
 
 }
