@@ -21,7 +21,14 @@ public class FlagServiceImpl {
     FlagManager flagManager;
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public Result<String> hello(@CookieValue("testCookie") String userId) {
+    public Result<String> hello() {
+        return Result.success("Hello, it is a big big flag! good luck.");
+//        return "Hello, it is my flag!";
+    }
+
+
+    @RequestMapping(value = "/hello2", method = RequestMethod.GET)
+    public Result<String> hello2(@CookieValue("testCookie") String userId) {
         LOG.info("hello"+userId);
         return Result.success("Hello"+ userId +", it is a big big flag! good luck.");
 //        return "Hello, it is my flag!";
