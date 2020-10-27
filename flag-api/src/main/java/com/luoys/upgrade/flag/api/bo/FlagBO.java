@@ -11,6 +11,7 @@ public class FlagBO {
     private String description;
     private Integer status;
     private Integer priority;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
     private Date endDate;
     private Boolean deleted;
