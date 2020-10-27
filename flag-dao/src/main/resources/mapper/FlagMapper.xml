@@ -7,18 +7,20 @@
     <result column="flag_id" jdbcType="VARCHAR" property="flagId" />
     <result column="flag_name" jdbcType="VARCHAR" property="flagName" />
     <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="expected" jdbcType="VARCHAR" property="description" />
+    <result column="actual" jdbcType="VARCHAR" property="description" />
+    <result column="type" jdbcType="TINYINT" property="type" />
     <result column="priority" jdbcType="TINYINT" property="priority" />
     <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
     <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
     <result column="creator_id" jdbcType="VARCHAR" property="creatorId" />
-    <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated" />
-    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, flag_id, flag_name, description, `status`, priority, start_date, end_date, creator_id, 
-    gmt_created, gmt_modified
+    id, flag_id, flag_name, description, expected, actual, `type`, priority, start_date, end_date, creator_id,
+    gmt_create, gmt_modify
   </sql>
 
   <select id="listAllFlag" resultMap="BaseResultMap">
@@ -28,16 +30,23 @@
     where is_delete=0
   </select>
 
-  <select id="selectByFlagID" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByFlagId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from flag
-    where flag_id = #{flagID,jdbcType=VARCHAR}
+    where flag_id = #{flagId,jdbcType=VARCHAR}
   </select>
 
-  <delete id="deleteByFlagID" parameterType="java.lang.String">
+  <select id="listByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from flag
+    where creator_id = #{creatorId,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByFlagId" parameterType="java.lang.String">
     delete from flag
-    where flag_id = #{flagID,jdbcType=VARCHAR}
+    where flag_id = #{flagId,jdbcType=VARCHAR}
   </delete>
 
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.FlagPO" useGeneratedKeys="true">
@@ -51,7 +60,7 @@
       now(), now())
   </insert>
 
-  <update id="updateByFlagID" parameterType="com.luoys.upgrade.flag.dao.po.FlagPO">
+  <update id="updateByFlagId" parameterType="com.luoys.upgrade.flag.dao.po.FlagPO">
     update flag
     <set>
       <if test="flagId != null">
@@ -88,7 +97,7 @@
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where flag_id = #{flagID,jdbcType=VARCHAR}
+    where flag_id = #{flagId,jdbcType=VARCHAR}
   </update>
 
 </mapper>

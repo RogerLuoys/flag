@@ -6,9 +6,11 @@ import com.luoys.upgrade.flag.dao.po.FlagPO;
 import java.util.List;
 
 public interface FlagManager {
-    List<FlagPO> page();
+    List<FlagBO> queryFlags(String userId);
 
-    FlagPO insert(FlagBO flagBO);
+    List<FlagPO> queryAllFlags();
 
-    int update(FlagPO flagPO);
+    int addFlag(FlagBO flagBO);
+
+    int modifyFlag(FlagPO flagPO);
 }

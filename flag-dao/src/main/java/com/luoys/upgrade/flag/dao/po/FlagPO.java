@@ -17,7 +17,11 @@ public class FlagPO {
 
     private String description;
 
-    private Integer status;
+    private String expected;
+
+    private String actual;
+
+    private Integer type;
 
     private Integer priority;
 
@@ -27,8 +31,8 @@ public class FlagPO {
 
     private String creatorId;
 
-    private Date gmtCreated;
+    private Date gmtCreate;
 
-    private Date gmtModified;
+    private Date gmtModify;
 
 }

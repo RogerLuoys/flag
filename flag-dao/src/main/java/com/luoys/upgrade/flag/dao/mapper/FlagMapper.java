@@ -10,15 +10,17 @@ public interface FlagMapper {
 
     List<FlagPO> listAllFlag();
 
-    int deleteByFlagID(Integer id);
+    int deleteByFlagId(Integer id);
 
     int insert(FlagPO record);
 
 //    int insertSelective(FlagPO record);
 
-    FlagPO selectByFlagID(Integer id);
+    FlagPO selectByFlagId(Integer id);
 
-    int updateByFlagID(FlagPO record);
+    List<FlagPO> listByUserId(String userId);
+
+    int updateByFlagId(FlagPO record);
 
 //    int updateByPrimaryKey(FlagPO record);
 }

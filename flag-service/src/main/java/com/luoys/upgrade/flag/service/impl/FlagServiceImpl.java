@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @RestController
@@ -22,21 +21,34 @@ public class FlagServiceImpl {
     FlagManager flagManager;
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public Result<String> hello(@CookieValue("testCookie") String userID) {
-        LOG.info("hello"+userID);
-        return Result.success("Hello"+ userID +", it is a big big flag! good luck.");
+    public Result<String> hello() {
+        return Result.success("Hello, it is a big big flag! good luck.");
 //        return "Hello, it is my flag!";
     }
 
-    @RequestMapping(value = "/allFlag", method = RequestMethod.GET)
-    public Result<List<FlagPO>> allFlag() {
-        return Result.success(flagManager.page());
+
+    @RequestMapping(value = "/hello2", method = RequestMethod.GET)
+    public Result<String> hello2(@CookieValue("testCookie") String userId) {
+        LOG.info("hello"+userId);
+        return Result.success("Hello"+ userId +", it is a big big flag! good luck.");
+//        return "Hello, it is my flag!";
     }
 
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
-    public Result<FlagPO> insertFlag(@RequestBody FlagBO flagBO) {
+    @RequestMapping(value = "/queryAllFlags", method = RequestMethod.GET)
+    public Result<List<FlagPO>> queryAllFlags() {
+        return Result.success(flagManager.queryAllFlags());
+    }
+
+    @RequestMapping(value = "/queryFlags", method = RequestMethod.GET)
+    public Result<List<FlagPO>> queryFlags(@RequestParam String userId) {
+        return Result.success(flagManager.queryFlags(userId));
+    }
+
+
+    @RequestMapping(value = "/addFlag", method = RequestMethod.POST)
+    public Result<FlagPO> addFlag(@RequestBody FlagBO flagBO) {
         LOG.info("=====>flag创建param：{}", JSON.toJSONString(flagBO));
-        return Result.success(flagManager.insert(flagBO));
+        return Result.success(flagManager.addFlag(flagBO));
     }
 
 }
