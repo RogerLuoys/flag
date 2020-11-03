@@ -15,10 +15,7 @@ public class FlagBO {
     private String actual;
     private Integer type;
     private Integer priority;
-
-    @DateTimeFormat(pattern = "YYYY-MM-DD")
     private Date startDate;
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date endDate;
     private String createId;
     private Date gmtCreate;

@@ -20,7 +20,7 @@ public interface FlagMapper {
 
     List<FlagPO> listByUserId(String userId);
 
-    int updateByFlagId(FlagPO record);
+    int updateByFlagId(String flagId);
 
 //    int updateByPrimaryKey(FlagPO record);
 }

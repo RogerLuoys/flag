@@ -46,9 +46,17 @@ public class FlagServiceImpl {
 
 
     @RequestMapping(value = "/addFlag", method = RequestMethod.POST)
-    public Result<FlagPO> addFlag(@RequestBody FlagBO flagBO) {
+    public Result<String> addFlag(@RequestBody FlagBO flagBO) {
         LOG.info("=====>flag创建param：{}", JSON.toJSONString(flagBO));
-        return Result.success(flagManager.addFlag(flagBO));
+        int result = flagManager.addFlag(flagBO);
+        if (result == 1) {
+            return Result.success("Flag创建成功");
+        }else if (result == 0) {
+            return Result.error("Flag创建失败");
+        } else {
+            return Result.error("执行异常");
+        }
+
     }
 
 }

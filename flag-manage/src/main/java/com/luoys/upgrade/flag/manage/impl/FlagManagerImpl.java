@@ -19,7 +19,9 @@ public class FlagManagerImpl implements FlagManager {
     //    private static final int  = 472;
     private static Logger logger = LoggerFactory.getLogger(FlagManagerImpl.class);
 
-    private final Integer FLAGTYPE = 1;
+    private final Integer DEFAULT_FLAGTYPE = 1;
+    private final Integer DEFAULT_PRIORITY = 1;
+    private final String DEFAULT_CREATOR = "1";
 
     @Autowired
     FlagMapper flagMapper;
@@ -45,11 +47,18 @@ public class FlagManagerImpl implements FlagManager {
     public int addFlag(FlagBO flagBO) {
         // 填入业务Id
         flagBO.setFlagId(NumberSender.createFlagId());
+        if (flagBO.getFlagName() == null) {
+            logger.error("=====>必填字段 flagName 为空");
+            return 0;
+        }
         if (flagBO.getType() == null) {
-            flagBO.setType(FLAGTYPE);
+            flagBO.setType(DEFAULT_FLAGTYPE);
         }
         if (flagBO.getPriority() == null) {
-            flagBO.setPriority(1);
+            flagBO.setPriority(DEFAULT_PRIORITY);
+        }
+        if (flagBO.getCreateId() == null) {
+            flagBO.setCreateId(DEFAULT_CREATOR);
         }
         FlagPO po = Transform.TransformFlagBO2PO(flagBO);
         logger.info("=====>flag创建，并填充默认值：{}", po);

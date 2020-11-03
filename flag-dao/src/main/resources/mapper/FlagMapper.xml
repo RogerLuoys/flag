@@ -51,16 +51,16 @@
 
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.FlagPO" useGeneratedKeys="true">
     insert into flag (flag_id, flag_name, description, 
-      `status`, priority, start_date, 
+      expected, actual, type, priority, start_date,
       end_date, creator_id, is_delete,
-      gmt_created, gmt_modified)
+      gmt_create, gmt_modify)
     values (#{flagId,jdbcType=VARCHAR}, #{flagName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT}, #{priority,jdbcType=TINYINT}, #{startDate,jdbcType=TIMESTAMP}, 
-      #{endDate,jdbcType=TIMESTAMP}, #{creatorId,jdbcType=VARCHAR}, 0,
+      #{expected,jdbcType=VARCHAR}, #{actual,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{priority,jdbcType=TINYINT},
+      #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, #{creatorId,jdbcType=VARCHAR}, 0,
       now(), now())
   </insert>
 
-  <update id="updateByFlagId" parameterType="com.luoys.upgrade.flag.dao.po.FlagPO">
+  <update id="updateByFlagId" parameterType="java.lang.String">
     update flag
     <set>
       <if test="flagId != null">
