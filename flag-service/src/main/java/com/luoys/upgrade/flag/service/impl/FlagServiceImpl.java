@@ -2,7 +2,9 @@ package com.luoys.upgrade.flag.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
+import com.luoys.upgrade.flag.api.bo.FlagBindBO;
 import com.luoys.upgrade.flag.dao.po.FlagPO;
+import com.luoys.upgrade.flag.manage.FlagBindManager;
 import com.luoys.upgrade.flag.manage.FlagManager;
 import com.luoys.upgrade.flag.api.Result;
 import org.slf4j.Logger;
@@ -19,6 +21,8 @@ public class FlagServiceImpl {
 
     @Autowired
     FlagManager flagManager;
+    @Autowired
+    FlagBindManager flagBindManager;
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public Result<String> hello() {
@@ -48,14 +52,16 @@ public class FlagServiceImpl {
     @RequestMapping(value = "/addFlag", method = RequestMethod.POST)
     public Result<String> addFlag(@RequestBody FlagBO flagBO) {
         LOG.info("=====>flag创建param：{}", JSON.toJSONString(flagBO));
-        int result = flagManager.addFlag(flagBO);
-        if (result == 1) {
-            return Result.success("Flag创建成功");
-        }else if (result == 0) {
-            return Result.error("Flag创建失败");
-        } else {
-            return Result.error("执行异常");
+        FlagBO resultBO = flagManager.addFlag(flagBO);
+        if (resultBO == null) {
+            return Result.error("Flag 主表创建失败");
         }
+        // 创建绑定关系
+        FlagBindBO flagBindBO = new FlagBindBO();
+        flagBindBO.setFlagId(resultBO.getFlagId());
+        flagBindBO.setUserId(resultBO.getCreateId());
+        LOG.info("=====>flag创建绑定关系param：{}", JSON.toJSONString(flagBindBO));
+        return flagBindManager.addFlagBind(flagBindBO) == null ? Result.success("Flag 创建成功") : Result.error("Flag 主表创建失败");
 
     }
 

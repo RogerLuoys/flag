@@ -1,6 +1,8 @@
 package com.luoys.upgrade.flag.manage.util;
 
 import com.luoys.upgrade.flag.api.bo.FlagBO;
+import com.luoys.upgrade.flag.api.bo.FlagBindBO;
+import com.luoys.upgrade.flag.dao.po.FlagBindPO;
 import com.luoys.upgrade.flag.dao.po.FlagPO;
 
 import java.util.ArrayList;
@@ -50,5 +52,17 @@ public class Transform {
             bo.add(TransformFlagPO2BO(item));
         }
         return bo;
+    }
+
+    public static FlagBindPO TransformFlagBindBO2PO(FlagBindBO bo) {
+        if (bo == null) {
+            return null;
+        }
+        FlagBindPO po = new FlagBindPO();
+        po.setFlagId(bo.getFlagId());
+        po.setUserId(bo.getUserId());
+        po.setStatus(bo.getStatus());
+        po.setType(bo.getType());
+        return po;
     }
 }

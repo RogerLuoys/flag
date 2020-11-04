@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luoys.upgrade.flag.dao.mapper.FlagBindMapper">
+  <resultMap id="BaseResultMap" type="com.luoys.upgrade.flag.dao.po.FlagBindPO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="flag_id" jdbcType="VARCHAR" property="flagId" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, flag_id, `type`, `status`, gmt_create, gmt_modify
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from flag_bind
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from flag_bind
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO" useGeneratedKeys="true">
+    insert into flag_bind (user_id, flag_id, `type`, 
+      `status`, is_delete, gmt_create, 
+      gmt_modify)
+    values (#{userId,jdbcType=VARCHAR}, #{flagId,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, 
+      #{status,jdbcType=TINYINT}, 0, now(),
+      now())
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO" useGeneratedKeys="true">
+    insert into flag_bind
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="flagId != null">
+        flag_id,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModify != null">
+        gmt_modify,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="flagId != null">
+        #{flagId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null">
+        #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO">
+    update flag_bind
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="flagId != null">
+        flag_id = #{flagId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModify != null">
+        gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO">
+    update flag_bind
+    set user_id = #{userId,jdbcType=VARCHAR},
+      flag_id = #{flagId,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=TINYINT},
+      `status` = #{status,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -10,7 +10,7 @@ public interface FlagManager {
 
     List<FlagPO> queryAllFlags();
 
-    int addFlag(FlagBO flagBO);
+    FlagBO addFlag(FlagBO flagBO);
 
     int modifyFlag(FlagPO flagPO);
 }
