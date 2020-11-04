@@ -35,7 +35,7 @@ public class FlagBindManagerImpl implements FlagBindManager {
         if (flagBindBO.getType() == null) {
             flagBindBO.setType(1);
         }
-        int result = flagBindMapper.insert(Transform.TransformFlagBindBO2PO(flagBindBO));
-        return result == 1 ? flagBindBO : null;
+        flagBindMapper.insert(Transform.TransformFlagBindBO2PO(flagBindBO));
+        return flagBindBO;
     }
 }

@@ -9,16 +9,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
+//@SpringBootTest
+//@RunWith(SpringRunner.class)
 public class FlagManagerTest {
 
-    @Autowired
-    FlagManagerImpl flagManager;
-
-    @Test
-    public void addFlag() {
-        List<FlagBO> result = flagManager.queryFlags("1");
-        System.out.println(result);
-    }
+//    @Autowired
+//    FlagManagerImpl flagManager;
+//
+//    @Test
+//    public void addFlag() {
+//        List<FlagBO> result = flagManager.queryFlags("1");
+//        System.out.println(result);
+//    }
 }

@@ -4,6 +4,7 @@ import com.luoys.upgrade.flag.api.NumberSender;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
 import com.luoys.upgrade.flag.dao.mapper.FlagBindMapper;
 import com.luoys.upgrade.flag.dao.mapper.FlagMapper;
+import com.luoys.upgrade.flag.dao.po.FlagBindPO;
 import com.luoys.upgrade.flag.dao.po.FlagPO;
 import com.luoys.upgrade.flag.manage.FlagManager;
 import com.luoys.upgrade.flag.manage.util.Transform;
@@ -50,10 +51,10 @@ public class FlagManagerImpl implements FlagManager {
     public FlagBO addFlag(FlagBO flagBO) {
         // 填入业务Id
         flagBO.setFlagId(NumberSender.createFlagId());
-        if (flagBO.getFlagName() == null) {
-            logger.error("=====>必填字段 flagName 为空");
-            return null;
-        }
+//        if (flagBO.getFlagName() == null) {
+//            logger.error("=====>必填字段 flagName 为空");
+//            return null;
+//        }
         if (flagBO.getType() == null) {
             flagBO.setType(DEFAULT_FLAGTYPE);
         }
@@ -63,13 +64,17 @@ public class FlagManagerImpl implements FlagManager {
         if (flagBO.getCreateId() == null) {
             flagBO.setCreateId(DEFAULT_CREATOR);
         }
-        logger.info("=====>flag创建，并填充默认值：{}", flagBO);
-        int result = flagMapper.insert(Transform.TransformFlagBO2PO(flagBO));
-        if (result == 1) {
-            return flagBO;
-        } else {
-            return null;
-        }
+        FlagPO flagPO = Transform.TransformFlagBO2PO(flagBO);
+        logger.info("=====>flag创建，并填充默认值：{}", flagPO);
+        flagMapper.insert(flagPO);
+        FlagBindPO flagBindPO = new FlagBindPO();
+        flagBindPO.setFlagId(flagBO.getFlagId());
+        flagBindPO.setUserId(flagBO.getCreateId());
+        flagBindPO.setStatus(1);
+        flagBindPO.setType(1);
+        flagBindMapper.insert(flagBindPO);
+        return flagBO;
+
     }
 
     @Override
