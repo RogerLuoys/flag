@@ -13,6 +13,8 @@ public class FlagBindPO {
 
     private String userId;
 
+    private String userName;
+
     private String flagId;
 
     /**

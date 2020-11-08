@@ -2,6 +2,7 @@ package com.luoys.upgrade.flag.api.bo;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data

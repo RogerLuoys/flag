@@ -4,15 +4,58 @@
   <resultMap id="BaseResultMap" type="com.luoys.upgrade.flag.dao.po.FlagBindPO">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="flag_id" jdbcType="VARCHAR" property="flagId" />
     <result column="type" jdbcType="TINYINT" property="type" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
   </resultMap>
+
+  <resultMap id="ourFlagMap" type="com.luoys.upgrade.flag.dao.po.UserFlagPO">
+    <result column="flag_id" jdbcType="VARCHAR" property="flagId" />
+    <result column="flag_name" jdbcType="VARCHAR" property="flagName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="expected" jdbcType="VARCHAR" property="description" />
+    <result column="actual" jdbcType="VARCHAR" property="description" />
+    <result column="flag_type" jdbcType="TINYINT" property="flagType" />
+    <result column="priority" jdbcType="TINYINT" property="priority" />
+    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="creator_id" jdbcType="VARCHAR" property="creatorId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="witness_id" jdbcType="VARCHAR" property="witnessId" />
+    <result column="witness_name" jdbcType="VARCHAR" property="witnessName" />
+    <result column="user_type" jdbcType="TINYINT" property="userType" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+  </resultMap>
+
   <sql id="Base_Column_List">
     id, user_id, flag_id, `type`, `status`, gmt_create, gmt_modify
   </sql>
+
+  <select id="listOurFlags" resultMap="ourFlagMap">
+    select
+    f.flag_id, f.flag_name, f.description, f.expected, f.actual, f.type as flag_type, f.priority, f.start_date, f.end_date, f.creator_id,
+    fb.user_id, fb.user_name, fb.witness_id, fb.witness_name, fb.type as user_type, fb.status
+    from flag_bind fb
+    inner join flag f
+    on fb.flag_id = f.flag_id
+    where fb.user_id = #{userId,jdbcType=VARCHAR}
+    <if test="userType != null">
+      and fb.type = #{userType,jdbcType=TINYINT}
+    </if>
+    <if test="flagType != null">
+      and f.type = #{flagType,jdbcType=TINYINT}
+    </if>
+    <if test="flagStatus != null">
+      and fb.status = #{flagStatus,jdbcType=TINYINT}
+    </if>
+  </select>
+
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
