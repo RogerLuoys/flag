@@ -41,8 +41,9 @@
     fb.user_id, fb.user_name, fb.witness_id, fb.witness_name, fb.type as user_type, fb.status
     from flag_bind fb
     inner join flag f
-    on fb.flag_id = f.flag_id
-    where fb.user_id = #{userId,jdbcType=VARCHAR}
+    on fb.flag_id = f.flag_id and fb.is_delete = 0
+    where
+    and fb.user_id = #{userId,jdbcType=VARCHAR}
     <if test="userType != null">
       and fb.type = #{userType,jdbcType=TINYINT}
     </if>
