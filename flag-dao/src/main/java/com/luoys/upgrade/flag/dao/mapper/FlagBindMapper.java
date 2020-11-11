@@ -11,7 +11,7 @@ public interface FlagBindMapper {
 
     List<UserFlagPO> listOurFlags(String userId, Integer userType, Integer flagType, Integer flagStatus);
 
-    List<FlagBindPO> selectByFlagId(String flagId);
+    FlagBindPO selectByFlagId(String flagId);
 
 //    int deleteByPrimaryKey(Integer id);
 

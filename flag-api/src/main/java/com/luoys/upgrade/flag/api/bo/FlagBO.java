@@ -22,8 +22,8 @@ public class FlagBO {
     private Date startDate;
     private Date endDate;
     private String createId;
-    private Date gmtCreate;
-    private Date gmtModified;
+//    private Date gmtCreate;
+//    private Date gmtModified;
 
     // flag 关联的任务信息
     private List<TaskBO> tasks;

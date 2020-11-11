@@ -13,7 +13,7 @@ public class FlagBindBO {
     private String flagId;
 
     /**
-     * 1-所有者；2-见证人
+     * 1-所有者；2-见证人 (暂时不用)
      */
     private Integer type;
 

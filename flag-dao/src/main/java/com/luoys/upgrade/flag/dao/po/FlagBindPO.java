@@ -15,6 +15,10 @@ public class FlagBindPO {
 
     private String userName;
 
+    private String witnessId;
+
+    private String witnessName;
+
     private String flagId;
 
     /**
