@@ -11,17 +11,17 @@ public interface FlagBindMapper {
 
     List<UserFlagPO> listOurFlags(String userId, Integer userType, Integer flagType, Integer flagStatus);
 
-    FlagBindPO selectByFlagId(String flagId);
+    List<FlagBindPO> selectByFlagId(String flagId);
 
-    int deleteByPrimaryKey(Integer id);
+//    int deleteByPrimaryKey(Integer id);
 
     int insert(FlagBindPO record);
-
-    int insertSelective(FlagBindPO record);
-
-    FlagBindPO selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(FlagBindPO record);
-
-    int updateByPrimaryKey(FlagBindPO record);
+//
+//    int insertSelective(FlagBindPO record);
+//
+//    FlagBindPO selectByPrimaryKey(Integer id);
+//
+//    int updateByPrimaryKeySelective(FlagBindPO record);
+//
+//    int updateByPrimaryKey(FlagBindPO record);
 }

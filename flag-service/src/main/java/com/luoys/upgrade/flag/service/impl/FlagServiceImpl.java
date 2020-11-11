@@ -48,6 +48,10 @@ public class FlagServiceImpl {
         return Result.success(flagManager.queryFlags(userId));
     }
 
+    @RequestMapping(value = "/queryFlagDetail", method = RequestMethod.GET)
+    public Result<FlagPO> queryFlagDetail(@RequestParam String flagId) {
+        return Result.success(flagManager.queryFlagByFlagId(flagId));
+    }
 
     @RequestMapping(value = "/addFlag", method = RequestMethod.POST)
     public Result<String> addFlag(@RequestBody FlagBO flagBO) {

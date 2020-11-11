@@ -10,6 +10,8 @@ public interface FlagManager {
 
     List<FlagPO> queryAllFlags();
 
+    FlagBO queryFlagByFlagId(String flagId);
+
     FlagBO addFlag(FlagBO flagBO);
 
     int modifyFlag(FlagPO flagPO);

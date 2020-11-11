@@ -1,6 +1,7 @@
 package com.luoys.upgrade.flag.manage.impl;
 
 import com.luoys.upgrade.flag.api.NumberSender;
+import com.luoys.upgrade.flag.api.Result;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
 import com.luoys.upgrade.flag.dao.mapper.FlagBindMapper;
 import com.luoys.upgrade.flag.dao.mapper.FlagMapper;
@@ -45,6 +46,52 @@ public class FlagManagerImpl implements FlagManager {
         List<FlagPO> myFlags = flagMapper.listByUserId(userId);
         List<FlagBO> bo = Transform.TransformFlagPO2BO(myFlags);
         return bo;
+    }
+
+    @Override
+    public FlagBO queryFlagByFlagId(String flagId) {
+        FlagPO flagPO = flagMapper.selectByFlagId(flagId);
+        List<FlagBindPO> flagBindPOs = flagBindMapper.selectByFlagId(flagId);
+        FlagBO flagBO = Transform.TransformFlagPO2BO(flagPO);
+
+        // 设置flag的所有者和见证人
+        switch (flagBindPOs.size()) {
+            case 0:
+                logger.error("====>未查询到flag与账户关联信息：{}", flagId);
+                return null;
+            case 1:
+                if (flagBindPOs.get(0).getType() == 2) {
+                    logger.error("====>未查询到flag所有者：{}", flagId);
+                    return null;
+                }
+                flagBO.setOwnerId(flagBindPOs.get(0).getUserId());
+                flagBO.setOwnerName(flagBindPOs.get(0).getUserName());
+                break;
+            case 2:
+                if (flagBindPOs.get(0).getType() == flagBindPOs.get(1).getType()) {
+                    logger.error("====>flag关联账户数据异常：{}", flagId);
+                    return null;
+                }
+                for (FlagBindPO flagBindPO : flagBindPOs) {
+                    if (flagBindPO.getType() == 1) {
+                        flagBO.setOwnerId(flagBindPO.getUserId());
+                        flagBO.setOwnerName(flagBindPO.getUserName());
+                    } else if (flagBindPO.getType() == 2) {
+                        flagBO.setWitnessId(flagBindPO.getUserId());
+                        flagBO.setWitnessName(flagBindPO.getUserName());
+                    } else {
+                        logger.error("====>flagBind表的type字段异常： {}", flagBindPO);
+                        return null;
+                    }
+                }
+                break;
+            default:
+                logger.error("====>数据异常，flagBind的数量超过两条：{}", flagId);
+                return null;
+        }
+        // todo 还要关联任务
+
+        return flagBO;
     }
 
     @Override
