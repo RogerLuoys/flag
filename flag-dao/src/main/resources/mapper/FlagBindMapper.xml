@@ -9,7 +9,7 @@
     <result column="type" jdbcType="TINYINT" property="type" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
-    <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
 
   <resultMap id="ourFlagMap" type="com.luoys.upgrade.flag.dao.po.UserFlagPO">
@@ -32,7 +32,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, user_id, flag_id, `type`, `status`, gmt_create, gmt_modify
+    id, user_id, flag_id, `type`, `status`, gmt_create, gmt_modified
   </sql>
 
   <select id="listOurFlags" resultMap="ourFlagMap">
@@ -55,6 +55,12 @@
     </if>
   </select>
 
+  <select id="selectByFlagId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from flag_bind
+    where flag_id = #{flagId,jdbcType=VARCHAR}
+  </select>
 
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -70,7 +76,7 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO" useGeneratedKeys="true">
     insert into flag_bind (user_id, flag_id, `type`, 
       `status`, is_delete, gmt_create, 
-      gmt_modify)
+      gmt_modified)
     values (#{userId,jdbcType=VARCHAR}, #{flagId,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, 
       #{status,jdbcType=TINYINT}, 0, now(),
       now())
@@ -96,8 +102,8 @@
       <if test="gmtCreate != null">
         gmt_create,
       </if>
-      <if test="gmtModify != null">
-        gmt_modify,
+      <if test="gmtModified != null">
+        gmt_modified,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -119,8 +125,8 @@
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
-      <if test="gmtModify != null">
-        #{gmtModify,jdbcType=TIMESTAMP},
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -145,8 +151,8 @@
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
-      <if test="gmtModify != null">
-        gmt_modify = #{gmtModify,jdbcType=TIMESTAMP},
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -159,7 +165,7 @@
       `status` = #{status,jdbcType=TINYINT},
       is_delete = #{isDelete,jdbcType=TINYINT},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -15,12 +15,12 @@
     <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
     <result column="creator_id" jdbcType="VARCHAR" property="creatorId" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
-    <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
 
   <sql id="Base_Column_List">
     id, flag_id, flag_name, description, expected, actual, `type`, priority, start_date, end_date, creator_id,
-    gmt_create, gmt_modify
+    gmt_create, gmt_modified
   </sql>
 
   <select id="listAllFlag" resultMap="BaseResultMap">
@@ -53,7 +53,7 @@
     insert into flag (flag_id, flag_name, description, 
       expected, actual, type, priority, start_date,
       end_date, creator_id, is_delete,
-      gmt_create, gmt_modify)
+      gmt_create, gmt_modified)
     values (#{flagId,jdbcType=VARCHAR}, #{flagName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{expected,jdbcType=VARCHAR}, #{actual,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{priority,jdbcType=TINYINT},
       #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, #{creatorId,jdbcType=VARCHAR}, 0,

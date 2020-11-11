@@ -24,6 +24,6 @@ public class FlagBindBO {
 
     private Date gmtCreate;
 
-    private Date gmtModify;
+    private Date gmtModified;
 
 }

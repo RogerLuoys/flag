@@ -33,6 +33,6 @@ public class FlagPO {
 
     private Date gmtCreate;
 
-    private Date gmtModify;
+    private Date gmtModified;
 
 }

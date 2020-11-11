@@ -10,6 +10,7 @@ import java.util.List;
 
 @Data
 public class FlagBO {
+    // flag 信息
     private String flagId;
     @NotNull(message = "flag名不能为空")
     private String flagName;
@@ -22,10 +23,12 @@ public class FlagBO {
     private Date endDate;
     private String createId;
     private Date gmtCreate;
-    private Date gmtModify;
+    private Date gmtModified;
 
+    // flag 关联的任务信息
     private List<TaskBO> tasks;
 
+    // flag 关联的账户信息
     private String ownerId;
     private String ownerName;
     private String witnessId;

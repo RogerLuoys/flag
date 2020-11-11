@@ -29,5 +29,5 @@ public class FlagBindPO {
 
     private Date gmtCreate;
 
-    private Date gmtModify;
+    private Date gmtModified;
 }

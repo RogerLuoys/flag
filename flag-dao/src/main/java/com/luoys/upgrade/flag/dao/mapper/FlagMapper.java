@@ -16,7 +16,7 @@ public interface FlagMapper {
 
 //    int insertSelective(FlagPO record);
 
-    FlagPO selectByFlagId(Integer id);
+    FlagPO selectByFlagId(String flagId);
 
     List<FlagPO> listByUserId(String userId);
 
