@@ -8,10 +8,15 @@ import java.util.Date;
 @Data
 public class FlagBindBO {
 
-    private String userId;
-
     private String flagId;
 
+    private String ownerId;
+
+    private String ownerName;
+
+    private String witnessId;
+
+    private String witnessName;
     /**
      * 1-所有者；2-见证人 (暂时不用)
      */

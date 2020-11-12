@@ -27,18 +27,13 @@ public class UserFlagPO {
 
     private String creatorId;
 
-    private String userId;
+    private String ownerId;
 
-    private String userName;
+    private String ownerName;
 
     private String witnessId;
 
     private String witnessName;
-
-    /**
-     * 1-所有者；2-见证人
-     */
-    private Integer userType;
 
     /**
      * 1-未开始; 2-进行中; 3-暂停; 4-已结束; 5-已达成

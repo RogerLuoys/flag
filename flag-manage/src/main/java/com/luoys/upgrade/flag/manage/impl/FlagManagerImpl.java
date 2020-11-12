@@ -1,14 +1,13 @@
 package com.luoys.upgrade.flag.manage.impl;
 
 import com.luoys.upgrade.flag.api.NumberSender;
-import com.luoys.upgrade.flag.api.Result;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
 import com.luoys.upgrade.flag.dao.mapper.FlagBindMapper;
 import com.luoys.upgrade.flag.dao.mapper.FlagMapper;
 import com.luoys.upgrade.flag.dao.po.FlagBindPO;
 import com.luoys.upgrade.flag.dao.po.FlagPO;
 import com.luoys.upgrade.flag.manage.FlagManager;
-import com.luoys.upgrade.flag.manage.util.Transform;
+import com.luoys.upgrade.flag.manage.util.TransformFlag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +43,7 @@ public class FlagManagerImpl implements FlagManager {
     public List<FlagBO> queryFlags(String userId) {
         logger.info("=====>查询flag列表userId：{}", userId);
         List<FlagPO> myFlags = flagMapper.listByUserId(userId);
-        List<FlagBO> bo = Transform.TransformFlagPO2BO(myFlags);
-        return bo;
+        return TransformFlag.TransformFlagPO2BO(myFlags);
     }
 
     // 查询flag详情
@@ -53,13 +51,13 @@ public class FlagManagerImpl implements FlagManager {
     public FlagBO queryFlagByFlagId(String flagId) {
         FlagPO flagPO = flagMapper.selectByFlagId(flagId);
         FlagBindPO flagBindPO = flagBindMapper.selectByFlagId(flagId);
-        FlagBO flagBO = Transform.TransformFlagPO2BO(flagPO);
+        FlagBO flagBO = TransformFlag.TransformFlagPO2BO(flagPO);
         if (flagBindPO == null) {
             logger.error("====>未查询到flag与账户关联信息：{}", flagId);
             return null;
         }
-        flagBO.setOwnerId(flagBindPO.getUserId());
-        flagBO.setOwnerName(flagBindPO.getUserName());
+        flagBO.setOwnerId(flagBindPO.getOwnerId());
+        flagBO.setOwnerName(flagBindPO.getOwnerName());
         flagBO.setWitnessId(flagBindPO.getWitnessId());
         flagBO.setWitnessName(flagBindPO.getWitnessName());
 
@@ -85,12 +83,15 @@ public class FlagManagerImpl implements FlagManager {
         if (flagBO.getCreateId() == null) {
             flagBO.setCreateId(DEFAULT_CREATOR);
         }
-        FlagPO flagPO = Transform.TransformFlagBO2PO(flagBO);
+        if (flagBO.getStatus() == null) {
+            flagBO.setStatus(1);
+        }
+        FlagPO flagPO = TransformFlag.TransformFlagBO2PO(flagBO);
         logger.info("=====>flag创建，并填充默认值：{}", flagPO);
         flagMapper.insert(flagPO);
         FlagBindPO flagBindPO = new FlagBindPO();
         flagBindPO.setFlagId(flagBO.getFlagId());
-        flagBindPO.setUserId(flagBO.getCreateId());
+        flagBindPO.setOwnerId(flagBO.getCreateId());
         flagBindPO.setStatus(1);
         flagBindPO.setType(1);
         flagBindMapper.insert(flagBindPO);

@@ -5,7 +5,7 @@ import lombok.Data;
 
 /**
  * flag
- * @luoys
+ * @author luoys
  */
 @Data
 public class FlagPO {
@@ -22,6 +22,8 @@ public class FlagPO {
     private String actual;
 
     private Integer type;
+
+    private Integer status;
 
     private Integer priority;
 

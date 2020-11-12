@@ -18,6 +18,7 @@ public class FlagBO {
     private String expected;
     private String actual;
     private Integer type;
+    private Integer status;
     private Integer priority;
     private Date startDate;
     private Date endDate;

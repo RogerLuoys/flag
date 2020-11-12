@@ -20,6 +20,11 @@ public class UserFlagBO {
 
     private Integer type;
 
+    /**
+     * 1-未开始; 2-进行中; 3-暂停; 4-已结束; 5-已达成
+     */
+    private Integer status;
+
     private Integer priority;
 
     private Date startDate;
@@ -28,19 +33,9 @@ public class UserFlagBO {
 
     private String creatorId;
 
-    private String userId;
+    private String ownerId;
 
-    private String userName;
-
-    /**
-     * 1-所有者；2-见证人
-     */
-    private Integer userType;
-
-    /**
-     * 1-未开始; 2-进行中; 3-暂停; 4-已结束; 5-已达成
-     */
-    private Integer status;
+    private String ownerName;
 
     private String witnessId;
 

@@ -5,15 +5,15 @@ import java.util.Date;
 
 /**
  * flag_bind
- * @author
+ * @author luoys
  */
 @Data
 public class FlagBindPO {
     private Integer id;
 
-    private String userId;
+    private String ownerId;
 
-    private String userName;
+    private String ownerName;
 
     private String witnessId;
 
@@ -22,7 +22,7 @@ public class FlagBindPO {
     private String flagId;
 
     /**
-     * 1-所有者；2-见证人
+     * 1-所有者；2-见证人(未使用)
      */
     private Integer type;
 

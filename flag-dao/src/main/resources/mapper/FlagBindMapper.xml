@@ -3,8 +3,8 @@
 <mapper namespace="com.luoys.upgrade.flag.dao.mapper.FlagBindMapper">
   <resultMap id="BaseResultMap" type="com.luoys.upgrade.flag.dao.po.FlagBindPO">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="owner_id" jdbcType="VARCHAR" property="ownerId" />
+    <result column="owner_name" jdbcType="VARCHAR" property="ownerName" />
     <result column="witness_id" jdbcType="VARCHAR" property="witnessId" />
     <result column="witness_name" jdbcType="VARCHAR" property="witnessName" />
     <result column="flag_id" jdbcType="VARCHAR" property="flagId" />
@@ -18,42 +18,47 @@
     <result column="flag_id" jdbcType="VARCHAR" property="flagId" />
     <result column="flag_name" jdbcType="VARCHAR" property="flagName" />
     <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="expected" jdbcType="VARCHAR" property="description" />
-    <result column="actual" jdbcType="VARCHAR" property="description" />
+    <result column="expected" jdbcType="VARCHAR" property="expected" />
+    <result column="actual" jdbcType="VARCHAR" property="actual" />
     <result column="flag_type" jdbcType="TINYINT" property="flagType" />
     <result column="priority" jdbcType="TINYINT" property="priority" />
     <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
     <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
     <result column="creator_id" jdbcType="VARCHAR" property="creatorId" />
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="owner_id" jdbcType="VARCHAR" property="ownerId" />
+    <result column="owner_name" jdbcType="VARCHAR" property="ownerName" />
     <result column="witness_id" jdbcType="VARCHAR" property="witnessId" />
     <result column="witness_name" jdbcType="VARCHAR" property="witnessName" />
-    <result column="user_type" jdbcType="TINYINT" property="userType" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="flag_status" jdbcType="TINYINT" property="status" />
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, flag_id, user_id, user_name, witness_id, witness_name, `type`, `status`, gmt_create, gmt_modified
+    id, flag_id, owner_id, owner_name, witness_id, witness_name, `type`, `status`, gmt_create, gmt_modified
   </sql>
 
   <select id="listOurFlags" resultMap="ourFlagMap">
     select
-    f.flag_id, f.flag_name, f.description, f.expected, f.actual, f.type as flag_type, f.priority, f.start_date, f.end_date, f.creator_id,
-    fb.user_id, fb.user_name, fb.witness_id, fb.witness_name, fb.type as user_type, fb.status
+    f.flag_id, f.flag_name, f.description, f.expected, f.actual, f.type as flag_type, f.priority, f.start_date, f.end_date, f.creator_id, f.status as flag_status,
+    fb.owner_id, fb.owner_name, fb.witness_id, fb.witness_name
     from flag_bind fb
     inner join flag f
     on fb.flag_id = f.flag_id and fb.is_delete = 0
     where
-    and fb.user_id = #{userId,jdbcType=VARCHAR}
-    <if test="userType != null">
-      and fb.type = #{userType,jdbcType=TINYINT}
+    f.is_delete = 0
+    <if test="ownerId != null">
+      and fb.owner_id = #{ownerId,jdbcType=VARCHAR}
+    </if>
+    <if test="witnessId != null">
+      and fb.witness_id = #{witnessId,jdbcType=VARCHAR}
     </if>
     <if test="flagType != null">
       and f.type = #{flagType,jdbcType=TINYINT}
     </if>
     <if test="flagStatus != null">
-      and fb.status = #{flagStatus,jdbcType=TINYINT}
+      and f.status = #{flagStatus,jdbcType=TINYINT}
+    </if>
+    <if test="flagName != null">
+      and f.flagName = #{flagName,jdbcType=TINYINT}
     </if>
   </select>
 
@@ -65,10 +70,10 @@
   </select>
 
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO" useGeneratedKeys="true">
-    insert into flag_bind (user_id, flag_id, `type`,
+    insert into flag_bind (owner_id, flag_id, `type`,
       `status`, is_delete, gmt_create,
       gmt_modified)
-    values (#{userId,jdbcType=VARCHAR}, #{flagId,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT},
+    values (#{ownerId,jdbcType=VARCHAR}, #{flagId,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT},
       #{status,jdbcType=TINYINT}, 0, now(),
       now())
   </insert>
@@ -87,8 +92,8 @@
   <!--<insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO" useGeneratedKeys="true">-->
     <!--insert into flag_bind-->
     <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
-      <!--<if test="userId != null">-->
-        <!--user_id,-->
+      <!--<if test="ownerId != null">-->
+        <!--owner_id,-->
       <!--</if>-->
       <!--<if test="flagId != null">-->
         <!--flag_id,-->
@@ -110,8 +115,8 @@
       <!--</if>-->
     <!--</trim>-->
     <!--<trim prefix="values (" suffix=")" suffixOverrides=",">-->
-      <!--<if test="userId != null">-->
-        <!--#{userId,jdbcType=VARCHAR},-->
+      <!--<if test="ownerId != null">-->
+        <!--#{ownerId,jdbcType=VARCHAR},-->
       <!--</if>-->
       <!--<if test="flagId != null">-->
         <!--#{flagId,jdbcType=VARCHAR},-->
@@ -136,8 +141,8 @@
   <!--<update id="updateByPrimaryKeySelective" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO">-->
     <!--update flag_bind-->
     <!--<set>-->
-      <!--<if test="userId != null">-->
-        <!--user_id = #{userId,jdbcType=VARCHAR},-->
+      <!--<if test="ownerId != null">-->
+        <!--owner_id = #{ownerId,jdbcType=VARCHAR},-->
       <!--</if>-->
       <!--<if test="flagId != null">-->
         <!--flag_id = #{flagId,jdbcType=VARCHAR},-->
@@ -162,7 +167,7 @@
   <!--</update>-->
   <!--<update id="updateByPrimaryKey" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO">-->
     <!--update flag_bind-->
-    <!--set user_id = #{userId,jdbcType=VARCHAR},-->
+    <!--set owner_id = #{ownerId,jdbcType=VARCHAR},-->
       <!--flag_id = #{flagId,jdbcType=VARCHAR},-->
       <!--`type` = #{type,jdbcType=TINYINT},-->
       <!--`status` = #{status,jdbcType=TINYINT},-->

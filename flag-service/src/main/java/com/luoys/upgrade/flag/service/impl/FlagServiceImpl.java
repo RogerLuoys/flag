@@ -3,6 +3,7 @@ package com.luoys.upgrade.flag.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
 import com.luoys.upgrade.flag.api.bo.FlagBindBO;
+import com.luoys.upgrade.flag.api.service.FlagService;
 import com.luoys.upgrade.flag.dao.po.FlagPO;
 import com.luoys.upgrade.flag.manage.FlagBindManager;
 import com.luoys.upgrade.flag.manage.FlagManager;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/flag")
-public class FlagServiceImpl {
+public class FlagServiceImpl implements FlagService {
     private static final Logger LOG = LoggerFactory.getLogger(FlagServiceImpl.class);
 
     @Autowired
@@ -24,35 +25,23 @@ public class FlagServiceImpl {
     @Autowired
     FlagBindManager flagBindManager;
 
-    @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public Result<String> hello() {
-        return Result.success("Hello, it is a big big flag! good luck.");
-//        return "Hello, it is my flag!";
-    }
+//    @RequestMapping(value = "/queryAllFlags", method = RequestMethod.GET)
+//    public Result<List<FlagPO>> queryAllFlags() {
+//        return Result.success(flagManager.queryAllFlags());
+//    }
+//
+//    @RequestMapping(value = "/queryFlags", method = RequestMethod.GET)
+//    public Result<List<FlagPO>> queryFlags(@RequestParam String userId) {
+//        return Result.success(flagManager.queryFlags(userId));
+//    }
 
-
-    @RequestMapping(value = "/hello2", method = RequestMethod.GET)
-    public Result<String> hello2(@CookieValue("testCookie") String userId) {
-        LOG.info("hello"+userId);
-        return Result.success("Hello"+ userId +", it is a big big flag! good luck.");
-//        return "Hello, it is my flag!";
-    }
-
-    @RequestMapping(value = "/queryAllFlags", method = RequestMethod.GET)
-    public Result<List<FlagPO>> queryAllFlags() {
-        return Result.success(flagManager.queryAllFlags());
-    }
-
-    @RequestMapping(value = "/queryFlags", method = RequestMethod.GET)
-    public Result<List<FlagPO>> queryFlags(@RequestParam String userId) {
-        return Result.success(flagManager.queryFlags(userId));
-    }
-
+    @Override
     @RequestMapping(value = "/queryFlagDetail", method = RequestMethod.GET)
-    public Result<FlagPO> queryFlagDetail(@RequestParam String flagId) {
+    public Result<FlagBO> queryFlagDetail(@RequestParam String flagId) {
         return Result.success(flagManager.queryFlagByFlagId(flagId));
     }
 
+    @Override
     @RequestMapping(value = "/addFlag", method = RequestMethod.POST)
     public Result<String> addFlag(@RequestBody FlagBO flagBO) {
         LOG.info("=====>flag创建param：{}", JSON.toJSONString(flagBO));
