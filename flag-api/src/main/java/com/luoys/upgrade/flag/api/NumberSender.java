@@ -4,7 +4,10 @@ import java.util.Random;
 
 public class NumberSender {
 
-    static Random rd = new Random();
+    private static final String FLAG_PREFIX = "1";
+    private static final Integer RANDOM_BOUND = 9;
+
+    private static Random rd = new Random();
 
     public static String createFlagId() {
 
@@ -14,10 +17,9 @@ public class NumberSender {
             System.out.println(e);
         }
 
-        long time1 = System.currentTimeMillis();
-        int num = rd.nextInt(9);
-        String id = "1" + Long.toString(time1) + Long.toString(num);
-        return id;
+        long currentTime = System.currentTimeMillis();
+        int num = rd.nextInt(RANDOM_BOUND);
+        return FLAG_PREFIX + Long.toString(currentTime) + Integer.toString(num);
     }
 
 }
