@@ -10,4 +10,5 @@ public class FlagQueryBO {
     private Integer type;
     private Integer priority;
     private Integer status;
+    private Integer pageIndex;
 }

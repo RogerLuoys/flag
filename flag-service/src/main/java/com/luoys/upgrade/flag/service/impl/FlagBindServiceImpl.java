@@ -38,10 +38,13 @@ public class FlagBindServiceImpl implements FlagBindService {
     }
 
     @Override
-    @RequestMapping(value = "/queryUserFlag", method = RequestMethod.POST)
-    public Result<List<UserFlagBO>> queryUserFlag(@RequestBody FlagQueryBO flagQueryBO) {
+    @RequestMapping(value = "/queryUserFlags", method = RequestMethod.POST)
+    public Result<List<UserFlagBO>> queryUserFlags(@RequestBody FlagQueryBO flagQueryBO) {
         if (flagQueryBO.getOwnerId() == null && flagQueryBO.getWitnessId() == null) {
             return Result.error("所有者ID和见证人ID不能同时为空");
+        }
+        if (flagQueryBO.getPageIndex() == null) {
+            flagQueryBO.setPageIndex(1);
         }
         logger.info("====>查询入参：{}", JSON.toJSONString(flagQueryBO));
         return Result.success(flagBindManager.queryUserFlag(flagQueryBO));

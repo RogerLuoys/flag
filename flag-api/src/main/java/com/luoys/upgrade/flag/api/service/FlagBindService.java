@@ -10,6 +10,6 @@ public interface FlagBindService {
 
     Result<List<UserFlagBO>> queryUserFlag(String userId, Integer userType, Integer flagType, Integer flagStatus);
 
-    Result<List<UserFlagBO>> queryUserFlag(FlagQueryBO flagQueryBO);
+    Result<List<UserFlagBO>> queryUserFlags(FlagQueryBO flagQueryBO);
 
 }

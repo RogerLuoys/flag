@@ -60,6 +60,9 @@
     <if test="flagName != null">
       and f.flagName = #{flagName,jdbcType=TINYINT}
     </if>
+    <if test="pageIndex != null">
+      order by f.gmt_create desc limit ${pageIndex}, 10
+    </if>
   </select>
 
   <select id="selectByFlagId" parameterType="java.lang.String" resultMap="BaseResultMap">

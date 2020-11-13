@@ -48,7 +48,8 @@ public class FlagBindManagerImpl implements FlagBindManager {
     public List<UserFlagBO> queryUserFlag(FlagQueryBO flagQueryBO) {
         logger.info("====>按用户查询flag列表");
         List<UserFlagPO> pos = flagBindMapper.listOurFlags(
-                flagQueryBO.getOwnerId(), flagQueryBO.getWitnessId(), flagQueryBO.getType(), flagQueryBO.getStatus(), flagQueryBO.getFlagName());
+                flagQueryBO.getOwnerId(), flagQueryBO.getWitnessId(), flagQueryBO.getType(),
+                flagQueryBO.getStatus(), flagQueryBO.getFlagName(), flagQueryBO.getPageIndex());
         return TransformFlagBind.TransformUserFlagPO2BO(pos);
     }
 }
