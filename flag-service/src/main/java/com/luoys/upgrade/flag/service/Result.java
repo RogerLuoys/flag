@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 
 @Data
 public class Result {
-//    private int code;
+    private int code;
 //    private boolean success;
 //    private String message;
 //    private T data;
