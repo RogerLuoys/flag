@@ -81,16 +81,18 @@
       now())
   </insert>
 
+  <delete id="deleteByFlagId" parameterType="java.lang.String">
+    update flag_bind set is_delete = 1
+    where flag_id = #{flagId,jdbcType=VARCHAR}
+  </delete>
+
   <!--<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
     <!--select-->
     <!--<include refid="Base_Column_List" />-->
     <!--from flag_bind-->
     <!--where id = #{id,jdbcType=INTEGER}-->
   <!--</select>-->
-  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
-    <!--delete from flag_bind-->
-    <!--where id = #{id,jdbcType=INTEGER}-->
-  <!--</delete>-->
+
 
   <!--<insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO" useGeneratedKeys="true">-->
     <!--insert into flag_bind-->

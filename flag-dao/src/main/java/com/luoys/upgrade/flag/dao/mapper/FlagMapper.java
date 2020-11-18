@@ -10,7 +10,7 @@ public interface FlagMapper {
 
     List<FlagPO> listAllFlag();
 
-    int deleteByFlagId(Integer id);
+    int deleteByFlagId(String flagId);
 
     int insert(FlagPO record);
 

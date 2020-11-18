@@ -17,7 +17,7 @@ public interface FlagBindMapper {
 
     FlagBindPO selectByFlagId(String flagId);
 
-//    int deleteByPrimaryKey(Integer id);
+    int deleteByFlagId(String flagId);
 
     int insert(FlagBindPO record);
 //

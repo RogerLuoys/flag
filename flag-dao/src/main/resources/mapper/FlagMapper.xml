@@ -45,7 +45,7 @@
   </select>
 
   <delete id="deleteByFlagId" parameterType="java.lang.String">
-    delete from flag
+    update flag set is_delete = 1
     where flag_id = #{flagId,jdbcType=VARCHAR}
   </delete>
 

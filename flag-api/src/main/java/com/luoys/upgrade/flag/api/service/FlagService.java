@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 public interface FlagService {
-    Result<FlagBO> queryFlagDetail(@RequestParam String flagId);
+    Result<FlagBO> queryFlagDetail(String flagId);
 
-    Result<String> addFlag(@RequestBody FlagBO flagBO);
+    Result<String> addFlag(FlagBO flagBO);
+
+    Result<String> removeFlag(String flagId);
 }

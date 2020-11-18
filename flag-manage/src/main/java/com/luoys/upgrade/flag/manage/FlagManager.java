@@ -14,5 +14,7 @@ public interface FlagManager {
 
     FlagBO addFlag(FlagBO flagBO);
 
+    int deleteByFlagId(String flagId);
+
     int modifyFlag(FlagPO flagPO);
 }

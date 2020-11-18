@@ -100,6 +100,20 @@ public class FlagManagerImpl implements FlagManager {
     }
 
     @Override
+    public int deleteByFlagId(String flagId) {
+        int isFlagDeleted = flagMapper.deleteByFlagId(flagId);
+        int isFlagBindDeleted = flagBindMapper.deleteByFlagId(flagId);
+        // todo 还要删task表的任务
+
+        if (isFlagBindDeleted == 1 && isFlagDeleted == 1) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
+
+    @Override
     public int modifyFlag(FlagPO flagPO) {
         return 0;
     }
