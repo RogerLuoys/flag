@@ -7,14 +7,14 @@ flag是一个帮助用户一步步实现自己flag的业务系统。\
 4、积分流程，flag完成总要给自己点奖励\
 5、联系人功能，附加功能
 
-#子模块简介
+# 子模块简介
 flag-stater 程序启动模块，main方法入口\
 flag-service service层，简单参数处理和restful接口定义\
 flag-manage manage层，主要业务逻辑\
 flag-dao 持久层，直接对接数据库\
 flag-api 对外提供的jar包
 
-#代码格式
+# 代码格式
 1、service层接口名用query**、new**、remove**、modify**格式取名\
 2、dao层接口名用select**、create**、delete**、update**格式取名\
 3、除了flag_bind等关联表，其它表查询不要join，可以冗余
