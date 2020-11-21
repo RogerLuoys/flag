@@ -10,6 +10,10 @@ import java.util.List;
 @Repository
 public interface FlagBindMapper {
 
+    int insert(FlagBindPO record);
+
+    int deleteByFlagId(String flagId);
+
     // 多个入参需要通过param注解映射
     List<UserFlagPO> listOurFlags(
             @Param("ownerId") String ownerId, @Param("witnessId") String witnessId, @Param("flagType") Integer flagType,
@@ -17,9 +21,6 @@ public interface FlagBindMapper {
 
     FlagBindPO selectByFlagId(String flagId);
 
-    int deleteByFlagId(String flagId);
-
-    int insert(FlagBindPO record);
 //
 //    int insertSelective(FlagBindPO record);
 //

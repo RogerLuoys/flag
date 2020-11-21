@@ -1,6 +1,7 @@
 package com.luoys.upgrade.flag.dao.mapper;
 
 import com.luoys.upgrade.flag.dao.po.FlagPO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,5 +23,5 @@ public interface FlagMapper {
 
     int updateByFlagId(String flagId);
 
-//    int updateByPrimaryKey(FlagPO record);
+    int updateStatusByFlagId(@Param("flagId") String flagId, @Param("status") Integer status);
 }

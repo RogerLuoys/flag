@@ -25,17 +25,17 @@ public class FlagBindServiceImpl implements FlagBindService {
     FlagBindManager flagBindManager;
 
     // 弃用
-    @Override
-    @RequestMapping(value = "/queryUserFlag", method = RequestMethod.GET)
-    public Result<List<UserFlagBO>> queryUserFlag(@RequestParam String userId,
-                                                  @RequestParam(required = false) Integer userType,
-                                                  @RequestParam(required = false) Integer flagType,
-                                                  @RequestParam(required = false) Integer flagStatus) {
-        if (userId == null) {
-            return Result.error("用户ID不能为空");
-        }
-        return null;
-    }
+//    @Override
+//    @RequestMapping(value = "/queryUserFlag", method = RequestMethod.GET)
+//    public Result<List<UserFlagBO>> queryUserFlag(@RequestParam String userId,
+//                                                  @RequestParam(required = false) Integer userType,
+//                                                  @RequestParam(required = false) Integer flagType,
+//                                                  @RequestParam(required = false) Integer flagStatus) {
+//        if (userId == null) {
+//            return Result.error("用户ID不能为空");
+//        }
+//        return null;
+//    }
 
     @Override
     @RequestMapping(value = "/queryUserFlags", method = RequestMethod.POST)

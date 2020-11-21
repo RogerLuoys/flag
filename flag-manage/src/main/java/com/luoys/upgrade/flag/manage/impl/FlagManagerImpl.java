@@ -4,6 +4,7 @@ import com.luoys.upgrade.flag.api.NumberSender;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
 import com.luoys.upgrade.flag.dao.mapper.FlagBindMapper;
 import com.luoys.upgrade.flag.dao.mapper.FlagMapper;
+import com.luoys.upgrade.flag.dao.mapper.TaskMapper;
 import com.luoys.upgrade.flag.dao.po.FlagBindPO;
 import com.luoys.upgrade.flag.dao.po.FlagPO;
 import com.luoys.upgrade.flag.manage.FlagManager;
@@ -18,7 +19,7 @@ import java.util.List;
 @Component
 public class FlagManagerImpl implements FlagManager {
 
-    private static Logger logger = LoggerFactory.getLogger(FlagManagerImpl.class);
+    private static Logger LOG = LoggerFactory.getLogger(FlagManagerImpl.class);
 
     private final Integer DEFAULT_FLAGTYPE = 1;
     private final Integer DEFAULT_PRIORITY = 1;
@@ -26,25 +27,27 @@ public class FlagManagerImpl implements FlagManager {
     private final Integer ADD_FLAG_SUCCESS = 1;
 
     @Autowired
-    FlagMapper flagMapper;
+    private FlagMapper flagMapper;
     @Autowired
-    FlagBindMapper flagBindMapper;
+    private FlagBindMapper flagBindMapper;
+    @Autowired
+    private TaskMapper taskMapper;
 
-    @Override
-    public List<FlagPO> queryAllFlags() {
-
-        List<FlagPO> allFlags = flagMapper.listAllFlag();
-        logger.info(allFlags.get(0).toString());
-        return allFlags;
-//        return null;
-    }
-
-    @Override
-    public List<FlagBO> queryFlags(String userId) {
-        logger.info("=====>查询flag列表userId：{}", userId);
-        List<FlagPO> myFlags = flagMapper.listByUserId(userId);
-        return TransformFlag.TransformFlagPO2BO(myFlags);
-    }
+//    @Override
+//    public List<FlagPO> queryAllFlags() {
+//
+//        List<FlagPO> allFlags = flagMapper.listAllFlag();
+//        LOG.info(allFlags.get(0).toString());
+//        return allFlags;
+////        return null;
+//    }
+//
+//    @Override
+//    public List<FlagBO> queryFlags(String userId) {
+//        LOG.info("=====>查询flag列表userId：{}", userId);
+//        List<FlagPO> myFlags = flagMapper.listByUserId(userId);
+//        return TransformFlag.TransformFlagPO2BO(myFlags);
+//    }
 
     // 查询flag详情
     @Override
@@ -53,7 +56,7 @@ public class FlagManagerImpl implements FlagManager {
         FlagBindPO flagBindPO = flagBindMapper.selectByFlagId(flagId);
         FlagBO flagBO = TransformFlag.TransformFlagPO2BO(flagPO);
         if (flagBindPO == null) {
-            logger.error("====>未查询到flag与账户关联信息：{}", flagId);
+            LOG.error("====>未查询到flag与账户关联信息：{}", flagId);
             return null;
         }
         flagBO.setOwnerId(flagBindPO.getOwnerId());
@@ -62,16 +65,15 @@ public class FlagManagerImpl implements FlagManager {
         flagBO.setWitnessName(flagBindPO.getWitnessName());
 
         // todo 还要关联任务
-
         return flagBO;
     }
 
     @Override
-    public FlagBO addFlag(FlagBO flagBO) {
+    public FlagBO newFlag(FlagBO flagBO) {
         // 填入业务Id
         flagBO.setFlagId(NumberSender.createFlagId());
 //        if (flagBO.getFlagName() == null) {
-//            logger.error("=====>必填字段 flagName 为空");
+//            LOG.error("=====>必填字段 flagName 为空");
 //            return null;
 //        }
         if (flagBO.getType() == null) {
@@ -87,7 +89,7 @@ public class FlagManagerImpl implements FlagManager {
             flagBO.setStatus(1);
         }
         FlagPO flagPO = TransformFlag.TransformFlagBO2PO(flagBO);
-        logger.info("=====>flag创建，并填充默认值：{}", flagPO);
+        LOG.info("=====>flag创建，并填充默认值：{}", flagPO);
         flagMapper.insert(flagPO);
         FlagBindPO flagBindPO = new FlagBindPO();
         flagBindPO.setFlagId(flagBO.getFlagId());
@@ -100,14 +102,27 @@ public class FlagManagerImpl implements FlagManager {
     }
 
     @Override
-    public int deleteByFlagId(String flagId) {
+    public int removeByFlagId(String flagId) {
         int isFlagDeleted = flagMapper.deleteByFlagId(flagId);
         int isFlagBindDeleted = flagBindMapper.deleteByFlagId(flagId);
-        // todo 还要删task表的任务
-
-        if (isFlagBindDeleted == 1 && isFlagDeleted == 1) {
+        int isTaskDeleted = taskMapper.deleteByFlagId(flagId);
+        if (isFlagBindDeleted == 1 && isFlagDeleted == 1 && isTaskDeleted == 1) {
             return 1;
         } else {
+            LOG.error("---->关联表未删除成功，flagId：{}", flagId);
+            return 0;
+        }
+
+    }
+
+    @Override
+    public int modifyStatusByFlagId(String flagId, Integer status) {
+        int isFlagModified = flagMapper.updateStatusByFlagId(flagId, status);
+        int isTaskModified = taskMapper.updateStatusByFlagId(flagId, status);
+        if (isFlagModified == 1 && isTaskModified == 1) {
+            return 1;
+        } else {
+            LOG.error("---->关联表未更新成功，flagId：{}", flagId);
             return 0;
         }
 

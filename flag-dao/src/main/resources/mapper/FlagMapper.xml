@@ -23,43 +23,19 @@
     gmt_create, gmt_modified
   </sql>
 
-  <select id="listAllFlag" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from flag
-    where is_delete=0
-  </select>
-
-  <select id="selectByFlagId" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from flag
-    where flag_id = #{flagId,jdbcType=VARCHAR}
-  </select>
-
-  <select id="listByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from flag
-    where creator_id = #{creatorId,jdbcType=VARCHAR}
-  </select>
-
-  <delete id="deleteByFlagId" parameterType="java.lang.String">
-    update flag set is_delete = 1
-    where flag_id = #{flagId,jdbcType=VARCHAR}
-  </delete>
-
+  <!--新增相关sql-->
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.FlagPO" useGeneratedKeys="true">
-    insert into flag (flag_id, flag_name, description, 
-      expected, actual, type, status, priority, start_date,
-      end_date, creator_id, is_delete,
-      gmt_create, gmt_modified)
-    values (#{flagId,jdbcType=VARCHAR}, #{flagName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{expected,jdbcType=VARCHAR}, #{actual,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{type,jdbcType=TINYINT},
-      #{priority,jdbcType=TINYINT}, #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP},
-      #{creatorId,jdbcType=VARCHAR}, 0, now(), now())
+    insert into flag (flag_id, flag_name, description,
+                      expected, actual, type, status, priority, start_date,
+                      end_date, creator_id, is_delete,
+                      gmt_create, gmt_modified)
+    values (#{flagId,jdbcType=VARCHAR}, #{flagName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+                                        #{expected,jdbcType=VARCHAR}, #{actual,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{type,jdbcType=TINYINT},
+                                        #{priority,jdbcType=TINYINT}, #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP},
+                                        #{creatorId,jdbcType=VARCHAR}, 0, now(), now())
   </insert>
 
+  <!--修改相关sql-->
   <update id="updateByFlagId" parameterType="java.lang.String">
     update flag
     <set>
@@ -87,17 +63,43 @@
       <if test="creatorId != null">
         creator_id = #{creatorId,jdbcType=VARCHAR},
       </if>
-      <if test="isDelete != null">
-        is_delete = #{isDelete,jdbcType=TINYINT},
-      </if>
-      <if test="gmtCreated != null">
-        gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
-      </if>
-      <if test="gmtModified != null">
-        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-      </if>
+      gmt_modified = now(),
     </set>
     where flag_id = #{flagId,jdbcType=VARCHAR}
   </update>
+
+  <update id="updateStatusByFlagId">
+    update flag
+    set status = #{status,jdbcType=TINYINT}, gmt_modified = now()
+    where flag_id = #{flagId,jdbcType=VARCHAR}
+  </update>
+
+  <update id="deleteByFlagId" parameterType="java.lang.String">
+    update flag
+    set is_delete = 1, gmt_modified = now()
+    where flag_id = #{flagId,jdbcType=VARCHAR}
+  </update>
+
+  <!--查询相关sql-->
+  <select id="listAllFlag" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from flag
+    where is_delete=0
+  </select>
+
+  <select id="selectByFlagId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from flag
+    where flag_id = #{flagId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from flag
+    where creator_id = #{creatorId,jdbcType=VARCHAR}
+  </select>
 
 </mapper>

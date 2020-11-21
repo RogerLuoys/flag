@@ -36,29 +36,37 @@ public class FlagServiceImpl implements FlagService {
 //    }
 
     @Override
-    @RequestMapping(value = "/queryFlagDetail", method = RequestMethod.GET)
+    @RequestMapping(value = "/queryDetail", method = RequestMethod.GET)
     public Result<FlagBO> queryFlagDetail(@RequestParam String flagId) {
         return Result.success(flagManager.queryFlagByFlagId(flagId));
     }
 
     @Override
-    @RequestMapping(value = "/addFlag", method = RequestMethod.POST)
-    public Result<String> addFlag(@RequestBody FlagBO flagBO) {
+    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    public Result<String> newFlag(@RequestBody FlagBO flagBO) {
         LOG.info("=====>flag创建param：{}", JSON.toJSONString(flagBO));
-        FlagBO resultBO = flagManager.addFlag(flagBO);
+        FlagBO resultBO = flagManager.newFlag(flagBO);
 
         return Result.success("创建成功：" + resultBO.getFlagId());
 
     }
 
     @Override
-    @RequestMapping(value = "/removeFlag", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/remove", method = RequestMethod.DELETE)
     public Result<String> removeFlag(@RequestParam String flagId) {
         LOG.info("====>删除flag，flagId：{}", flagId);
-        if (flagId == null) {
-            return Result.error("flagId不能为空");
-        }
-        return Result.success(flagManager.deleteByFlagId(flagId));
+//        if (flagId == null) {
+//            return Result.error("flagId不能为空");
+//        }
+        return Result.success(flagManager.removeByFlagId(flagId));
+    }
+
+    @Override
+    @RequestMapping(value = "/modifyStatus", method = RequestMethod.PUT)
+    public Result<String> modifyFlagStatus(@RequestParam("flagId") String flagId, @RequestParam("status") Integer status) {
+        LOG.info("====>修改flag状态，flagId：{}，status：{}", flagId, status);
+//        if (flagId == null )
+        return Result.success(flagManager.modifyStatusByFlagId(flagId, status));
     }
 
 }

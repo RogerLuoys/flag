@@ -36,6 +36,24 @@
     id, flag_id, owner_id, owner_name, witness_id, witness_name, `type`, `status`, gmt_create, gmt_modified
   </sql>
 
+  <!--新增相关sql-->
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO" useGeneratedKeys="true">
+    insert into flag_bind (owner_id, flag_id, `type`,
+                           `status`, is_delete, gmt_create,
+                           gmt_modified)
+    values (#{ownerId,jdbcType=VARCHAR}, #{flagId,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT},
+            #{status,jdbcType=TINYINT}, 0, now(),
+            now())
+  </insert>
+
+  <!--修改相关sql-->
+  <update id="deleteByFlagId" parameterType="java.lang.String">
+    update flag_bind
+    set is_delete = 1, gmt_modified = now()
+    where flag_id = #{flagId,jdbcType=VARCHAR}
+  </update>
+
+  <!--查询相关sql-->
   <select id="listOurFlags" resultMap="ourFlagMap">
     select
     f.flag_id, f.flag_name, f.description, f.expected, f.actual, f.type as flag_type, f.priority, f.start_date, f.end_date, f.creator_id, f.status as flag_status,
@@ -58,7 +76,7 @@
       and f.status = #{flagStatus,jdbcType=TINYINT}
     </if>
     <if test="flagName != null">
-      and f.flagName = #{flagName,jdbcType=TINYINT}
+      and f.flag_name = #{flagName,jdbcType=TINYINT}
     </if>
     <if test="pageIndex != null">
       order by f.gmt_create desc limit ${pageIndex}, 10
@@ -72,19 +90,17 @@
     where flag_id = #{flagId,jdbcType=VARCHAR}
   </select>
 
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO" useGeneratedKeys="true">
-    insert into flag_bind (owner_id, flag_id, `type`,
-      `status`, is_delete, gmt_create,
-      gmt_modified)
-    values (#{ownerId,jdbcType=VARCHAR}, #{flagId,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT},
-      #{status,jdbcType=TINYINT}, 0, now(),
-      now())
-  </insert>
-
-  <delete id="deleteByFlagId" parameterType="java.lang.String">
-    update flag_bind set is_delete = 1
-    where flag_id = #{flagId,jdbcType=VARCHAR}
-  </delete>
+  <!--<update id="updateStatusByFlagId" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO">-->
+    <!--update flag_bind-->
+    <!--set owner_id = #{ownerId,jdbcType=VARCHAR},-->
+      <!--flag_id = #{flagId,jdbcType=VARCHAR},-->
+      <!--`type` = #{type,jdbcType=TINYINT},-->
+      <!--`status` = #{status,jdbcType=TINYINT},-->
+      <!--is_delete = #{isDelete,jdbcType=TINYINT},-->
+      <!--gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},-->
+      <!--gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}-->
+    <!--where id = #{id,jdbcType=INTEGER}-->
+  <!--</update>-->
 
   <!--<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">-->
     <!--select-->

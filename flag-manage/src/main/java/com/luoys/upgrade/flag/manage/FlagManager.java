@@ -6,15 +6,17 @@ import com.luoys.upgrade.flag.dao.po.FlagPO;
 import java.util.List;
 
 public interface FlagManager {
-    List<FlagBO> queryFlags(String userId);
+//    List<FlagBO> queryFlags(String userId);
 
-    List<FlagPO> queryAllFlags();
+//    List<FlagPO> queryAllFlags();
 
     FlagBO queryFlagByFlagId(String flagId);
 
-    FlagBO addFlag(FlagBO flagBO);
+    FlagBO newFlag(FlagBO flagBO);
 
-    int deleteByFlagId(String flagId);
+    int removeByFlagId(String flagId);
+
+    int modifyStatusByFlagId(String flagId,Integer status);
 
     int modifyFlag(FlagPO flagPO);
 }
