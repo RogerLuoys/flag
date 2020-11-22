@@ -2,6 +2,7 @@ package com.luoys.upgrade.flag.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.luoys.upgrade.flag.api.Result;
+import com.luoys.upgrade.flag.api.bo.FlagBindBO;
 import com.luoys.upgrade.flag.api.bo.FlagQueryBO;
 import com.luoys.upgrade.flag.api.bo.UserFlagBO;
 import com.luoys.upgrade.flag.api.service.FlagBindService;
@@ -22,7 +23,7 @@ public class FlagBindServiceImpl implements FlagBindService {
     private static final Logger logger = LoggerFactory.getLogger(FlagBindServiceImpl.class);
 
     @Autowired
-    FlagBindManager flagBindManager;
+    private FlagBindManager flagBindManager;
 
     // 弃用
 //    @Override
@@ -48,5 +49,12 @@ public class FlagBindServiceImpl implements FlagBindService {
         }
         logger.info("====>查询入参：{}", JSON.toJSONString(flagQueryBO));
         return Result.success(flagBindManager.queryUserFlag(flagQueryBO));
+    }
+
+    @Override
+    @RequestMapping(value = "/modifyWitness", method = RequestMethod.PUT)
+    public Result<String> modifyWitness(@RequestBody FlagBindBO flagBindBO) {
+
+        return Result.success(flagBindManager.modifyWitness(flagBindBO));
     }
 }

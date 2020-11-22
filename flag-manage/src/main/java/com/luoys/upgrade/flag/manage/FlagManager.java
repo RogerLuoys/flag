@@ -18,5 +18,5 @@ public interface FlagManager {
 
     int modifyStatusByFlagId(String flagId,Integer status);
 
-    int modifyFlag(FlagPO flagPO);
+    int modifyFlag(FlagBO flagBO);
 }

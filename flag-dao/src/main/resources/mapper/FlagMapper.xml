@@ -36,20 +36,20 @@
   </insert>
 
   <!--修改相关sql-->
-  <update id="updateByFlagId" parameterType="java.lang.String">
+  <update id="update" parameterType="com.luoys.upgrade.flag.dao.po.FlagPO">
     update flag
     <set>
-      <if test="flagId != null">
-        flag_id = #{flagId,jdbcType=VARCHAR},
-      </if>
       <if test="flagName != null">
         flag_name = #{flagName,jdbcType=VARCHAR},
       </if>
       <if test="description != null">
         description = #{description,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        `status` = #{status,jdbcType=TINYINT},
+      <if test="expected != null">
+        expected = #{expected,jdbcType=VARCHAR},
+      </if>
+      <if test="actual != null">
+        actual = #{actual,jdbcType=VARCHAR},
       </if>
       <if test="priority != null">
         priority = #{priority,jdbcType=TINYINT},
@@ -59,9 +59,6 @@
       </if>
       <if test="endDate != null">
         end_date = #{endDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="creatorId != null">
-        creator_id = #{creatorId,jdbcType=VARCHAR},
       </if>
       gmt_modified = now(),
     </set>
@@ -81,13 +78,6 @@
   </update>
 
   <!--查询相关sql-->
-  <select id="listAllFlag" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from flag
-    where is_delete=0
-  </select>
-
   <select id="selectByFlagId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

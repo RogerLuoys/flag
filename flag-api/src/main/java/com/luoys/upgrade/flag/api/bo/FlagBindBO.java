@@ -27,8 +27,4 @@ public class FlagBindBO {
      */
     private Integer status;
 
-    private Date gmtCreate;
-
-    private Date gmtModified;
-
 }

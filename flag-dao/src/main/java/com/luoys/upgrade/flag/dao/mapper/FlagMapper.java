@@ -9,19 +9,16 @@ import java.util.List;
 @Repository
 public interface FlagMapper {
 
-    List<FlagPO> listAllFlag();
+    int insert(FlagPO flagPO);
 
     int deleteByFlagId(String flagId);
 
-    int insert(FlagPO record);
+    int update(FlagPO flagPO);
 
-//    int insertSelective(FlagPO record);
+    int updateStatusByFlagId(@Param("flagId") String flagId, @Param("status") Integer status);
 
     FlagPO selectByFlagId(String flagId);
 
     List<FlagPO> listByUserId(String userId);
 
-    int updateByFlagId(String flagId);
-
-    int updateStatusByFlagId(@Param("flagId") String flagId, @Param("status") Integer status);
 }

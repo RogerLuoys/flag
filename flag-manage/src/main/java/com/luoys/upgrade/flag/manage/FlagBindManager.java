@@ -10,4 +10,6 @@ public interface FlagBindManager {
     FlagBindBO addFlagBind(FlagBindBO flagBindBO);
 
     List<UserFlagBO> queryUserFlag(FlagQueryBO flagQueryBO);
+
+    int modifyWitness(FlagBindBO flagBindBO);
 }

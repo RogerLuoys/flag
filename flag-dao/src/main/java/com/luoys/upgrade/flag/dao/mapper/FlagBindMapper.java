@@ -10,7 +10,9 @@ import java.util.List;
 @Repository
 public interface FlagBindMapper {
 
-    int insert(FlagBindPO record);
+    int insert(FlagBindPO flagBindPO);
+
+    int update(FlagBindPO flagBindPO);
 
     int deleteByFlagId(String flagId);
 
@@ -26,7 +28,7 @@ public interface FlagBindMapper {
 //
 //    FlagBindPO selectByPrimaryKey(Integer id);
 //
-//    int updateByPrimaryKeySelective(FlagBindPO record);
+//
 //
 //    int updateByPrimaryKey(FlagBindPO record);
 }

@@ -5,6 +5,7 @@ import com.luoys.upgrade.flag.api.bo.FlagBindBO;
 import com.luoys.upgrade.flag.api.bo.FlagQueryBO;
 import com.luoys.upgrade.flag.api.bo.UserFlagBO;
 import com.luoys.upgrade.flag.dao.mapper.FlagBindMapper;
+import com.luoys.upgrade.flag.dao.po.FlagBindPO;
 import com.luoys.upgrade.flag.dao.po.UserFlagPO;
 import com.luoys.upgrade.flag.manage.FlagBindManager;
 import com.luoys.upgrade.flag.manage.util.TransformFlagBind;
@@ -51,5 +52,11 @@ public class FlagBindManagerImpl implements FlagBindManager {
                 flagQueryBO.getOwnerId(), flagQueryBO.getWitnessId(), flagQueryBO.getType(),
                 flagQueryBO.getStatus(), flagQueryBO.getFlagName(), flagQueryBO.getPageIndex());
         return TransformFlagBind.TransformUserFlagPO2BO(pos);
+    }
+
+    @Override
+    public int modifyWitness(FlagBindBO flagBindBO) {
+        FlagBindPO flagBindPO = TransformFlagBind.TransformFlagBindBO2PO(flagBindBO);
+        return flagBindMapper.update(flagBindPO);
     }
 }

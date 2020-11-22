@@ -129,7 +129,7 @@ public class FlagManagerImpl implements FlagManager {
     }
 
     @Override
-    public int modifyFlag(FlagPO flagPO) {
+    public int modifyFlag(FlagBO flagBO) {
         return 0;
     }
 }

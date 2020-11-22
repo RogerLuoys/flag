@@ -53,6 +53,23 @@
     where flag_id = #{flagId,jdbcType=VARCHAR}
   </update>
 
+  <update id="update" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO">
+    update flag_bind
+    <set>
+      <if test="ownerId != null">
+        owner_id = #{ownerId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      gmt_modified = now(),
+    </set>
+    where flag_id = #{flag_id,jdbcType=VARCHAR}
+  </update>
+
   <!--查询相关sql-->
   <select id="listOurFlags" resultMap="ourFlagMap">
     select
@@ -159,33 +176,7 @@
       <!--</if>-->
     <!--</trim>-->
   <!--</insert>-->
-  <!--<update id="updateByPrimaryKeySelective" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO">-->
-    <!--update flag_bind-->
-    <!--<set>-->
-      <!--<if test="ownerId != null">-->
-        <!--owner_id = #{ownerId,jdbcType=VARCHAR},-->
-      <!--</if>-->
-      <!--<if test="flagId != null">-->
-        <!--flag_id = #{flagId,jdbcType=VARCHAR},-->
-      <!--</if>-->
-      <!--<if test="type != null">-->
-        <!--`type` = #{type,jdbcType=TINYINT},-->
-      <!--</if>-->
-      <!--<if test="status != null">-->
-        <!--`status` = #{status,jdbcType=TINYINT},-->
-      <!--</if>-->
-      <!--<if test="isDelete != null">-->
-        <!--is_delete = #{isDelete,jdbcType=TINYINT},-->
-      <!--</if>-->
-      <!--<if test="gmtCreate != null">-->
-        <!--gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},-->
-      <!--</if>-->
-      <!--<if test="gmtModified != null">-->
-        <!--gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},-->
-      <!--</if>-->
-    <!--</set>-->
-    <!--where id = #{id,jdbcType=INTEGER}-->
-  <!--</update>-->
+
   <!--<update id="updateByPrimaryKey" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO">-->
     <!--update flag_bind-->
     <!--set owner_id = #{ownerId,jdbcType=VARCHAR},-->
