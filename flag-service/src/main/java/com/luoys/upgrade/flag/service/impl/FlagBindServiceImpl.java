@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping(value = "/flagBind")
 public class FlagBindServiceImpl implements FlagBindService {
 
-    private static final Logger logger = LoggerFactory.getLogger(FlagBindServiceImpl.class);
+    private static final Logger LOG  = LoggerFactory.getLogger(FlagBindServiceImpl.class);
 
     @Autowired
     private FlagBindManager flagBindManager;
@@ -47,14 +47,14 @@ public class FlagBindServiceImpl implements FlagBindService {
         if (flagQueryBO.getPageIndex() == null) {
             flagQueryBO.setPageIndex(1);
         }
-        logger.info("====>查询入参：{}", JSON.toJSONString(flagQueryBO));
+        LOG.info("====>查询入参：{}", JSON.toJSONString(flagQueryBO));
         return Result.success(flagBindManager.queryUserFlag(flagQueryBO));
     }
 
     @Override
     @RequestMapping(value = "/modifyWitness", method = RequestMethod.PUT)
     public Result<String> modifyWitness(@RequestBody FlagBindBO flagBindBO) {
-
+        LOG.info("====>修改见证人：{}", JSON.toJSONString(flagBindBO));
         return Result.success(flagBindManager.modifyWitness(flagBindBO));
     }
 }

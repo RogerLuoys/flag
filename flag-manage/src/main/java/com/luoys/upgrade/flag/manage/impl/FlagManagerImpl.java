@@ -105,8 +105,13 @@ public class FlagManagerImpl implements FlagManager {
     public int removeByFlagId(String flagId) {
         int isFlagDeleted = flagMapper.deleteByFlagId(flagId);
         int isFlagBindDeleted = flagBindMapper.deleteByFlagId(flagId);
-        int isTaskDeleted = taskMapper.deleteByFlagId(flagId);
+        int isTaskDeleted = taskMapper.countTaskByFlagId(flagId) > 0 ? taskMapper.deleteByFlagId(flagId) : 2;
+
         if (isFlagBindDeleted == 1 && isFlagDeleted == 1 && isTaskDeleted == 1) {
+            LOG.info("---->关联表删除成功，flagId：{}", flagId);
+            return 1;
+        } else if (isFlagBindDeleted == 1 && isFlagDeleted == 1 && isTaskDeleted == 2) {
+            LOG.info("---->关联表无需删除，flagId：{}", flagId);
             return 1;
         } else {
             LOG.error("---->关联表未删除成功，flagId：{}", flagId);
@@ -118,8 +123,11 @@ public class FlagManagerImpl implements FlagManager {
     @Override
     public int modifyStatusByFlagId(String flagId, Integer status) {
         int isFlagModified = flagMapper.updateStatusByFlagId(flagId, status);
-        int isTaskModified = taskMapper.updateStatusByFlagId(flagId, status);
+        int isTaskModified = taskMapper.countTaskByFlagId(flagId) > 0 ? taskMapper.updateStatusByFlagId(flagId, 2) : 2;
         if (isFlagModified == 1 && isTaskModified == 1) {
+            return 1;
+        } else if (isFlagModified == 1 && isTaskModified == 2) {
+            LOG.info("---->关联表无需更新，flagId：{}", flagId);
             return 1;
         } else {
             LOG.error("---->关联表未更新成功，flagId：{}", flagId);
@@ -130,6 +138,7 @@ public class FlagManagerImpl implements FlagManager {
 
     @Override
     public int modifyFlag(FlagBO flagBO) {
-        return 0;
+        FlagPO flagPO = TransformFlag.TransformFlagBO2PO(flagBO);
+        return flagMapper.update(flagPO);
     }
 }

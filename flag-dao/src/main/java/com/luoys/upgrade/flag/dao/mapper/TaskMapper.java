@@ -4,6 +4,8 @@ import com.luoys.upgrade.flag.dao.po.TaskPO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface TaskMapper {
 
@@ -14,6 +16,10 @@ public interface TaskMapper {
     int deleteByFlagId(String flagId);
 
     int update(TaskPO taskPO);
+
+    List<TaskPO> listByFlagId(String flagId);
+
+    int countTaskByFlagId(String flagId);
 
     int deleteByPrimaryKey(Integer id);
 

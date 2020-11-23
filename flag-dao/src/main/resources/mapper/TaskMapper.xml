@@ -76,7 +76,21 @@
   </update>
 
   <!--查询相关sql-->
+  <select id="listByFlagId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from task
+    where is_delete = 0
+    and flag_id = #{flagId,jdbcType=VARCHAR}
+  </select>
 
+  <select id="countTaskByFlagId" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select
+    count(1)
+    from task
+    where is_delete = 0
+    and flag_id = #{flagId,jdbcType=VARCHAR}
+  </select>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
