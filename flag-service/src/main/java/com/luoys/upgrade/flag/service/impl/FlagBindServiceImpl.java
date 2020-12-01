@@ -39,8 +39,8 @@ public class FlagBindServiceImpl implements FlagBindService {
 //    }
 
     @Override
-    @RequestMapping(value = "/queryUserFlags", method = RequestMethod.POST)
-    public Result<List<UserFlagBO>> queryUserFlags(@RequestBody FlagQueryBO flagQueryBO) {
+    @RequestMapping(value = "/queryFlagList", method = RequestMethod.POST)
+    public Result<List<UserFlagBO>> queryFlagList(@RequestBody FlagQueryBO flagQueryBO) {
         if (flagQueryBO.getOwnerId() == null && flagQueryBO.getWitnessId() == null) {
             return Result.error("所有者ID和见证人ID不能同时为空");
         }

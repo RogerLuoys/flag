@@ -11,7 +11,7 @@ public interface FlagBindService {
 
 //    Result<List<UserFlagBO>> queryUserFlag(String userId, Integer userType, Integer flagType, Integer flagStatus);
 
-    Result<List<UserFlagBO>> queryUserFlags(FlagQueryBO flagQueryBO);
+    Result<List<UserFlagBO>> queryFlagList(FlagQueryBO flagQueryBO);
 
     Result<String> modifyWitness(FlagBindBO flagBindBO);
 
