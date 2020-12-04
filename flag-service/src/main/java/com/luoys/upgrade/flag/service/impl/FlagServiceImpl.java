@@ -26,23 +26,24 @@ public class FlagServiceImpl implements FlagService {
     private FlagBindManager flagBindManager;
 
     @Override
-    @RequestMapping(value = "/queryDetail", method = RequestMethod.GET)
+    @RequestMapping(value = "/queryFlagDetail", method = RequestMethod.GET)
     public Result<FlagBO> queryFlagDetail(@RequestParam String flagId) {
+        LOG.info("=====>查询flag详情：flagId={}", flagId);
         return Result.success(flagManager.queryFlagByFlagId(flagId));
     }
 
     @Override
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    @RequestMapping(value = "/newFlag", method = RequestMethod.POST)
     public Result<String> newFlag(@RequestBody FlagBO flagBO) {
-        LOG.info("=====>flag创建param：{}", JSON.toJSONString(flagBO));
+        LOG.info("=====>创建flag：{}", JSON.toJSONString(flagBO));
         FlagBO resultBO = flagManager.newFlag(flagBO);
         return Result.success("创建成功：" + resultBO.getFlagId());
     }
 
     @Override
-    @RequestMapping(value = "/remove", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/removeFlag", method = RequestMethod.DELETE)
     public Result<String> removeFlag(@RequestParam String flagId) {
-        LOG.info("====>删除flag，flagId：{}", flagId);
+        LOG.info("====>删除flag：flagId={}", flagId);
 //        if (flagId == null) {
 //            return Result.error("flagId不能为空");
 //        }
@@ -50,14 +51,14 @@ public class FlagServiceImpl implements FlagService {
     }
 
     @Override
-    @RequestMapping(value = "/modifyStatus", method = RequestMethod.PUT)
+    @RequestMapping(value = "/modifyFlagStatus", method = RequestMethod.PUT)
     public Result<String> modifyFlagStatus(@RequestParam("flagId") String flagId, @RequestParam("status") Integer status) {
-        LOG.info("====>修改flag状态，flagId：{}，status：{}", flagId, status);
+        LOG.info("====>修改flag状态：flagId={}，status={}", flagId, status);
         return Result.success(flagManager.modifyStatusByFlagId(flagId, status));
     }
 
     @Override
-    @RequestMapping(value = "/modify", method = RequestMethod.PUT)
+    @RequestMapping(value = "/modifyFlag", method = RequestMethod.PUT)
     public Result<String> modifyFlag(@RequestBody FlagBO flagBO) {
         LOG.info("====>修改flag状态：{}", JSON.toJSONString(flagBO));
         return Result.success(flagManager.modifyFlag(flagBO));
