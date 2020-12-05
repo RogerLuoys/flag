@@ -8,10 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan(basePackages = "com.luoys.upgrade.flag")
 @MapperScan("com.luoys.upgrade.flag.dao")
-public class FlagStarterApplication {
-
+public class ApplicationStarter {
     public static void main(String[] args) {
-        SpringApplication.run(FlagStarterApplication.class, args);
+        SpringApplication.run(ApplicationStarter.class, args);
     }
-
 }

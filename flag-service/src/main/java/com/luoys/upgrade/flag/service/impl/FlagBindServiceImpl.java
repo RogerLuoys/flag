@@ -47,7 +47,7 @@ public class FlagBindServiceImpl implements FlagBindService {
         if (flagQueryBO.getPageIndex() == null) {
             flagQueryBO.setPageIndex(1);
         }
-        LOG.info("====>查询入参：{}", JSON.toJSONString(flagQueryBO));
+        LOG.info("====>按用户查询flag列表，查询入参：{}", JSON.toJSONString(flagQueryBO));
         return Result.success(flagBindManager.queryUserFlag(flagQueryBO));
     }
 

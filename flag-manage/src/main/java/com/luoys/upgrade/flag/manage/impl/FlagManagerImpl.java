@@ -93,7 +93,7 @@ public class FlagManagerImpl implements FlagManager {
         flagMapper.insert(flagPO);
         FlagBindPO flagBindPO = new FlagBindPO();
         flagBindPO.setFlagId(flagBO.getFlagId());
-        flagBindPO.setOwnerId(flagBO.getCreateId());
+        flagBindPO.setOwnerId(flagBO.getOwnerId());
         flagBindPO.setStatus(1);
         flagBindPO.setType(1);
         flagBindMapper.insert(flagBindPO);

@@ -19,7 +19,7 @@ import java.util.List;
 @Component
 public class FlagBindManagerImpl implements FlagBindManager {
 
-    private static Logger logger = LoggerFactory.getLogger(FlagBindManager.class);
+    private static Logger LOG = LoggerFactory.getLogger(FlagBindManager.class);
 
 
     @Autowired
@@ -27,13 +27,13 @@ public class FlagBindManagerImpl implements FlagBindManager {
 
     @Override
     public FlagBindBO addFlagBind(FlagBindBO flagBindBO) {
-        logger.info("=====>添加 flag 绑定关系");
+        LOG.info("=====>添加 flag 绑定关系");
         if (flagBindBO.getFlagId() == null) {
-            logger.error("=====>必填字段 flagId 不能为空");
+            LOG.error("=====>必填字段 flagId 不能为空");
             return null;
         }
         if (flagBindBO.getOwnerId() == null) {
-            logger.error("=====>必填字段 userId 不能为空");
+            LOG.error("=====>必填字段 userId 不能为空");
         }
         if (flagBindBO.getStatus() == null) {
             flagBindBO.setStatus(1);
@@ -47,10 +47,10 @@ public class FlagBindManagerImpl implements FlagBindManager {
 
     @Override
     public List<UserFlagBO> queryUserFlag(FlagQueryBO flagQueryBO) {
-        logger.info("====>按用户查询flag列表");
+        int startIndex = (flagQueryBO.getPageIndex() - 1) * 10;
         List<UserFlagPO> pos = flagBindMapper.listOurFlags(
                 flagQueryBO.getOwnerId(), flagQueryBO.getWitnessId(), flagQueryBO.getType(),
-                flagQueryBO.getStatus(), flagQueryBO.getFlagName(), flagQueryBO.getPageIndex());
+                flagQueryBO.getStatus(), flagQueryBO.getFlagName(), startIndex);
         return TransformFlagBind.TransformUserFlagPO2BO(pos);
     }
 

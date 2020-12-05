@@ -95,8 +95,8 @@
     <if test="flagName != null">
       and f.flag_name = #{flagName,jdbcType=TINYINT}
     </if>
-    <if test="pageIndex != null">
-      order by f.gmt_create desc limit ${pageIndex}, 10
+    <if test="startIndex != null">
+      order by f.gmt_create desc limit ${startIndex}, 10
     </if>
   </select>
 
