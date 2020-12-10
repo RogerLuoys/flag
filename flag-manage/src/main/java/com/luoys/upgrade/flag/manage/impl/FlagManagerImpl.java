@@ -137,7 +137,7 @@ public class FlagManagerImpl implements FlagManager {
     }
 
     @Override
-    public int modifyFlag(FlagBO flagBO) {
+    public int modifyFlagBasic(FlagBO flagBO) {
         FlagPO flagPO = TransformFlag.TransformFlagBO2PO(flagBO);
         return flagMapper.update(flagPO);
     }

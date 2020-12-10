@@ -58,10 +58,10 @@ public class FlagServiceImpl implements FlagService {
     }
 
     @Override
-    @RequestMapping(value = "/modifyFlag", method = RequestMethod.PUT)
-    public Result<String> modifyFlag(@RequestBody FlagBO flagBO) {
-        LOG.info("====>修改flag状态：{}", JSON.toJSONString(flagBO));
-        return Result.success(flagManager.modifyFlag(flagBO));
+    @RequestMapping(value = "/modifyFlagBasic", method = RequestMethod.PUT)
+    public Result<String> modifyFlagBasic(@RequestBody FlagBO flagBO) {
+        LOG.info("====>修改flag基本信息：{}", JSON.toJSONString(flagBO));
+        return Result.success(flagManager.modifyFlagBasic(flagBO));
     }
 
 }

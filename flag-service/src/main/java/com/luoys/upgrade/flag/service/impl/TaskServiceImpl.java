@@ -18,13 +18,13 @@ public class TaskServiceImpl implements TaskService {
     private TaskManager taskManager;
 
     @Override
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    @RequestMapping(value = "/newTask", method = RequestMethod.POST)
     public Result<String> newTask(@RequestBody TaskBO taskBO) {
         return Result.success(taskManager.newTask(taskBO));
     }
 
     @Override
-    @RequestMapping(value = "/modify", method = RequestMethod.PUT)
+    @RequestMapping(value = "/modifyTask", method = RequestMethod.PUT)
     public Result<String> modifyTask(@RequestBody TaskBO taskBO) {
         return Result.success(taskManager.newTask(taskBO));
     }

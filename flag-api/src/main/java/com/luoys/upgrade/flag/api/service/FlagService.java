@@ -14,6 +14,6 @@ public interface FlagService {
 
     Result<String> modifyFlagStatus(String flagId, Integer status);
 
-    Result<String> modifyFlag(FlagBO flagBO);
+    Result<String> modifyFlagBasic(FlagBO flagBO);
 
 }
