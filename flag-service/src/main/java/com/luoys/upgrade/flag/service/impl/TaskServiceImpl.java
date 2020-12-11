@@ -5,10 +5,7 @@ import com.luoys.upgrade.flag.api.bo.TaskBO;
 import com.luoys.upgrade.flag.api.service.TaskService;
 import com.luoys.upgrade.flag.manage.TaskManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/task")
@@ -28,4 +25,11 @@ public class TaskServiceImpl implements TaskService {
     public Result<String> modifyTask(@RequestBody TaskBO taskBO) {
         return Result.success(taskManager.newTask(taskBO));
     }
+
+    @Override
+    @RequestMapping(value = "/queryTaskByTaskId", method = RequestMethod.GET)
+    public Result<TaskBO> queryTaskByTaskId(@RequestParam("taskId") String taskId) {
+        return Result.success(taskManager.queryTaskByTaskId(taskId));
+    }
+
 }

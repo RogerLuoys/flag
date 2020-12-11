@@ -34,6 +34,16 @@ public class TaskManagerImpl implements TaskManager {
     }
 
     @Override
+    public TaskBO queryTaskByTaskId(String taskId) {
+        if (taskId == null) {
+            LOG.error("---->taskId不能为空");
+            return null;
+        }
+        return TransformTask.transformTaskPO2BO(taskMapper.selectByTaskId(taskId));
+    }
+
+
+    @Override
     public int modifyTask(TaskBO taskBO) {
         TaskPO taskPO = TransformTask.transformTaskBO2PO(taskBO);
         if (taskPO == null) {

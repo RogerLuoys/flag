@@ -21,11 +21,12 @@ public interface TaskMapper {
 
     int countTaskByFlagId(String flagId);
 
+    TaskPO selectByTaskId(String taskId);
+
+
     int deleteByPrimaryKey(Integer id);
 
     int insertSelective(TaskPO record);
-
-    TaskPO selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKey(TaskPO record);
 }

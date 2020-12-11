@@ -8,4 +8,6 @@ public interface TaskService {
 
     Result<String> modifyTask(TaskBO taskBO);
 
+    Result<TaskBO> queryTaskByTaskId(String taskId);
+
 }

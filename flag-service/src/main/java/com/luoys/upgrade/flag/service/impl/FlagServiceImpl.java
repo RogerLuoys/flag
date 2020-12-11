@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
 import com.luoys.upgrade.flag.api.bo.FlagBindBO;
 import com.luoys.upgrade.flag.api.service.FlagService;
-import com.luoys.upgrade.flag.dao.po.FlagPO;
 import com.luoys.upgrade.flag.manage.FlagBindManager;
 import com.luoys.upgrade.flag.manage.FlagManager;
 import com.luoys.upgrade.flag.api.Result;

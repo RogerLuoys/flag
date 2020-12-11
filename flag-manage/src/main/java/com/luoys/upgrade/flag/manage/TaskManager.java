@@ -8,4 +8,6 @@ public interface TaskManager {
 
     int modifyTask(TaskBO taskBO);
 
+    TaskBO queryTaskByTaskId(String taskId);
+
 }

@@ -2,13 +2,16 @@ package com.luoys.upgrade.flag.manage.impl;
 
 import com.luoys.upgrade.flag.api.NumberSender;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
+import com.luoys.upgrade.flag.api.bo.TaskBO;
 import com.luoys.upgrade.flag.dao.mapper.FlagBindMapper;
 import com.luoys.upgrade.flag.dao.mapper.FlagMapper;
 import com.luoys.upgrade.flag.dao.mapper.TaskMapper;
 import com.luoys.upgrade.flag.dao.po.FlagBindPO;
 import com.luoys.upgrade.flag.dao.po.FlagPO;
+import com.luoys.upgrade.flag.dao.po.TaskPO;
 import com.luoys.upgrade.flag.manage.FlagManager;
 import com.luoys.upgrade.flag.manage.util.TransformFlag;
+import com.luoys.upgrade.flag.manage.util.TransformTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,22 +36,6 @@ public class FlagManagerImpl implements FlagManager {
     @Autowired
     private TaskMapper taskMapper;
 
-//    @Override
-//    public List<FlagPO> queryAllFlags() {
-//
-//        List<FlagPO> allFlags = flagMapper.listAllFlag();
-//        LOG.info(allFlags.get(0).toString());
-//        return allFlags;
-////        return null;
-//    }
-//
-//    @Override
-//    public List<FlagBO> queryFlags(String userId) {
-//        LOG.info("=====>查询flag列表userId：{}", userId);
-//        List<FlagPO> myFlags = flagMapper.listByUserId(userId);
-//        return TransformFlag.TransformFlagPO2BO(myFlags);
-//    }
-
     // 查询flag详情
     @Override
     public FlagBO queryFlagByFlagId(String flagId) {
@@ -64,7 +51,10 @@ public class FlagManagerImpl implements FlagManager {
         flagBO.setWitnessId(flagBindPO.getWitnessId());
         flagBO.setWitnessName(flagBindPO.getWitnessName());
 
-        // todo 还要关联任务
+        // 关联任务
+        List<TaskPO> taskPOList = taskMapper.listByFlagId(flagId);
+        List<TaskBO> taskBOList = TransformTask.TransformTaskPO2BO(taskPOList);
+        flagBO.setTasks(taskBOList);
         return flagBO;
     }
 
