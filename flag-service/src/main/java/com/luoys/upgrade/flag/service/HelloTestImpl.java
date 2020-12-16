@@ -1,4 +1,4 @@
-package com.luoys.upgrade.flag.service.impl;
+package com.luoys.upgrade.flag.service;
 
 import com.luoys.upgrade.flag.api.Result;
 import org.springframework.web.bind.annotation.CookieValue;

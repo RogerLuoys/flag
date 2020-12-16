@@ -43,9 +43,6 @@ public class FlagServiceImpl implements FlagService {
     @RequestMapping(value = "/removeFlag", method = RequestMethod.DELETE)
     public Result<String> removeFlag(@RequestParam String flagId) {
         LOG.info("====>删除flag：flagId={}", flagId);
-//        if (flagId == null) {
-//            return Result.error("flagId不能为空");
-//        }
         return Result.success(flagManager.removeByFlagId(flagId));
     }
 
