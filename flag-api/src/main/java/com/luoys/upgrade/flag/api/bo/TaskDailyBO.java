@@ -13,7 +13,7 @@ public class TaskDailyBO {
 
     private String taskId;
 
-    private String taskName;
+    private String taskDailyName;
 
     private String description;
 

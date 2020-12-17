@@ -18,7 +18,7 @@ public class TaskDailyPO implements Serializable {
 
     private String taskId;
 
-    private String taskName;
+    private String taskDailyName;
 
     private String description;
 

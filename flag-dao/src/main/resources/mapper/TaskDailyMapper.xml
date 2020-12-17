@@ -6,7 +6,7 @@
     <result column="task_daily_id" jdbcType="VARCHAR" property="taskDailyId" />
     <result column="flag_id" jdbcType="VARCHAR" property="flagId" />
     <result column="task_id" jdbcType="VARCHAR" property="taskId" />
-    <result column="task_name" jdbcType="VARCHAR" property="taskName" />
+    <result column="task_daily_name" jdbcType="VARCHAR" property="taskDailyName" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="comment" jdbcType="VARCHAR" property="comment" />
     <result column="point" jdbcType="INTEGER" property="point" />
@@ -18,13 +18,13 @@
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, task_daily_id, flag_id, task_id, task_name, description, `comment`, point, `type`, 
+    id, task_daily_id, flag_id, task_id, task_daily_name, description, `comment`, point, `type`,
     `status`, start_time, end_time, gmt_create, gmt_modified
   </sql>
 
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.TaskDailyPO" useGeneratedKeys="true">
     insert into task_daily (task_daily_id, flag_id, task_id,
-                            task_name, description, `comment`,
+                            task_daily_name, description, `comment`,
                             point, `type`, `status`,
                             start_time, end_time, is_delete,
                             gmt_create, gmt_modified)
@@ -57,8 +57,8 @@
       <if test="taskId != null">
         task_id,
       </if>
-      <if test="taskName != null">
-        task_name,
+      <if test="taskDailyName != null">
+        task_daily_name,
       </if>
       <if test="description != null">
         description,
@@ -101,8 +101,8 @@
       <if test="taskId != null">
         #{taskId,jdbcType=VARCHAR},
       </if>
-      <if test="taskName != null">
-        #{taskName,jdbcType=VARCHAR},
+      <if test="taskDailyName != null">
+        #{taskDailyName,jdbcType=VARCHAR},
       </if>
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
@@ -148,8 +148,8 @@
       <if test="taskId != null">
         task_id = #{taskId,jdbcType=VARCHAR},
       </if>
-      <if test="taskName != null">
-        task_name = #{taskName,jdbcType=VARCHAR},
+      <if test="taskDailyName != null">
+        task_daily_name = #{taskDailyName,jdbcType=VARCHAR},
       </if>
       <if test="description != null">
         description = #{description,jdbcType=VARCHAR},
@@ -189,7 +189,7 @@
     set task_daily_id = #{taskDailyId,jdbcType=VARCHAR},
       flag_id = #{flagId,jdbcType=VARCHAR},
       task_id = #{taskId,jdbcType=VARCHAR},
-      task_name = #{taskName,jdbcType=VARCHAR},
+      task_daily_name = #{taskDailyName,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       `comment` = #{comment,jdbcType=VARCHAR},
       point = #{point,jdbcType=INTEGER},
