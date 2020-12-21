@@ -29,7 +29,7 @@
                             start_time, end_time, is_delete,
                             gmt_create, gmt_modified)
     values (#{taskDailyId,jdbcType=VARCHAR}, #{flagId,jdbcType=VARCHAR}, #{taskId,jdbcType=VARCHAR},
-                                             #{taskName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR},
+                                             #{taskDailyName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR},
                                              #{point,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{status,jdbcType=TINYINT},
                                              #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 0, now(), now())
   </insert>
