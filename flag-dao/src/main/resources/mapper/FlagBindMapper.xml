@@ -32,6 +32,23 @@
     <result column="flag_status" jdbcType="TINYINT" property="status" />
   </resultMap>
 
+  <resultMap id="UserTaskDailyMap" type="com.luoys.upgrade.flag.dao.po.TaskDailyPO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="task_daily_id" jdbcType="VARCHAR" property="taskDailyId" />
+    <result column="flag_id" jdbcType="VARCHAR" property="flagId" />
+    <result column="task_id" jdbcType="VARCHAR" property="taskId" />
+    <result column="task_daily_name" jdbcType="VARCHAR" property="taskDailyName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="point" jdbcType="INTEGER" property="point" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+
   <sql id="Base_Column_List">
     id, flag_id, owner_id, owner_name, witness_id, witness_name, `type`, `status`, gmt_create, gmt_modified
   </sql>
@@ -97,6 +114,28 @@
     </if>
     <if test="startIndex != null">
       order by f.gmt_create desc limit ${startIndex}, 10
+    </if>
+  </select>
+
+  <select id="listUserTaskDaily" resultMap="UserTaskDailyMap">
+    select
+    td.id, td.task_daily_id, td.task_id, td.flag_id, td.comment, td.description, td.end_time, td.gmt_create, td.gmt_modified, td.point, td.start_time, td.status, td.task_daily_name, td.type
+    from flag_bind fb
+    inner join task_daily td
+    on fb.flag_id = td.flag_id and fb.is_delete = 0
+    where
+    td.is_delete = 0
+    <if test="ownerId != null">
+      and fb.owner_id = #{ownerId,jdbcType=VARCHAR}
+    </if>
+    <if test="witnessId != null">
+      and fb.witness_id = #{witnessId,jdbcType=VARCHAR}
+    </if>
+    <if test="startTime != null">
+      and td.start_time >= #{startTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="endTime != null">
+      and td.end_time &lt;= #{endTime,jdbcType=TIMESTAMP}
     </if>
   </select>
 
