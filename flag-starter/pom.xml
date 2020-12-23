@@ -59,6 +59,11 @@
         </dependency>
         <dependency>
             <groupId>com.luoys.upgrade.flag</groupId>
+            <artifactId>flag-schedule</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.luoys.upgrade.flag</groupId>
             <artifactId>flag-service</artifactId>
             <version>1.0.1-SNAPSHOT</version>
         </dependency>

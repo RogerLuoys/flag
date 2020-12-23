@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TransformFlag {
 
-    public static FlagPO TransformFlagBO2PO(FlagBO bo) {
+    public static FlagPO TransformBO2PO(FlagBO bo) {
         if (bo == null) {
             return null;
         }
@@ -28,7 +28,26 @@ public class TransformFlag {
         return po;
     }
 
-    public static FlagBO TransformFlagPO2BO(FlagPO po) {
+    public static FlagPO TransformBO2PO(FlagDetailBO bo) {
+        if (bo == null) {
+            return null;
+        }
+        FlagPO po = new FlagPO();
+        po.setFlagId(bo.getFlagId());
+        po.setFlagName(bo.getFlagName());
+        po.setDescription(bo.getDescription());
+        po.setExpected(bo.getExpected());
+        po.setActual(bo.getActual());
+        po.setType(bo.getType());
+        po.setStatus(bo.getStatus());
+        po.setPriority(bo.getPriority());
+        po.setStartDate(bo.getStartDate());
+        po.setEndDate(bo.getEndDate());
+        po.setCreatorId(bo.getCreateId());
+        return po;
+    }
+
+    public static FlagBO TransformPO2BO(FlagPO po) {
         if (po == null) {
             return null;
         }
@@ -47,7 +66,7 @@ public class TransformFlag {
         return bo;
     }
 
-    public static FlagDetailBO TransformFlagPO2DetailBO(FlagPO po) {
+    public static FlagDetailBO TransformPO2BO(FlagPO po) {
         if (po == null) {
             return null;
         }
@@ -69,7 +88,7 @@ public class TransformFlag {
     public static List<FlagBO> TransformFlagPO2BO(List<FlagPO> po) {
         List<FlagBO> bo = new ArrayList<>();
         for (FlagPO item : po) {
-            bo.add(TransformFlagPO2BO(item));
+            bo.add(TransformPO2BO(item));
         }
         return bo;
     }
