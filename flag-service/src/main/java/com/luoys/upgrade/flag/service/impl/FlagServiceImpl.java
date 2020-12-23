@@ -3,6 +3,7 @@ package com.luoys.upgrade.flag.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
 import com.luoys.upgrade.flag.api.bo.FlagBindBO;
+import com.luoys.upgrade.flag.api.bo.FlagDetailBO;
 import com.luoys.upgrade.flag.api.service.FlagService;
 import com.luoys.upgrade.flag.manage.FlagBindManager;
 import com.luoys.upgrade.flag.manage.FlagManager;
@@ -33,10 +34,9 @@ public class FlagServiceImpl implements FlagService {
 
     @Override
     @RequestMapping(value = "/newFlag", method = RequestMethod.POST)
-    public Result<String> newFlag(@RequestBody FlagBO flagBO) {
-        LOG.info("=====>创建flag：{}", JSON.toJSONString(flagBO));
-        FlagBO resultBO = flagManager.newFlag(flagBO);
-        return Result.success("创建成功：" + resultBO.getFlagId());
+    public Result<String> newFlag(@RequestBody FlagDetailBO flagDetailBO) {
+        LOG.info("=====>创建flag：{}", JSON.toJSONString(flagDetailBO));
+        return Result.success(flagManager.newFlag(flagDetailBO));
     }
 
     @Override

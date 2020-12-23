@@ -20,7 +20,7 @@ public interface FlagBindMapper {
     int deleteByFlagId(String flagId);
 
     // 多个入参需要通过param注解映射
-    List<UserFlagPO> listOurFlags(
+    List<UserFlagPO> listUserFlag(
             @Param("ownerId") String ownerId, @Param("witnessId") String witnessId, @Param("flagType") Integer flagType,
             @Param("flagStatus") Integer flagStatus, @Param("flagName") String flagName, @Param("startIndex") Integer startIndex);
 

@@ -23,17 +23,15 @@ public class FlagBO {
     private Date startDate;
     private Date endDate;
     private String createId;
-//    private Date gmtCreate;
-//    private Date gmtModified;
 
-    // flag 关联的任务信息
-    private List<TaskBO> tasks;
-
-    // flag 关联的账户信息
-    private String ownerId;
-    private String ownerName;
-    private String witnessId;
-    private String witnessName;
+//    // flag 关联的任务信息
+//    private List<TaskBO> tasks;
+//
+//    // flag 关联的账户信息
+//    private String ownerId;
+//    private String ownerName;
+//    private String witnessId;
+//    private String witnessName;
 
 
 }

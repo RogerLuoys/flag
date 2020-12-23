@@ -2,6 +2,7 @@ package com.luoys.upgrade.flag.manage.impl;
 
 import com.luoys.upgrade.flag.api.NumberSender;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
+import com.luoys.upgrade.flag.api.bo.FlagDetailBO;
 import com.luoys.upgrade.flag.api.bo.TaskBO;
 import com.luoys.upgrade.flag.dao.mapper.FlagBindMapper;
 import com.luoys.upgrade.flag.dao.mapper.FlagMapper;
@@ -38,10 +39,10 @@ public class FlagManagerImpl implements FlagManager {
 
     // 查询flag详情
     @Override
-    public FlagBO queryFlagByFlagId(String flagId) {
+    public FlagDetailBO queryFlagByFlagId(String flagId) {
         FlagPO flagPO = flagMapper.selectByFlagId(flagId);
         FlagBindPO flagBindPO = flagBindMapper.selectByFlagId(flagId);
-        FlagBO flagBO = TransformFlag.TransformFlagPO2BO(flagPO);
+        FlagDetailBO flagDetailBO = TransformFlag.TransformFlagPO2BO(flagPO);
         if (flagBindPO == null) {
             LOG.error("====>未查询到flag与账户关联信息：{}", flagId);
             return null;
@@ -59,35 +60,35 @@ public class FlagManagerImpl implements FlagManager {
     }
 
     @Override
-    public FlagBO newFlag(FlagBO flagBO) {
+    public String newFlag(FlagDetailBO flagDetailBO) {
         // 填入业务Id
-        flagBO.setFlagId(NumberSender.createFlagId());
+        flagDetailBO.setFlagId(NumberSender.createFlagId());
 //        if (flagBO.getFlagName() == null) {
 //            LOG.error("=====>必填字段 flagName 为空");
 //            return null;
 //        }
-        if (flagBO.getType() == null) {
-            flagBO.setType(DEFAULT_FLAGTYPE);
+        if (flagDetailBO.getType() == null) {
+            flagDetailBO.setType(DEFAULT_FLAGTYPE);
         }
-        if (flagBO.getPriority() == null) {
-            flagBO.setPriority(DEFAULT_PRIORITY);
+        if (flagDetailBO.getPriority() == null) {
+            flagDetailBO.setPriority(DEFAULT_PRIORITY);
         }
-        if (flagBO.getCreateId() == null) {
-            flagBO.setCreateId(DEFAULT_CREATOR);
+        if (flagDetailBO.getCreateId() == null) {
+            flagDetailBO.setCreateId(DEFAULT_CREATOR);
         }
-        if (flagBO.getStatus() == null) {
-            flagBO.setStatus(1);
+        if (flagDetailBO.getStatus() == null) {
+            flagDetailBO.setStatus(1);
         }
-        FlagPO flagPO = TransformFlag.TransformFlagBO2PO(flagBO);
+        FlagPO flagPO = TransformFlag.TransformFlagBO2PO(flagDetailBO);
         LOG.info("=====>flag创建，并填充默认值：{}", flagPO);
         flagMapper.insert(flagPO);
         FlagBindPO flagBindPO = new FlagBindPO();
-        flagBindPO.setFlagId(flagBO.getFlagId());
-        flagBindPO.setOwnerId(flagBO.getOwnerId());
+        flagBindPO.setFlagId(flagDetailBO.getFlagId());
+        flagBindPO.setOwnerId(flagDetailBO.getOwnerId());
         flagBindPO.setStatus(1);
         flagBindPO.setType(1);
         flagBindMapper.insert(flagBindPO);
-        return flagBO;
+        return flagDetailBO.getFlagId();
 
     }
 

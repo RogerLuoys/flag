@@ -1,6 +1,7 @@
 package com.luoys.upgrade.flag.manage.util;
 
 import com.luoys.upgrade.flag.api.bo.FlagBO;
+import com.luoys.upgrade.flag.api.bo.FlagDetailBO;
 import com.luoys.upgrade.flag.dao.po.FlagPO;
 
 import java.util.ArrayList;
@@ -32,6 +33,25 @@ public class TransformFlag {
             return null;
         }
         FlagBO bo = new FlagBO();
+        bo.setFlagId(po.getFlagId());
+        bo.setFlagName(po.getFlagName());
+        bo.setDescription(po.getDescription());
+        bo.setExpected(po.getExpected());
+        bo.setActual(po.getActual());
+        bo.setType(po.getType());
+        bo.setStatus(po.getStatus());
+        bo.setPriority(po.getPriority());
+        bo.setStartDate(po.getStartDate());
+        bo.setEndDate(po.getEndDate());
+        bo.setCreateId(po.getCreatorId());
+        return bo;
+    }
+
+    public static FlagDetailBO TransformFlagPO2DetailBO(FlagPO po) {
+        if (po == null) {
+            return null;
+        }
+        FlagDetailBO bo = new FlagDetailBO();
         bo.setFlagId(po.getFlagId());
         bo.setFlagName(po.getFlagName());
         bo.setDescription(po.getDescription());

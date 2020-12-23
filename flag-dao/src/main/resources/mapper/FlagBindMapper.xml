@@ -14,7 +14,7 @@
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
 
-  <resultMap id="ourFlagMap" type="com.luoys.upgrade.flag.dao.po.UserFlagPO">
+  <resultMap id="userFlagMap" type="com.luoys.upgrade.flag.dao.po.UserFlagPO">
     <result column="flag_id" jdbcType="VARCHAR" property="flagId" />
     <result column="flag_name" jdbcType="VARCHAR" property="flagName" />
     <result column="description" jdbcType="VARCHAR" property="description" />
@@ -88,7 +88,7 @@
   </update>
 
   <!--查询相关sql-->
-  <select id="listOurFlags" resultMap="ourFlagMap">
+  <select id="listUserFlag" resultMap="userFlagMap">
     select
     f.flag_id, f.flag_name, f.description, f.expected, f.actual, f.type as flag_type, f.priority, f.start_date, f.end_date, f.creator_id, f.status as flag_status,
     fb.owner_id, fb.owner_name, fb.witness_id, fb.witness_name

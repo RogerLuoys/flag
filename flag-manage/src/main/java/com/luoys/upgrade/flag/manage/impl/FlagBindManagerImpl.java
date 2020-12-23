@@ -48,7 +48,7 @@ public class FlagBindManagerImpl implements FlagBindManager {
     @Override
     public List<UserFlagBO> queryUserFlag(FlagQueryBO flagQueryBO) {
         int startIndex = (flagQueryBO.getPageIndex() - 1) * 10;
-        List<UserFlagPO> pos = flagBindMapper.listOurFlags(
+        List<UserFlagPO> pos = flagBindMapper.listUserFlag(
                 flagQueryBO.getOwnerId(), flagQueryBO.getWitnessId(), flagQueryBO.getType(),
                 flagQueryBO.getStatus(), flagQueryBO.getFlagName(), startIndex);
         return TransformFlagBind.TransformUserFlagPO2BO(pos);
