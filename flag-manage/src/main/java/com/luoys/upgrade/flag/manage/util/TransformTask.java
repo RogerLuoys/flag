@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TransformTask {
 
-    public static TaskPO transformTaskBO2PO(TaskBO bo) {
+    public static TaskPO transformBO2PO(TaskBO bo) {
         if (bo == null) {
             return null;
         }
@@ -26,7 +26,7 @@ public class TransformTask {
         return po;
     }
 
-    public static TaskBO transformTaskPO2BO(TaskPO po) {
+    public static TaskBO transformPO2BO(TaskPO po) {
         if (po == null) {
             return null;
         }
@@ -44,10 +44,10 @@ public class TransformTask {
         return bo;
     }
 
-    public static List<TaskBO> TransformTaskPO2BO(List<TaskPO> po) {
+    public static List<TaskBO> TransformPO2BO(List<TaskPO> po) {
         List<TaskBO> bo = new ArrayList<>();
         for (TaskPO item : po) {
-            bo.add(transformTaskPO2BO(item));
+            bo.add(transformPO2BO(item));
         }
         return bo;
     }

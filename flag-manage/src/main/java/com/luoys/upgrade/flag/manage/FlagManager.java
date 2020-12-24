@@ -1,10 +1,6 @@
 package com.luoys.upgrade.flag.manage;
 
 import com.luoys.upgrade.flag.api.bo.FlagBO;
-import com.luoys.upgrade.flag.api.bo.FlagDetailBO;
-import com.luoys.upgrade.flag.dao.po.FlagPO;
-
-import java.util.List;
 
 public interface FlagManager {
 //    List<FlagBO> queryFlags(String userId);
@@ -13,7 +9,7 @@ public interface FlagManager {
 
     FlagBO queryFlagByFlagId(String flagId);
 
-    String newFlag(FlagDetailBO flagDetailBO);
+    String newFlag(FlagBO flagBO);
 
     int removeByFlagId(String flagId);
 

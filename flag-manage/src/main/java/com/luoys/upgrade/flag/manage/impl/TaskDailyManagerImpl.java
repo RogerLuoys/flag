@@ -53,7 +53,7 @@ public class TaskDailyManagerImpl implements TaskDailyManager {
         taskDailyDetailBO.setTaskDailyId(NumberSender.createTaskDailyId());
         taskDailyDetailBO.setFlagId(flagPO.getFlagId());
         taskDailyDetailBO.setStatus(1);
-        TaskDailyPO taskDailyPO = TransformTaskDaily.transformTaskDailyBO2PO(taskDailyDetailBO);
+        TaskDailyPO taskDailyPO = TransformTaskDaily.transformBO2PO(taskDailyDetailBO);
         return taskDailyMapper.insert(taskDailyPO) == 1 ? taskDailyPO.getTaskDailyId() : null;
     }
 }

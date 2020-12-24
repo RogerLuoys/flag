@@ -21,7 +21,7 @@ public class TaskManagerImpl implements TaskManager {
 
     @Override
     public String newTask(TaskBO taskBO) {
-        TaskPO taskPO = TransformTask.transformTaskBO2PO(taskBO);
+        TaskPO taskPO = TransformTask.transformBO2PO(taskBO);
         if (taskPO == null) {
             LOG.error("---->要插入的任务不能为空");
             return null;
@@ -39,13 +39,13 @@ public class TaskManagerImpl implements TaskManager {
             LOG.error("---->taskId不能为空");
             return null;
         }
-        return TransformTask.transformTaskPO2BO(taskMapper.selectByTaskId(taskId));
+        return TransformTask.transformPO2BO(taskMapper.selectByTaskId(taskId));
     }
 
 
     @Override
     public int modifyTask(TaskBO taskBO) {
-        TaskPO taskPO = TransformTask.transformTaskBO2PO(taskBO);
+        TaskPO taskPO = TransformTask.transformBO2PO(taskBO);
         if (taskPO == null) {
             LOG.error("---->要插入的任务不能为空");
             return 0;

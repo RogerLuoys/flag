@@ -6,7 +6,7 @@ import com.luoys.upgrade.flag.dao.po.TaskDailyPO;
 
 public class TransformTaskDaily {
 
-    public static TaskDailyPO transformTaskDailyBO2PO(TaskDailyBO bo) {
+    public static TaskDailyPO transformBO2PO(TaskDailyBO bo) {
         if (bo == null) {
             return null;
         }

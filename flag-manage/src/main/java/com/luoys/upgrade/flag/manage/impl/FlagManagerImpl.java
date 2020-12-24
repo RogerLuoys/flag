@@ -2,7 +2,6 @@ package com.luoys.upgrade.flag.manage.impl;
 
 import com.luoys.upgrade.flag.api.NumberSender;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
-import com.luoys.upgrade.flag.api.bo.FlagDetailBO;
 import com.luoys.upgrade.flag.api.bo.TaskBO;
 import com.luoys.upgrade.flag.dao.mapper.FlagBindMapper;
 import com.luoys.upgrade.flag.dao.mapper.FlagMapper;
@@ -25,7 +24,7 @@ public class FlagManagerImpl implements FlagManager {
 
     private static Logger LOG = LoggerFactory.getLogger(FlagManagerImpl.class);
 
-    private final Integer DEFAULT_FLAGTYPE = 1;
+    private final Integer DEFAULT_FLAG_TYPE = 1;
     private final Integer DEFAULT_PRIORITY = 1;
     private final String DEFAULT_CREATOR = "1";
     private final Integer ADD_FLAG_SUCCESS = 1;
@@ -39,10 +38,10 @@ public class FlagManagerImpl implements FlagManager {
 
     // 查询flag详情
     @Override
-    public FlagDetailBO queryFlagByFlagId(String flagId) {
+    public FlagBO queryFlagByFlagId(String flagId) {
         FlagPO flagPO = flagMapper.selectByFlagId(flagId);
         FlagBindPO flagBindPO = flagBindMapper.selectByFlagId(flagId);
-        FlagDetailBO flagDetailBO = TransformFlag.TransformFlagPO2BO(flagPO);
+        FlagBO flagBO = TransformFlag.TransformPO2BO(flagPO);
         if (flagBindPO == null) {
             LOG.error("====>未查询到flag与账户关联信息：{}", flagId);
             return null;
@@ -54,41 +53,41 @@ public class FlagManagerImpl implements FlagManager {
 
         // 关联任务
         List<TaskPO> taskPOList = taskMapper.listByFlagId(flagId);
-        List<TaskBO> taskBOList = TransformTask.TransformTaskPO2BO(taskPOList);
+        List<TaskBO> taskBOList = TransformTask.TransformPO2BO(taskPOList);
         flagBO.setTasks(taskBOList);
         return flagBO;
     }
 
     @Override
-    public String newFlag(FlagDetailBO flagDetailBO) {
+    public String newFlag(FlagBO flagBO) {
         // 填入业务Id
-        flagDetailBO.setFlagId(NumberSender.createFlagId());
+        flagBO.setFlagId(NumberSender.createFlagId());
 //        if (flagBO.getFlagName() == null) {
 //            LOG.error("=====>必填字段 flagName 为空");
 //            return null;
 //        }
-        if (flagDetailBO.getType() == null) {
-            flagDetailBO.setType(DEFAULT_FLAGTYPE);
+        if (flagBO.getType() == null) {
+            flagBO.setType(DEFAULT_FLAG_TYPE);
         }
-        if (flagDetailBO.getPriority() == null) {
-            flagDetailBO.setPriority(DEFAULT_PRIORITY);
+        if (flagBO.getPriority() == null) {
+            flagBO.setPriority(DEFAULT_PRIORITY);
         }
-        if (flagDetailBO.getCreateId() == null) {
-            flagDetailBO.setCreateId(DEFAULT_CREATOR);
+        if (flagBO.getCreateId() == null) {
+            flagBO.setCreateId(DEFAULT_CREATOR);
         }
-        if (flagDetailBO.getStatus() == null) {
-            flagDetailBO.setStatus(1);
+        if (flagBO.getStatus() == null) {
+            flagBO.setStatus(1);
         }
-        FlagPO flagPO = TransformFlag.TransformFlagBO2PO(flagDetailBO);
+        FlagPO flagPO = TransformFlag.TransformBO2PO(flagBO);
         LOG.info("=====>flag创建，并填充默认值：{}", flagPO);
         flagMapper.insert(flagPO);
         FlagBindPO flagBindPO = new FlagBindPO();
-        flagBindPO.setFlagId(flagDetailBO.getFlagId());
-        flagBindPO.setOwnerId(flagDetailBO.getOwnerId());
+        flagBindPO.setFlagId(flagBO.getFlagId());
+        flagBindPO.setOwnerId(flagBO.getOwnerId());
         flagBindPO.setStatus(1);
         flagBindPO.setType(1);
         flagBindMapper.insert(flagBindPO);
-        return flagDetailBO.getFlagId();
+        return flagBO.getFlagId();
 
     }
 
@@ -129,7 +128,7 @@ public class FlagManagerImpl implements FlagManager {
 
     @Override
     public int modifyFlagBasic(FlagBO flagBO) {
-        FlagPO flagPO = TransformFlag.TransformFlagBO2PO(flagBO);
+        FlagPO flagPO = TransformFlag.TransformBO2PO(flagBO);
         return flagMapper.update(flagPO);
     }
 }

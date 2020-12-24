@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.Date;
-
+@Deprecated
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class TaskDailyDetailBO extends TaskDailyBO {
