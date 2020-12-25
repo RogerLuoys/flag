@@ -3,7 +3,6 @@ package com.luoys.upgrade.flag.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.luoys.upgrade.flag.api.Result;
 import com.luoys.upgrade.flag.api.bo.TaskDailyBO;
-import com.luoys.upgrade.flag.api.bo.TaskDailyDetailBO;
 import com.luoys.upgrade.flag.api.service.TaskDailyService;
 import com.luoys.upgrade.flag.manage.TaskDailyManager;
 import org.slf4j.Logger;
@@ -25,8 +24,8 @@ public class TaskDailyServiceImpl implements TaskDailyService {
 
     @Override
     @RequestMapping(value = "/newTaskDaily", method = RequestMethod.POST)
-    public Result<String> newTaskDaily(@RequestBody TaskDailyDetailBO taskDailyDetailBO) {
-        LOG.info("=====>创建每日任务：{}", JSON.toJSONString(taskDailyDetailBO));
-        return Result.success(taskDailyManager.newTaskDaily(taskDailyDetailBO));
+    public Result<String> newTaskDaily(@RequestBody TaskDailyBO taskDailyBO) {
+        LOG.info("=====>创建每日任务：{}", JSON.toJSONString(taskDailyBO));
+        return Result.success(taskDailyManager.newTaskDaily(taskDailyBO));
     }
 }

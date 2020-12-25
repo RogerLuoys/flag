@@ -41,4 +41,11 @@ public class TaskDailyBO {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date endTime;
 
+
+    // 每日任务 关联的账户信息
+    private String ownerId;
+    private String ownerName;
+    private String witnessId;
+    private String witnessName;
+
 }

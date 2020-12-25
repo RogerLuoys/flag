@@ -2,9 +2,7 @@ package com.luoys.upgrade.flag.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.luoys.upgrade.flag.api.Result;
-import com.luoys.upgrade.flag.api.bo.FlagBindBO;
-import com.luoys.upgrade.flag.api.bo.FlagQueryBO;
-import com.luoys.upgrade.flag.api.bo.UserFlagBO;
+import com.luoys.upgrade.flag.api.bo.*;
 import com.luoys.upgrade.flag.api.service.FlagBindService;
 import com.luoys.upgrade.flag.manage.FlagBindManager;
 import org.apache.ibatis.annotations.Param;
@@ -43,5 +41,12 @@ public class FlagBindServiceImpl implements FlagBindService {
     public Result<String> modifyWitness(@RequestBody FlagBindBO flagBindBO) {
         LOG.info("====>修改见证人：{}", JSON.toJSONString(flagBindBO));
         return Result.success(flagBindManager.modifyWitness(flagBindBO));
+    }
+
+    @Override
+    @RequestMapping(value = "/queryTaskDailyList", method = RequestMethod.POST)
+    public Result<List<TaskDailyBO>> queryTaskDailyList(@RequestBody TaskDailyQueryBO taskDailyQueryBO) {
+        LOG.info("====>按用户查询每日任务列表：{}", JSON.toJSONString(taskDailyQueryBO));
+        return Result.success(flagBindManager.queryUserTaskDaily(taskDailyQueryBO));
     }
 }

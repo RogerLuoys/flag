@@ -1,9 +1,7 @@
 package com.luoys.upgrade.flag.api.service;
 
 import com.luoys.upgrade.flag.api.Result;
-import com.luoys.upgrade.flag.api.bo.FlagBindBO;
-import com.luoys.upgrade.flag.api.bo.FlagQueryBO;
-import com.luoys.upgrade.flag.api.bo.UserFlagBO;
+import com.luoys.upgrade.flag.api.bo.*;
 
 import java.util.List;
 
@@ -14,5 +12,7 @@ public interface FlagBindService {
     Result<List<UserFlagBO>> queryFlagList(FlagQueryBO flagQueryBO);
 
     Result<String> modifyWitness(FlagBindBO flagBindBO);
+
+    Result<List<TaskDailyBO>> queryTaskDailyList(TaskDailyQueryBO taskDailyQueryBO);
 
 }

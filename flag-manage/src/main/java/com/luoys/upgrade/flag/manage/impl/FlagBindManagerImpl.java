@@ -1,11 +1,10 @@
 package com.luoys.upgrade.flag.manage.impl;
 
 import com.luoys.upgrade.flag.api.NumberSender;
-import com.luoys.upgrade.flag.api.bo.FlagBindBO;
-import com.luoys.upgrade.flag.api.bo.FlagQueryBO;
-import com.luoys.upgrade.flag.api.bo.UserFlagBO;
+import com.luoys.upgrade.flag.api.bo.*;
 import com.luoys.upgrade.flag.dao.mapper.FlagBindMapper;
 import com.luoys.upgrade.flag.dao.po.FlagBindPO;
+import com.luoys.upgrade.flag.dao.po.TaskDailyPO;
 import com.luoys.upgrade.flag.dao.po.UserFlagPO;
 import com.luoys.upgrade.flag.manage.FlagBindManager;
 import com.luoys.upgrade.flag.manage.util.TransformFlagBind;
@@ -14,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -58,5 +58,17 @@ public class FlagBindManagerImpl implements FlagBindManager {
     public int modifyWitness(FlagBindBO flagBindBO) {
         FlagBindPO flagBindPO = TransformFlagBind.TransformFlagBindBO2PO(flagBindBO);
         return flagBindMapper.update(flagBindPO);
+    }
+
+
+    @Override
+    public List<TaskDailyBO> queryUserTaskDaily(TaskDailyQueryBO taskDailyQueryBO) {
+        if ( taskDailyQueryBO.getOwnerId() == null && taskDailyQueryBO.getWitnessId() == null) {
+            LOG.error("----》所有者和见证人不能同时为空");
+            return null;
+        }
+        List<TaskDailyPO> poList = flagBindMapper.listUserTaskDaily(
+                taskDailyQueryBO.getOwnerId(), taskDailyQueryBO.getWitnessId(), taskDailyQueryBO.getStartTime(), taskDailyQueryBO.getEndTime());
+        return TransformFlagBind.TransformUserTaskDailyPO2BO(poList);
     }
 }
