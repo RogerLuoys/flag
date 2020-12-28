@@ -24,6 +24,8 @@ public class TaskDailyBO {
 
     private Integer point;
 
+    private Integer bindType;
+
     /**
      * 1-已完成；2-未完成
      */

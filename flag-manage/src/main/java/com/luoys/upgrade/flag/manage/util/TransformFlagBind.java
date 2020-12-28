@@ -70,6 +70,7 @@ public class TransformFlagBind {
         bo.setStartTime(po.getStartTime());
         bo.setTaskDailyName(po.getTaskDailyName());
         bo.setTaskId(po.getTaskId());
+        bo.setBindType(1);
         return bo;
     }
 
