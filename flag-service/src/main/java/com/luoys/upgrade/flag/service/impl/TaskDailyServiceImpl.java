@@ -8,10 +8,7 @@ import com.luoys.upgrade.flag.manage.TaskDailyManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/taskDaily")
@@ -27,5 +24,12 @@ public class TaskDailyServiceImpl implements TaskDailyService {
     public Result<String> newTaskDaily(@RequestBody TaskDailyBO taskDailyBO) {
         LOG.info("=====>创建每日任务：{}", JSON.toJSONString(taskDailyBO));
         return Result.success(taskDailyManager.newTaskDaily(taskDailyBO));
+    }
+
+    @Override
+    @RequestMapping(value = "/modifyTaskDailyStatus", method = RequestMethod.PUT)
+    public Result<String> modifyTaskDailyStatus(@RequestParam("taskDailyId") String taskDailyId, @RequestParam("status") Integer status) {
+        LOG.info("====>修改每日任务状态：taskDailyId={}，status={}", taskDailyId, status);
+        return Result.success(taskDailyManager.modifyTaskDailyStatus(taskDailyId, status));
     }
 }

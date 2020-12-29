@@ -24,10 +24,13 @@ public class TaskDailyBO {
 
     private Integer point;
 
+    /**
+     * 1-任务所有者；2-任务见证人
+     */
     private Integer bindType;
 
     /**
-     * 1-已完成；2-未完成
+     * 1-进行中；2-已完成；3-撤销
      */
     private Integer status;
 

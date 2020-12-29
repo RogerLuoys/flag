@@ -34,6 +34,13 @@
                                              #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 0, now(), now())
   </insert>
 
+  <update id="updateStatusByTaskDailyId">
+    update task_daily
+    set `status` = #{status,jdbcType=TINYINT},
+      gmt_modified = now()
+    where task_daily_id = #{taskDailyId,jdbcType=VARCHAR}
+  </update>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

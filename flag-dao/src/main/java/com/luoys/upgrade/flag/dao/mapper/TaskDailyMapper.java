@@ -1,6 +1,7 @@
 package com.luoys.upgrade.flag.dao.mapper;
 
 import com.luoys.upgrade.flag.dao.po.TaskDailyPO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -8,6 +9,7 @@ public interface TaskDailyMapper {
 
     int insert(TaskDailyPO taskDailyPO);
 
+    int updateStatusByTaskDailyId(@Param("taskDailyId") String taskDailyId, @Param("status") Integer status);
 
     int deleteByPrimaryKey(Integer id);
 

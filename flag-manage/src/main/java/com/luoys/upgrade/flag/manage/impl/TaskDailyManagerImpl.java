@@ -10,11 +10,15 @@ import com.luoys.upgrade.flag.dao.po.FlagPO;
 import com.luoys.upgrade.flag.dao.po.TaskDailyPO;
 import com.luoys.upgrade.flag.manage.TaskDailyManager;
 import com.luoys.upgrade.flag.manage.util.TransformTaskDaily;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TaskDailyManagerImpl implements TaskDailyManager {
+
+    private static Logger LOG = LoggerFactory.getLogger(TaskDailyManagerImpl.class);
 
     @Autowired
     private TaskDailyMapper taskDailyMapper;
@@ -55,4 +59,13 @@ public class TaskDailyManagerImpl implements TaskDailyManager {
         return taskDailyMapper.insert(taskDailyPO) == 1 ? taskDailyPO.getTaskDailyId() : null;
     }
 
+
+    @Override
+    public int modifyTaskDailyStatus(String taskDailyId, Integer status) {
+        if (taskDailyId == null || status == null) {
+            LOG.error("----》入参不能为空，修改状态失败");
+            return 0;
+        }
+        return taskDailyMapper.updateStatusByTaskDailyId(taskDailyId, status);
+    }
 }

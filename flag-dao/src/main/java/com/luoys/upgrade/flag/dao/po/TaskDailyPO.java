@@ -32,7 +32,7 @@ public class TaskDailyPO implements Serializable {
     private Integer type;
 
     /**
-     * 1-已完成；2-未完成
+     * 1-进行中；2-已完成；3-撤销
      */
     private Integer status;
 
