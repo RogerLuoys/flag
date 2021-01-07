@@ -37,6 +37,16 @@ public class FlagBindServiceImpl implements FlagBindService {
     }
 
     @Override
+    @RequestMapping(value = "/queryReportList", method = RequestMethod.GET)
+    public Result<List<UserReportBO>> queryReportList(@Param("ownerId") String ownerId) {
+        if (ownerId == null || ownerId == "") {
+            return Result.error("----》所有者不能为空");
+        }
+        LOG.info("====>按用户查询报告，ownerId: ", ownerId);
+        return Result.success(flagBindManager.queryUserReport(ownerId));
+    }
+
+    @Override
     @RequestMapping(value = "/modifyWitness", method = RequestMethod.PUT)
     public Result<String> modifyWitness(@RequestBody FlagBindBO flagBindBO) {
         LOG.info("====>修改见证人：{}", JSON.toJSONString(flagBindBO));

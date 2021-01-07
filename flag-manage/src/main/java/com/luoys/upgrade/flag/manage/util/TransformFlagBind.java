@@ -3,9 +3,11 @@ package com.luoys.upgrade.flag.manage.util;
 import com.luoys.upgrade.flag.api.bo.FlagBindBO;
 import com.luoys.upgrade.flag.api.bo.TaskDailyBO;
 import com.luoys.upgrade.flag.api.bo.UserFlagBO;
+import com.luoys.upgrade.flag.api.bo.UserReportBO;
 import com.luoys.upgrade.flag.dao.po.FlagBindPO;
 import com.luoys.upgrade.flag.dao.po.TaskDailyPO;
 import com.luoys.upgrade.flag.dao.po.UserFlagPO;
+import com.luoys.upgrade.flag.dao.po.UserReportPO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +56,27 @@ public class TransformFlagBind {
         return bo;
     }
 
+    public static UserReportBO TransformUserReportPO2BO(UserReportPO po) {
+        if (po == null) {
+            return null;
+        }
+        UserReportBO bo = new UserReportBO();
+        bo.setEndTime(po.getEndTime());
+        bo.setFlagId(po.getFlagId());
+        bo.setFlagName(po.getFlagName());
+        bo.setStartTime(po.getStartTime());
+        bo.setTotalPoint(po.getTotalPoint());
+        bo.setTotalTaskDaily(po.getTotalTaskDaily());
+        return bo;
+    }
+
+    public static List<UserReportBO> TransformUserReportPO2BO(List<UserReportPO> po) {
+        List<UserReportBO> bo = new ArrayList<>();
+        for (UserReportPO item : po) {
+            bo.add(TransformUserReportPO2BO(item));
+        }
+        return bo;
+    }
 
     public static TaskDailyBO TransformUserTaskDailyPO2BO(TaskDailyPO po) {
         if (po == null) {

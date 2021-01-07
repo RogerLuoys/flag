@@ -49,6 +49,15 @@
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
 
+  <resultMap id="UserReportMap" type="com.luoys.upgrade.flag.dao.po.UserReportPO">
+    <result column="flag_id" jdbcType="VARCHAR" property="flagId" />
+    <result column="flag_name" jdbcType="VARCHAR" property="flagName" />
+    <result column="total_point" jdbcType="INTEGER" property="totalPoint" />
+    <result column="total_task_daily" jdbcType="INTEGER" property="totalTaskDaily" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+  </resultMap>
+
   <sql id="Base_Column_List">
     id, flag_id, owner_id, owner_name, witness_id, witness_name, `type`, `status`, gmt_create, gmt_modified
   </sql>
@@ -146,6 +155,25 @@
     where flag_id = #{flagId,jdbcType=VARCHAR}
   </select>
 
+  <select id="listUserReport" resultMap="UserReportMap">
+    select
+    f.flag_id, f.flag_name, sum(td.point) as total_point, count(td.task_daily_id) as total_task_daily, f.start_date, f.end_date
+    from flag_bind fb
+    left join flag f
+    on fb.flag_id=f.flag_id and fb.is_delete = 0
+    left join task_daily td
+    on fb.flag_id=td.flag_id and td.status = 2
+    where
+    f.type != 3
+    and fb.owner_id = #{ownerId,jdbcType=VARCHAR}
+    <if test="startTime != null">
+      and td.start_time >= #{startTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="endTime != null">
+      and td.end_time &lt;= #{endTime,jdbcType=TIMESTAMP}
+    </if>
+    group by f.flag_id, f.flag_name, f.start_date, f.end_date
+  </select>
   <!--<update id="updateStatusByFlagId" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO">-->
     <!--update flag_bind-->
     <!--set owner_id = #{ownerId,jdbcType=VARCHAR},-->

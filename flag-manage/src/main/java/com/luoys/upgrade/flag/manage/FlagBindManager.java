@@ -11,5 +11,7 @@ public interface FlagBindManager {
 
     List<TaskDailyBO> queryUserTaskDaily(TaskDailyQueryBO taskDailyQueryBO);
 
+    List<UserReportBO> queryUserReport(String ownerId);
+
     int modifyWitness(FlagBindBO flagBindBO);
 }

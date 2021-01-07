@@ -11,27 +11,27 @@
     <result column="actual" jdbcType="VARCHAR" property="actual" />
     <result column="type" jdbcType="TINYINT" property="type" />
     <result column="priority" jdbcType="TINYINT" property="priority" />
-    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
-    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="creator_id" jdbcType="VARCHAR" property="creatorId" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, flag_id, flag_name, description, expected, actual, `type`, priority, start_date, end_date, creator_id,
+    id, flag_id, flag_name, description, expected, actual, `type`, priority, start_time, end_time, creator_id,
     gmt_create, gmt_modified
   </sql>
 
   <!--新增相关sql-->
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.FlagPO" useGeneratedKeys="true">
     insert into flag (flag_id, flag_name, description,
-                      expected, actual, type, status, priority, start_date,
-                      end_date, creator_id, is_delete,
+                      expected, actual, type, status, priority, start_time,
+                      end_time, creator_id, is_delete,
                       gmt_create, gmt_modified)
     values (#{flagId,jdbcType=VARCHAR}, #{flagName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
                                         #{expected,jdbcType=VARCHAR}, #{actual,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{type,jdbcType=TINYINT},
-                                        #{priority,jdbcType=TINYINT}, #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP},
+                                        #{priority,jdbcType=TINYINT}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP},
                                         #{creatorId,jdbcType=VARCHAR}, 0, now(), now())
   </insert>
 
@@ -54,11 +54,11 @@
       <if test="priority != null">
         priority = #{priority,jdbcType=TINYINT},
       </if>
-      <if test="startDate != null">
-        start_date = #{startDate,jdbcType=TIMESTAMP},
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="endDate != null">
-        end_date = #{endDate,jdbcType=TIMESTAMP},
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
       </if>
       gmt_modified = now(),
     </set>

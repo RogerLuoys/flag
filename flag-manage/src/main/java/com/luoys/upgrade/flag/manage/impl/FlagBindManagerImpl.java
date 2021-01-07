@@ -6,6 +6,7 @@ import com.luoys.upgrade.flag.dao.mapper.FlagBindMapper;
 import com.luoys.upgrade.flag.dao.po.FlagBindPO;
 import com.luoys.upgrade.flag.dao.po.TaskDailyPO;
 import com.luoys.upgrade.flag.dao.po.UserFlagPO;
+import com.luoys.upgrade.flag.dao.po.UserReportPO;
 import com.luoys.upgrade.flag.manage.FlagBindManager;
 import com.luoys.upgrade.flag.manage.util.TransformFlagBind;
 import org.slf4j.Logger;
@@ -71,4 +72,13 @@ public class FlagBindManagerImpl implements FlagBindManager {
                 taskDailyQueryBO.getOwnerId(), taskDailyQueryBO.getWitnessId(), taskDailyQueryBO.getStartTime(), taskDailyQueryBO.getEndTime());
         return TransformFlagBind.TransformUserTaskDailyPO2BO(poList);
     }
+
+
+
+    @Override
+    public List<UserReportBO> queryUserReport(String ownerId) {
+        List<UserReportPO> poList = flagBindMapper.listUserReport(ownerId, null, null);
+        return TransformFlagBind.TransformUserReportPO2BO(poList);
+    }
+
 }

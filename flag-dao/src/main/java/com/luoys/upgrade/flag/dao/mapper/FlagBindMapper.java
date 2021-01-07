@@ -1,9 +1,6 @@
 package com.luoys.upgrade.flag.dao.mapper;
 
-import com.luoys.upgrade.flag.dao.po.FlagBindPO;
-import com.luoys.upgrade.flag.dao.po.TaskDailyPO;
-import com.luoys.upgrade.flag.dao.po.TaskPO;
-import com.luoys.upgrade.flag.dao.po.UserFlagPO;
+import com.luoys.upgrade.flag.dao.po.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +24,8 @@ public interface FlagBindMapper {
     List<TaskDailyPO> listUserTaskDaily(@Param("ownerId") String ownerId, @Param("witnessId") String witnessId, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
     FlagBindPO selectByFlagId(String flagId);
+
+    List<UserReportPO> listUserReport(@Param("ownerId") String ownerId, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
 //
 //    int insertSelective(FlagBindPO record);

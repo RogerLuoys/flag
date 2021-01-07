@@ -21,8 +21,8 @@ public class TransformFlag {
         po.setType(bo.getType());
         po.setStatus(bo.getStatus());
         po.setPriority(bo.getPriority());
-        po.setStartDate(bo.getStartDate());
-        po.setEndDate(bo.getEndDate());
+        po.setStartTime(bo.getStartDate());
+        po.setEndTime(bo.getEndDate());
         po.setCreatorId(bo.getCreateId());
         return po;
     }
@@ -40,8 +40,8 @@ public class TransformFlag {
         bo.setType(po.getType());
         bo.setStatus(po.getStatus());
         bo.setPriority(po.getPriority());
-        bo.setStartDate(po.getStartDate());
-        bo.setEndDate(po.getEndDate());
+        bo.setStartDate(po.getStartTime());
+        bo.setEndDate(po.getEndTime());
         bo.setCreateId(po.getCreatorId());
         return bo;
     }

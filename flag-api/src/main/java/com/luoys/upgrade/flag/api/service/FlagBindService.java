@@ -11,6 +11,8 @@ public interface FlagBindService {
 
     Result<List<UserFlagBO>> queryFlagList(FlagQueryBO flagQueryBO);
 
+    Result<List<UserReportBO>> queryReportList(String ownerId);
+
     Result<String> modifyWitness(FlagBindBO flagBindBO);
 
     Result<List<TaskDailyBO>> queryTaskDailyList(TaskDailyQueryBO taskDailyQueryBO);
