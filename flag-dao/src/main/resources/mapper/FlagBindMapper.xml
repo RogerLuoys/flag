@@ -99,13 +99,13 @@
   <!--查询相关sql-->
   <select id="listUserFlag" resultMap="userFlagMap">
     select
-    f.flag_id, f.flag_name, f.description, f.expected, f.actual, f.type as flag_type, f.priority, f.start_date, f.end_date, f.creator_id, f.status as flag_status,
+    f.flag_id, f.flag_name, f.description, f.expected, f.actual, f.type as flag_type, f.priority, f.start_time, f.end_time, f.creator_id, f.status as flag_status,
     fb.owner_id, fb.owner_name, fb.witness_id, fb.witness_name
     from flag_bind fb
     inner join flag f
     on fb.flag_id = f.flag_id and fb.is_delete = 0
     where
-    f.is_delete = 0
+    f.is_delete = 0 and f.type != 3
     <if test="ownerId != null">
       and fb.owner_id = #{ownerId,jdbcType=VARCHAR}
     </if>
@@ -157,7 +157,7 @@
 
   <select id="listUserReport" resultMap="UserReportMap">
     select
-    f.flag_id, f.flag_name, sum(td.point) as total_point, count(td.task_daily_id) as total_task_daily, f.start_date, f.end_date
+    f.flag_id, f.flag_name, sum(td.point) as total_point, count(td.task_daily_id) as total_task_daily, f.start_time, f.end_time
     from flag_bind fb
     left join flag f
     on fb.flag_id=f.flag_id and fb.is_delete = 0
@@ -172,7 +172,7 @@
     <if test="endTime != null">
       and td.end_time &lt;= #{endTime,jdbcType=TIMESTAMP}
     </if>
-    group by f.flag_id, f.flag_name, f.start_date, f.end_date
+    group by f.flag_id, f.flag_name, f.start_time, f.end_time
   </select>
   <!--<update id="updateStatusByFlagId" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO">-->
     <!--update flag_bind-->

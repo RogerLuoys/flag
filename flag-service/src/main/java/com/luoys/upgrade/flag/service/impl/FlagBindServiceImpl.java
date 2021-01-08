@@ -38,7 +38,7 @@ public class FlagBindServiceImpl implements FlagBindService {
 
     @Override
     @RequestMapping(value = "/queryReportList", method = RequestMethod.GET)
-    public Result<List<UserReportBO>> queryReportList(@Param("ownerId") String ownerId) {
+    public Result<List<UserReportBO>> queryReportList(@RequestParam("ownerId") String ownerId) {
         if (ownerId == null || ownerId == "") {
             return Result.error("----》所有者不能为空");
         }

@@ -41,6 +41,14 @@
     where task_daily_id = #{taskDailyId,jdbcType=VARCHAR}
   </update>
 
+
+  <select id="listByFlagId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from task_daily
+    where flag_id = #{flagId,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
