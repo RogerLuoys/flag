@@ -21,7 +21,8 @@
     select
     <include refid="Base_Column_List" />
     from point
-    where owner_id = #{ownerId,jdbcType=VARCHAR}
+    where is_delete = 0
+    and owner_id = #{ownerId,jdbcType=VARCHAR}
   </select>
 
 

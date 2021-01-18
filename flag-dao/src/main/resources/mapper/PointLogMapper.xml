@@ -11,7 +11,6 @@
     <result column="type" jdbcType="TINYINT" property="type" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
-    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
@@ -19,6 +18,30 @@
     id, point_id, task_daily_id, point, description, `comment`, `type`, `status`, record_time, 
     is_delete, gmt_create, gmt_modified
   </sql>
+
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.PointLogPO" useGeneratedKeys="true">
+    insert into point_log (point_id, task_daily_id, point,
+                           description, `comment`, `type`,
+                           `status`, record_time, is_delete,
+                           gmt_create, gmt_modified)
+    values (#{pointId,jdbcType=VARCHAR}, #{taskDailyId,jdbcType=VARCHAR}, #{point,jdbcType=INTEGER},
+            #{description,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT},
+            #{status,jdbcType=TINYINT}, #{recordTime,jdbcType=TIMESTAMP}, 0,
+            now(), now())
+  </insert>
+
+  <select id="listPointLog" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from point_log
+    where is_delete = 0
+    and point_id = #{pointId,jdbcType=VARCHAR}
+    <if test="type != null">
+      and `type` = #{type,jdbcType=TINYINT},
+    </if>
+  </select>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -29,16 +52,7 @@
     delete from point_log
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.PointLogPO" useGeneratedKeys="true">
-    insert into point_log (point_id, task_daily_id, point, 
-      description, `comment`, `type`, 
-      `status`, record_time, is_delete, 
-      gmt_create, gmt_modified)
-    values (#{pointId,jdbcType=VARCHAR}, #{taskDailyId,jdbcType=VARCHAR}, #{point,jdbcType=INTEGER}, 
-      #{description,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, 
-      #{status,jdbcType=TINYINT}, #{recordTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=TINYINT}, 
-      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
-  </insert>
+
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.PointLogPO" useGeneratedKeys="true">
     insert into point_log
     <trim prefix="(" suffix=")" suffixOverrides=",">

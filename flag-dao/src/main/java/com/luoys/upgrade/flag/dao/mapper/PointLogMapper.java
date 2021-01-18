@@ -1,13 +1,21 @@
 package com.luoys.upgrade.flag.dao.mapper;
 
 import com.luoys.upgrade.flag.dao.po.PointLogPO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface PointLogMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(PointLogPO record);
+    int insert(PointLogPO pointLogPO);
+
+    List<PointLogPO> listPointLog(@Param("pointId") String pointId, @Param("type") Integer type);
+
+
+
+    int deleteByPrimaryKey(Integer id);
 
     int insertSelective(PointLogPO record);
 

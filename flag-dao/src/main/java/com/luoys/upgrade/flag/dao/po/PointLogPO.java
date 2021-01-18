@@ -25,13 +25,11 @@ public class PointLogPO implements Serializable {
     /**
      * 1-增加；2-减少
      */
-    private Byte type;
+    private Integer type;
 
-    private Byte status;
+    private Integer status;
 
     private Date recordTime;
-
-    private Byte isDelete;
 
     private Date gmtCreate;
 
