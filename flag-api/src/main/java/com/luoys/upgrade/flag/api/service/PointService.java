@@ -2,10 +2,15 @@ package com.luoys.upgrade.flag.api.service;
 
 import com.luoys.upgrade.flag.api.Result;
 import com.luoys.upgrade.flag.api.bo.PointBO;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.luoys.upgrade.flag.api.bo.PointLogBO;
+
+import java.util.List;
 
 public interface PointService {
 
     Result<PointBO> queryPointSummary(String ownerId);
 
+    Result<List<PointLogBO>> queryPointLogList(String pointId, Integer type);
+
+    Result<String> newPointLog(PointLogBO pointLogBO);
 }

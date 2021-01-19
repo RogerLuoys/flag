@@ -8,6 +8,7 @@
         <module>flag-manage</module>
         <module>flag-dao</module>
         <module>flag-api</module>
+        <module>flag-schedule</module>
         <module>flag-starter</module>
     </modules>
     <parent>

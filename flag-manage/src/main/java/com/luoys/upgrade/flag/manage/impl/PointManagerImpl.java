@@ -8,11 +8,14 @@ import com.luoys.upgrade.flag.dao.po.PointLogPO;
 import com.luoys.upgrade.flag.dao.po.PointPO;
 import com.luoys.upgrade.flag.manage.PointManager;
 import com.luoys.upgrade.flag.manage.util.TransformPoint;
+import com.luoys.upgrade.flag.manage.util.TransformPointLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -42,8 +45,27 @@ public class PointManagerImpl implements PointManager {
             LOG.error("----》查询积分使用列表时，pointId不能为空");
             return null;
         }
-        List<PointLogPO> pointLogPOList = pointLogMapper.listPointLog(pointId, type);
-        return TransformPoint.transformPO2BO(pointPO);
+        List<PointLogPO> pointLogPOList = pointLogMapper.listPointLog(pointId, type, null);
+        return TransformPointLog.transformPO2BO(pointLogPOList);
+    }
+
+
+    @Override
+    public String newPointLog(PointLogBO pointLogBO) {
+        if (pointLogBO == null) {
+            LOG.error("----》新增积分记录时，pointLogBO不能为空");
+            return null;
+        }
+        if (pointLogBO.getPointId() == null) {
+            LOG.error("----》新增积分记录时，pointId不能为空");
+            return null;
+        }
+        if (pointLogBO.getRecordTime() == null) {
+            pointLogBO.setRecordTime(new Date());
+        }
+        PointLogPO pointLogPO = TransformPointLog.transformBO2PO(pointLogBO);
+        int isPointLogCreated = pointLogMapper.insert(pointLogPO);
+        return isPointLogCreated == 1 ? pointLogPO.getPoint().toString() : null;
     }
 
 }

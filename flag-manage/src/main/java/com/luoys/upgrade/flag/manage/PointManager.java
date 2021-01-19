@@ -10,4 +10,6 @@ public interface PointManager {
     PointBO queryPointByOwnerId(String ownerId);
 
     List<PointLogBO> queryPointLog(String pointId, Integer type);
+
+    String newPointLog(PointLogBO pointLogBO);
 }

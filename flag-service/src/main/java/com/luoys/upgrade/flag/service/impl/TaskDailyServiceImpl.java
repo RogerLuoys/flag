@@ -22,14 +22,14 @@ public class TaskDailyServiceImpl implements TaskDailyService {
     @Override
     @RequestMapping(value = "/newTaskDaily", method = RequestMethod.POST)
     public Result<String> newTaskDaily(@RequestBody TaskDailyBO taskDailyBO) {
-        LOG.info("=====>创建每日任务：{}", JSON.toJSONString(taskDailyBO));
+        LOG.info("=====》创建每日任务开始：{}", JSON.toJSONString(taskDailyBO));
         return Result.success(taskDailyManager.newTaskDaily(taskDailyBO));
     }
 
     @Override
     @RequestMapping(value = "/modifyTaskDailyStatus", method = RequestMethod.PUT)
     public Result<String> modifyTaskDailyStatus(@RequestParam("taskDailyId") String taskDailyId, @RequestParam("status") Integer status) {
-        LOG.info("====>修改每日任务状态：taskDailyId={}，status={}", taskDailyId, status);
+        LOG.info("====》修改每日任务状态开始：taskDailyId={}，status={}", taskDailyId, status);
         return Result.success(taskDailyManager.modifyTaskDailyStatus(taskDailyId, status));
     }
 }

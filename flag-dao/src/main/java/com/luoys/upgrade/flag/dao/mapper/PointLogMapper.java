@@ -11,8 +11,7 @@ public interface PointLogMapper {
 
     int insert(PointLogPO pointLogPO);
 
-    List<PointLogPO> listPointLog(@Param("pointId") String pointId, @Param("type") Integer type);
-
+    List<PointLogPO> listPointLog(@Param("pointId") String pointId, @Param("type") Integer type, @Param("startIndex") Integer startIndex);
 
 
     int deleteByPrimaryKey(Integer id);

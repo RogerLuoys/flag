@@ -16,7 +16,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     id, point_id, task_daily_id, point, description, `comment`, `type`, `status`, record_time, 
-    is_delete, gmt_create, gmt_modified
+    gmt_create, gmt_modified
   </sql>
 
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.PointLogPO" useGeneratedKeys="true">
@@ -37,7 +37,11 @@
     where is_delete = 0
     and point_id = #{pointId,jdbcType=VARCHAR}
     <if test="type != null">
-      and `type` = #{type,jdbcType=TINYINT},
+      and `type` = #{type,jdbcType=TINYINT}
+    </if>
+    order by record_time desc
+    <if test="startIndex != null">
+      limit ${startIndex}, 10
     </if>
   </select>
 

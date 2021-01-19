@@ -2,15 +2,15 @@ package com.luoys.upgrade.flag.service.impl;
 
 import com.luoys.upgrade.flag.api.Result;
 import com.luoys.upgrade.flag.api.bo.PointBO;
+import com.luoys.upgrade.flag.api.bo.PointLogBO;
 import com.luoys.upgrade.flag.api.service.PointService;
 import com.luoys.upgrade.flag.manage.PointManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/point")
@@ -24,7 +24,22 @@ public class PointServiceImpl implements PointService {
     @Override
     @RequestMapping(value = "/queryPointSummary", method = RequestMethod.GET)
     public Result<PointBO> queryPointSummary(@RequestParam("ownerId") String ownerId) {
-        LOG.info("====》查询用户总积分开始，ownerId={}", ownerId);
+        LOG.info("====》查询用户总积分开始：ownerId={}", ownerId);
         return Result.success(pointManager.queryPointByOwnerId(ownerId));
+    }
+
+    @Override
+    @RequestMapping(value = "/queryPointLogList", method = RequestMethod.GET)
+    public Result<List<PointLogBO>> queryPointLogList(@RequestParam("pointId") String pointId, @RequestParam("type") Integer type) {
+        LOG.info("====》查询用户积分记录列表开始：pointId={}， type={}", pointId, type);
+        return Result.success(pointManager.queryPointLog(pointId, type));
+    }
+
+
+    @Override
+    @RequestMapping(value = "/newPointLog", method = RequestMethod.POST)
+    public Result<String> newPointLog(@RequestBody PointLogBO pointLogBO) {
+        LOG.info("====》新增用户积分记录开始：{}", pointLogBO);
+        return Result.success(pointManager.newPointLog(pointLogBO));
     }
 }
