@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luoys.upgrade.flag.dao.mapper.TaskTemplateMapper">
+  <resultMap id="BaseResultMap" type="com.luoys.upgrade.flag.dao.po.TaskTemplatePO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="task_template_id" jdbcType="VARCHAR" property="taskTemplateId" />
+    <result column="flag_template_id" jdbcType="VARCHAR" property="flagTemplateId" />
+    <result column="task_name" jdbcType="VARCHAR" property="taskName" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="point" jdbcType="INTEGER" property="point" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="task_type" jdbcType="TINYINT" property="taskType" />
+    <result column="cycle" jdbcType="VARCHAR" property="cycle" />
+    <result column="owner_id" jdbcType="VARCHAR" property="ownerId" />
+    <result column="creator_id" jdbcType="VARCHAR" property="creatorId" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, task_template_id, flag_template_id, task_name, description, point, `type`, task_type, 
+    `cycle`, owner_id, creator_id, is_delete, gmt_create, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from task_template
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from task_template
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.TaskTemplatePO" useGeneratedKeys="true">
+    insert into task_template (task_template_id, flag_template_id, task_name, 
+      description, point, `type`, 
+      task_type, `cycle`, owner_id, 
+      creator_id, is_delete, gmt_create, 
+      gmt_modified)
+    values (#{taskTemplateId,jdbcType=VARCHAR}, #{flagTemplateId,jdbcType=VARCHAR}, #{taskName,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{point,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, 
+      #{taskType,jdbcType=TINYINT}, #{cycle,jdbcType=VARCHAR}, #{ownerId,jdbcType=VARCHAR}, 
+      #{creatorId,jdbcType=VARCHAR}, #{isDelete,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.TaskTemplatePO" useGeneratedKeys="true">
+    insert into task_template
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskTemplateId != null">
+        task_template_id,
+      </if>
+      <if test="flagTemplateId != null">
+        flag_template_id,
+      </if>
+      <if test="taskName != null">
+        task_name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="point != null">
+        point,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="taskType != null">
+        task_type,
+      </if>
+      <if test="cycle != null">
+        `cycle`,
+      </if>
+      <if test="ownerId != null">
+        owner_id,
+      </if>
+      <if test="creatorId != null">
+        creator_id,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskTemplateId != null">
+        #{taskTemplateId,jdbcType=VARCHAR},
+      </if>
+      <if test="flagTemplateId != null">
+        #{flagTemplateId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null">
+        #{point,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="taskType != null">
+        #{taskType,jdbcType=TINYINT},
+      </if>
+      <if test="cycle != null">
+        #{cycle,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.luoys.upgrade.flag.dao.po.TaskTemplatePO">
+    update task_template
+    <set>
+      <if test="taskTemplateId != null">
+        task_template_id = #{taskTemplateId,jdbcType=VARCHAR},
+      </if>
+      <if test="flagTemplateId != null">
+        flag_template_id = #{flagTemplateId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null">
+        task_name = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null">
+        point = #{point,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="taskType != null">
+        task_type = #{taskType,jdbcType=TINYINT},
+      </if>
+      <if test="cycle != null">
+        `cycle` = #{cycle,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerId != null">
+        owner_id = #{ownerId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        creator_id = #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.luoys.upgrade.flag.dao.po.TaskTemplatePO">
+    update task_template
+    set task_template_id = #{taskTemplateId,jdbcType=VARCHAR},
+      flag_template_id = #{flagTemplateId,jdbcType=VARCHAR},
+      task_name = #{taskName,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      point = #{point,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=TINYINT},
+      task_type = #{taskType,jdbcType=TINYINT},
+      `cycle` = #{cycle,jdbcType=VARCHAR},
+      owner_id = #{ownerId,jdbcType=VARCHAR},
+      creator_id = #{creatorId,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
