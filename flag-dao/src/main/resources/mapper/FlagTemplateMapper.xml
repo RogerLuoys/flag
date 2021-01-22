@@ -13,14 +13,36 @@
     <result column="use_count" jdbcType="INTEGER" property="useCount" />
     <result column="owner_id" jdbcType="VARCHAR" property="ownerId" />
     <result column="creator_id" jdbcType="VARCHAR" property="creatorId" />
-    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
   <sql id="Base_Column_List">
     id, flag_template_id, flag_name, description, expected, `type`, flag_type, `status`, 
-    use_count, owner_id, creator_id, is_delete, gmt_create, gmt_modified
+    use_count, owner_id, creator_id, gmt_create, gmt_modified
   </sql>
+
+  <select id="selectByFlagTemplateId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from flag_template
+    where flag_template_id = #{FlagTemplateId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="listFlagTemplate" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from flag_template
+    where is_delete = 0
+    and owner_id = #{ownerId,jdbcType=VARCHAR}
+    <if test="flagName != null">
+      and flag_name = #{flagName,jdbcType=VARCHAR}
+    </if>
+    order by use_count desc
+    <if test="startIndex != null">
+      limit ${startIndex}, 10
+    </if>
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

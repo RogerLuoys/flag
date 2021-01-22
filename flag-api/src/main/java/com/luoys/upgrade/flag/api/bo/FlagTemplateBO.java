@@ -1,16 +1,12 @@
-package com.luoys.upgrade.flag.dao.po;
+package com.luoys.upgrade.flag.api.bo;
 
-import java.io.Serializable;
-import java.util.Date;
 import lombok.Data;
 
-/**
- * flag_template
- * @author 
- */
+import java.util.Date;
+import java.util.List;
+
 @Data
-public class FlagTemplatePO implements Serializable {
-    private Integer id;
+public class FlagTemplateBO {
 
     private String flagTemplateId;
 
@@ -42,11 +38,7 @@ public class FlagTemplatePO implements Serializable {
 
     private String ownerId;
 
-    private String creatorId;
+    // 任务模板列表
+    private List<TaskTemplateBO> taskTemplateList;
 
-    private Date gmtCreate;
-
-    private Date gmtModified;
-
-    private static final long serialVersionUID = 1L;
 }

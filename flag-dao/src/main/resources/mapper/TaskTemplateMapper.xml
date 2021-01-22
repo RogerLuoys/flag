@@ -13,14 +13,23 @@
     <result column="cycle" jdbcType="VARCHAR" property="cycle" />
     <result column="owner_id" jdbcType="VARCHAR" property="ownerId" />
     <result column="creator_id" jdbcType="VARCHAR" property="creatorId" />
-    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
   <sql id="Base_Column_List">
     id, task_template_id, flag_template_id, task_name, description, point, `type`, task_type, 
-    `cycle`, owner_id, creator_id, is_delete, gmt_create, gmt_modified
+    `cycle`, owner_id, creator_id, gmt_create, gmt_modified
   </sql>
+
+  <select id="listByFlagTemplateId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from task_template
+    where is_delete = 0
+    and flag_template_id = #{flagTemplateId,jdbcType=VARCHAR}
+  </select>
+
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

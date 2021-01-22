@@ -23,7 +23,7 @@ public class FlagServiceImpl implements FlagService {
 
     @Override
     @RequestMapping(value = "/queryFlagDetail", method = RequestMethod.GET)
-    public Result<FlagBO> queryFlagDetail(@RequestParam String flagId) {
+    public Result<FlagBO> queryFlagDetail(@RequestParam("flagId") String flagId) {
         LOG.info("=====》查询flag详情开始：flagId={}", flagId);
         return Result.success(flagManager.queryFlagByFlagId(flagId));
     }
