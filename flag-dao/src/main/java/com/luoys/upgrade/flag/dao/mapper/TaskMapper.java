@@ -23,6 +23,7 @@ public interface TaskMapper {
 
     TaskPO selectByTaskId(String taskId);
 
+    List<TaskPO> listByType(Integer type);
 
     int deleteByPrimaryKey(Integer id);
 
