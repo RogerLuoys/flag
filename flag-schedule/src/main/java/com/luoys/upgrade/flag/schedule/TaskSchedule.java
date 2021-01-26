@@ -23,9 +23,9 @@ public class TaskSchedule {
 
 //    @Scheduled(cron = "0 0 8 * * ?")
 //    @Scheduled(cron = "0 0/1 * * * ?")
-    public void automaticCreateWeekTask() {
+    public void automaticConvertWeekTask() {
         LOG.info("=====定时任务:按周期生成每日任务开始 {}=====", new Date());
-
+        taskManager.automaticConvertWeekTask();
         LOG.info("=====定时任务:按周期生成每日任务结束 {}=====", new Date());
     }
 }

@@ -9,7 +9,7 @@ import com.luoys.upgrade.flag.dao.po.FlagBindPO;
 import com.luoys.upgrade.flag.dao.po.FlagPO;
 import com.luoys.upgrade.flag.dao.po.TaskDailyPO;
 import com.luoys.upgrade.flag.manage.TaskDailyManager;
-import com.luoys.upgrade.flag.manage.util.TransformTaskDaily;
+import com.luoys.upgrade.flag.manage.transform.TransformTaskDaily;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

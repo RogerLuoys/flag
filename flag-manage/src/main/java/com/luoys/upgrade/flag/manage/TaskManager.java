@@ -10,6 +10,6 @@ public interface TaskManager {
 
     TaskBO queryTaskByTaskId(String taskId);
 
-    int convertWeekTask();
+    int automaticConvertWeekTask();
 
 }

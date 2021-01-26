@@ -1,4 +1,4 @@
-package com.luoys.upgrade.flag.manage.util;
+package com.luoys.upgrade.flag.manage.transform;
 
 import com.luoys.upgrade.flag.api.bo.PointBO;
 import com.luoys.upgrade.flag.dao.po.PointPO;

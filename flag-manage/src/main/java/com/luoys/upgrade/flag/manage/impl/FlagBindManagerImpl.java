@@ -1,6 +1,5 @@
 package com.luoys.upgrade.flag.manage.impl;
 
-import com.luoys.upgrade.flag.api.NumberSender;
 import com.luoys.upgrade.flag.api.bo.*;
 import com.luoys.upgrade.flag.dao.mapper.FlagBindMapper;
 import com.luoys.upgrade.flag.dao.po.FlagBindPO;
@@ -8,13 +7,12 @@ import com.luoys.upgrade.flag.dao.po.TaskDailyPO;
 import com.luoys.upgrade.flag.dao.po.UserFlagPO;
 import com.luoys.upgrade.flag.dao.po.UserReportPO;
 import com.luoys.upgrade.flag.manage.FlagBindManager;
-import com.luoys.upgrade.flag.manage.util.TransformFlagBind;
+import com.luoys.upgrade.flag.manage.transform.TransformFlagBind;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.List;
 
 @Component

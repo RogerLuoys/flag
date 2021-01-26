@@ -8,7 +8,7 @@ import com.luoys.upgrade.flag.dao.po.FlagBindPO;
 import com.luoys.upgrade.flag.dao.po.FlagPO;
 import com.luoys.upgrade.flag.dao.po.TaskDailyPO;
 import com.luoys.upgrade.flag.manage.ReportManager;
-import com.luoys.upgrade.flag.manage.util.TransformReport;
+import com.luoys.upgrade.flag.manage.transform.TransformReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

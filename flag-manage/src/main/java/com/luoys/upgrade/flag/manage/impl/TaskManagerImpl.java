@@ -7,13 +7,13 @@ import com.luoys.upgrade.flag.dao.mapper.TaskMapper;
 import com.luoys.upgrade.flag.dao.po.TaskDailyPO;
 import com.luoys.upgrade.flag.dao.po.TaskPO;
 import com.luoys.upgrade.flag.manage.TaskManager;
-import com.luoys.upgrade.flag.manage.util.TransformTask;
+import com.luoys.upgrade.flag.manage.util.TimeUtil;
+import com.luoys.upgrade.flag.manage.transform.TransformTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.List;
 
 @Component
@@ -21,6 +21,7 @@ public class TaskManagerImpl implements TaskManager {
 
     private static Logger LOG = LoggerFactory.getLogger(TaskManagerImpl.class);
     private final Integer WEEKLY_CYCLE = 2;
+    private final Integer SCAN_SUCCESS = 1;
 
     @Autowired
     private TaskMapper taskMapper;
@@ -62,13 +63,17 @@ public class TaskManagerImpl implements TaskManager {
         return taskMapper.update(taskPO);
     }
 
-
     @Override
-    public int convertWeekTask() {
+    public int automaticConvertWeekTask() {
         List<TaskPO> taskPOList = taskMapper.listByType(WEEKLY_CYCLE);
-        TaskDailyPO taskDailyPO = new TaskDailyPO();
+        if (taskPOList.size() == 0) {
+            LOG.error("----》未发现需要转换的周任务");
+            return 0;
+        }
+        LOG.info("====》需要转换的周任务数为：{}", taskPOList.size());
+        int successNumber = 0;
         for (TaskPO item : taskPOList) {
-            taskDailyPO = null;
+            TaskDailyPO taskDailyPO = new TaskDailyPO();
             String[] cycles = item.getCycle().split(",");
             taskDailyPO.setTaskId(item.getTaskId());
             taskDailyPO.setDescription(item.getDescription());
@@ -76,12 +81,15 @@ public class TaskManagerImpl implements TaskManager {
             taskDailyPO.setTaskDailyName(item.getTaskName());
             taskDailyPO.setPoint(item.getPoint());
             for (int i = 0; i < cycles.length; i++) {
-                // todo 需计算日期
-                taskDailyPO.setStartTime(new Date());
-                taskDailyPO.setEndTime(new Date());
+                taskDailyPO.setStartTime(TimeUtil.getWeekCycleStartTime(cycles[i]));
+                taskDailyPO.setEndTime(TimeUtil.getWeekCycleEndTime(cycles[i]));
                 taskDailyMapper.insert(taskDailyPO);
+                successNumber++;
             }
+            // todo 改成lastScanTime
+            taskMapper.updateScanStatusByTaskId(taskDailyPO.getTaskId(), SCAN_SUCCESS);
         }
-        return 1;
+        LOG.info("====》转换成功的周任务数为：{}", successNumber);
+        return successNumber;
     }
 }

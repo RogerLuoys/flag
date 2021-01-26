@@ -13,6 +13,8 @@ public interface TaskMapper {
 
     int updateStatusByFlagId(@Param("flagId") String flagId, @Param("status") Integer status);
 
+    int updateScanStatusByTaskId(@Param("taskId") String taskId, @Param("isScanned") Integer isScanned);
+
     int deleteByFlagId(String flagId);
 
     int update(TaskPO taskPO);
@@ -24,6 +26,9 @@ public interface TaskMapper {
     TaskPO selectByTaskId(String taskId);
 
     List<TaskPO> listByType(Integer type);
+
+
+
 
     int deleteByPrimaryKey(Integer id);
 

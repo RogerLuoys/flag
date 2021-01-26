@@ -42,6 +42,13 @@
     where flag_id = #{flagId,jdbcType=VARCHAR}
   </update>
 
+  <update id="updateScanStatusByTaskId">
+    update task
+    set is_scanned = #{isScanned,jdbcType=TINYINT},
+        gmt_modified = now()
+    where task_id = #{taskId,jdbcType=VARCHAR}
+  </update>
+
   <update id="deleteByFlagId" parameterType="java.lang.String">
     update task
     set is_delete = 1,
