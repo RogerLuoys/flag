@@ -22,8 +22,8 @@
     <result column="actual" jdbcType="VARCHAR" property="actual" />
     <result column="flag_type" jdbcType="TINYINT" property="flagType" />
     <result column="priority" jdbcType="TINYINT" property="priority" />
-    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
-    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="creator_id" jdbcType="VARCHAR" property="creatorId" />
     <result column="owner_id" jdbcType="VARCHAR" property="ownerId" />
     <result column="owner_name" jdbcType="VARCHAR" property="ownerName" />

@@ -21,9 +21,9 @@ public class UserFlagPO {
 
     private Integer priority;
 
-    private Date startDate;
+    private Date startTime;
 
-    private Date endDate;
+    private Date endTime;
 
     private String creatorId;
 

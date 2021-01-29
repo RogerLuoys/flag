@@ -10,6 +10,7 @@
     <result column="expected" jdbcType="VARCHAR" property="expected" />
     <result column="actual" jdbcType="VARCHAR" property="actual" />
     <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="status" jdbcType="TINYINT" property="status" />
     <result column="priority" jdbcType="TINYINT" property="priority" />
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
@@ -19,7 +20,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, flag_id, flag_name, description, expected, actual, `type`, priority, start_time, end_time, creator_id,
+    id, flag_id, flag_name, description, expected, actual, `type`, `status`, priority, start_time, end_time, creator_id,
     gmt_create, gmt_modified
   </sql>
 
@@ -30,7 +31,7 @@
                       end_time, creator_id, is_delete,
                       gmt_create, gmt_modified)
     values (#{flagId,jdbcType=VARCHAR}, #{flagName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
-                                        #{expected,jdbcType=VARCHAR}, #{actual,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{type,jdbcType=TINYINT},
+                                        #{expected,jdbcType=VARCHAR}, #{actual,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{status,jdbcType=TINYINT},
                                         #{priority,jdbcType=TINYINT}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP},
                                         #{creatorId,jdbcType=VARCHAR}, 0, now(), now())
   </insert>

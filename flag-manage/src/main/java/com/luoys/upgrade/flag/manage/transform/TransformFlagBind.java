@@ -33,13 +33,13 @@ public class TransformFlagBind {
         bo.setActual(po.getActual());
         bo.setCreatorId(po.getCreatorId());
         bo.setDescription(po.getDescription());
-        bo.setEndDate(po.getEndDate());
+        bo.setEndDate(po.getEndTime());
         bo.setExpected(po.getExpected());
         bo.setFlagId(po.getFlagId());
         bo.setFlagName(po.getFlagName());
         bo.setType(po.getFlagType());
         bo.setPriority(po.getPriority());
-        bo.setStartDate(po.getStartDate());
+        bo.setStartDate(po.getStartTime());
         bo.setStatus(po.getStatus());
         bo.setOwnerId(po.getOwnerId());
         bo.setOwnerName(po.getOwnerName());
