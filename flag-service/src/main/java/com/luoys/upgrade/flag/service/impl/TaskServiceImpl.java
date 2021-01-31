@@ -30,7 +30,7 @@ public class TaskServiceImpl implements TaskService {
     @RequestMapping(value = "/modifyTask", method = RequestMethod.PUT)
     public Result<String> modifyTask(@RequestBody TaskBO taskBO) {
         LOG.info("=====》修改周期任务开始：{}", JSON.toJSONString(taskBO));
-        return Result.success(taskManager.newTask(taskBO));
+        return Result.success(taskManager.modifyTask(taskBO));
     }
 
     @Override

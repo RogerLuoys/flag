@@ -60,6 +60,7 @@ public class TaskManagerImpl implements TaskManager {
             LOG.error("---->要插入的任务不能为空");
             return 0;
         }
+        LOG.info("====》修改任务：{}", taskPO);
         return taskMapper.update(taskPO);
     }
 

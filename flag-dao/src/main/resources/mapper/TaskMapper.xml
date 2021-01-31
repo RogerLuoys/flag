@@ -59,6 +59,9 @@
   <update id="update" parameterType="com.luoys.upgrade.flag.dao.po.TaskPO">
     update task
     <set>
+      <if test="flagId != null">
+        flag_id = #{flagId,jdbcType=VARCHAR},
+      </if>
       <if test="taskName != null">
         task_name = #{taskName,jdbcType=VARCHAR},
       </if>
@@ -79,7 +82,7 @@
       </if>
       gmt_modified = now(),
     </set>
-    where flag_id = #{flag_id,jdbcType=VARCHAR}
+    where task_id = #{taskId,jdbcType=VARCHAR}
   </update>
 
   <!--查询相关sql-->
