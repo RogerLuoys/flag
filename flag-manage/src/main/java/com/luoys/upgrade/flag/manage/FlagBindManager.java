@@ -9,6 +9,8 @@ public interface FlagBindManager {
 
     List<UserFlagBO> queryUserFlag(FlagQueryBO flagQueryBO);
 
+    int countUserFlag(FlagQueryBO flagQueryBO);
+
     List<TaskDailyBO> queryUserTaskDaily(TaskDailyQueryBO taskDailyQueryBO);
 
     List<UserReportBO> queryUserReport(String ownerId);

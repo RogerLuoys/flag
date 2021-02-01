@@ -21,6 +21,10 @@ public interface FlagBindMapper {
             @Param("ownerId") String ownerId, @Param("witnessId") String witnessId, @Param("flagType") Integer flagType,
             @Param("flagStatus") Integer flagStatus, @Param("flagName") String flagName, @Param("startIndex") Integer startIndex);
 
+    int countUserFlag(
+            @Param("ownerId") String ownerId, @Param("witnessId") String witnessId, @Param("flagType") Integer flagType,
+            @Param("flagStatus") Integer flagStatus, @Param("flagName") String flagName);
+
     List<TaskDailyPO> listUserTaskDaily(@Param("ownerId") String ownerId, @Param("witnessId") String witnessId, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
     FlagBindPO selectByFlagId(String flagId);

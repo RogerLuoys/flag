@@ -54,6 +54,13 @@ public class FlagBindManagerImpl implements FlagBindManager {
     }
 
     @Override
+    public int countUserFlag(FlagQueryBO flagQueryBO) {
+        return flagBindMapper.countUserFlag(
+                flagQueryBO.getOwnerId(), flagQueryBO.getWitnessId(), flagQueryBO.getType(),
+                flagQueryBO.getStatus(), flagQueryBO.getFlagName());
+    }
+
+    @Override
     public int modifyWitness(FlagBindBO flagBindBO) {
         FlagBindPO flagBindPO = TransformFlagBind.TransformFlagBindBO2PO(flagBindBO);
         return flagBindMapper.update(flagBindPO);

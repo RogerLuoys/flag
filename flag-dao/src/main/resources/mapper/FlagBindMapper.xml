@@ -126,6 +126,31 @@
     </if>
   </select>
 
+  <select id="countUserFlag"  resultType="java.lang.Integer">
+    select
+    count(1)
+    from flag_bind fb
+    inner join flag f
+    on fb.flag_id = f.flag_id and fb.is_delete = 0
+    where
+    f.is_delete = 0 and f.type != 3
+    <if test="ownerId != null">
+      and fb.owner_id = #{ownerId,jdbcType=VARCHAR}
+    </if>
+    <if test="witnessId != null">
+      and fb.witness_id = #{witnessId,jdbcType=VARCHAR}
+    </if>
+    <if test="flagType != null">
+      and f.type = #{flagType,jdbcType=TINYINT}
+    </if>
+    <if test="flagStatus != null">
+      and f.status = #{flagStatus,jdbcType=TINYINT}
+    </if>
+    <if test="flagName != null">
+      and f.flag_name = #{flagName,jdbcType=TINYINT}
+    </if>
+  </select>
+
   <select id="listUserTaskDaily" resultMap="UserTaskDailyMap">
     select
     td.id, td.task_daily_id, td.task_id, td.flag_id, td.comment, td.description, td.end_time, td.gmt_create, td.gmt_modified, td.point, td.start_time, td.status, td.task_daily_name, td.type

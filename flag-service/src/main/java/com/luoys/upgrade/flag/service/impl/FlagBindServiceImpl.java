@@ -1,6 +1,7 @@
 package com.luoys.upgrade.flag.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.luoys.upgrade.flag.api.PageListJO;
 import com.luoys.upgrade.flag.api.Result;
 import com.luoys.upgrade.flag.api.bo.*;
 import com.luoys.upgrade.flag.api.service.FlagBindService;
@@ -25,7 +26,7 @@ public class FlagBindServiceImpl implements FlagBindService {
 
     @Override
     @RequestMapping(value = "/queryFlagList", method = RequestMethod.POST)
-    public Result<List<UserFlagBO>> queryFlagList(@RequestBody FlagQueryBO flagQueryBO) {
+    public Result<PageListJO<UserFlagBO>> queryFlagList(@RequestBody FlagQueryBO flagQueryBO) {
         LOG.info("====》按用户查询flag列表开始：{}", JSON.toJSONString(flagQueryBO));
         if (flagQueryBO.getOwnerId() == null && flagQueryBO.getWitnessId() == null) {
             return Result.error("---->所有者ID和见证人ID不能同时为空");
@@ -33,7 +34,10 @@ public class FlagBindServiceImpl implements FlagBindService {
         if (flagQueryBO.getPageIndex() == null) {
             flagQueryBO.setPageIndex(1);
         }
-        return Result.success(flagBindManager.queryUserFlag(flagQueryBO));
+        PageListJO<UserFlagBO> pageListJO = new PageListJO<>();
+        pageListJO.setList(flagBindManager.queryUserFlag(flagQueryBO));
+        pageListJO.setTotal(flagBindManager.countUserFlag(flagQueryBO));
+        return Result.success(pageListJO);
     }
 
     @Override
