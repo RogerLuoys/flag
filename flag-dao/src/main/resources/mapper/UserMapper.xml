@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luoys.upgrade.flag.dao.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.luoys.upgrade.flag.dao.po.UserPO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="pass_word" jdbcType="VARCHAR" property="passWord" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, login_name, pass_word, phone, user_name, `type`, `status`,
+    gmt_create, gmt_modified
+  </sql>
+  <!--新增-->
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.UserPO" useGeneratedKeys="true">
+    insert into user (user_id, login_name, pass_word,
+                      phone, user_name, `type`,
+                      `status`, is_delete, gmt_create,
+                      gmt_modified)
+    values (#{userId,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR},
+            #{phone,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT},
+            #{status,jdbcType=TINYINT}, 0, now(), now())
+  </insert>
+
+  <update id="update" parameterType="com.luoys.upgrade.flag.dao.po.UserPO">
+    update user
+    <set>
+      <if test="loginName != null">
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null">
+        pass_word = #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      gmt_modified = now()
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="checkUser" resultType="java.lang.Integer">
+    select
+    count(1)
+    from user
+    where login_name = #{loginName,jdbcType=VARCHAR}
+    and pass_word = #{passWord,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByLoginName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where login_name = #{loginName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.UserPO" useGeneratedKeys="true">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="loginName != null">
+        login_name,
+      </if>
+      <if test="passWord != null">
+        pass_word,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null">
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null">
+        #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BOOLEAN},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.luoys.upgrade.flag.dao.po.UserPO">
+    update user
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null">
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null">
+        pass_word = #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BOOLEAN},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.luoys.upgrade.flag.dao.po.UserPO">
+    update user
+    set user_id = #{userId,jdbcType=VARCHAR},
+      login_name = #{loginName,jdbcType=VARCHAR},
+      pass_word = #{passWord,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=TINYINT},
+      `status` = #{status,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=BOOLEAN},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
