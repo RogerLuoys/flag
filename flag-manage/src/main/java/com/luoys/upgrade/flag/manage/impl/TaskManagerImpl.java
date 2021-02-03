@@ -54,22 +54,22 @@ public class TaskManagerImpl implements TaskManager {
 
 
     @Override
-    public int modifyTask(TaskBO taskBO) {
+    public Integer modifyTask(TaskBO taskBO) {
         TaskPO taskPO = TransformTask.transformBO2PO(taskBO);
         if (taskPO == null) {
             LOG.error("---->要插入的任务不能为空");
-            return 0;
+            return null;
         }
         LOG.info("====》修改任务：{}", taskPO);
         return taskMapper.update(taskPO);
     }
 
     @Override
-    public int automaticConvertWeekTask() {
+    public Integer automaticConvertWeekTask() {
         List<TaskPO> taskPOList = taskMapper.listByType(WEEKLY_CYCLE);
         if (taskPOList.size() == 0) {
             LOG.error("----》未发现需要转换的周任务");
-            return 0;
+            return null;
         }
         LOG.info("====》需要转换的周任务数为：{}", taskPOList.size());
         int successNumber = 0;

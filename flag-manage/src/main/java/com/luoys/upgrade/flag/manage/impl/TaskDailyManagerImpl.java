@@ -61,10 +61,10 @@ public class TaskDailyManagerImpl implements TaskDailyManager {
 
 
     @Override
-    public int modifyTaskDailyStatus(String taskDailyId, Integer status) {
+    public Integer modifyTaskDailyStatus(String taskDailyId, Integer status) {
         if (taskDailyId == null || status == null) {
             LOG.error("----》入参不能为空，修改状态失败");
-            return 0;
+            return null;
         }
         return taskDailyMapper.updateStatusByTaskDailyId(taskDailyId, status);
     }

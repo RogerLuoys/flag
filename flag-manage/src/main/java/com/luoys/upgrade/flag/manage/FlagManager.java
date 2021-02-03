@@ -11,9 +11,9 @@ public interface FlagManager {
 
     String newFlag(FlagBO flagBO);
 
-    int removeByFlagId(String flagId);
+    Integer removeByFlagId(String flagId);
 
-    int modifyStatusByFlagId(String flagId,Integer status);
+    Integer modifyStatusByFlagId(String flagId,Integer status);
 
-    int modifyFlagBasic(FlagBO flagBO);
+    Integer modifyFlagBasic(FlagBO flagBO);
 }

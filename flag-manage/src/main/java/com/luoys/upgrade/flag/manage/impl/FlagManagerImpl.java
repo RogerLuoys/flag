@@ -62,10 +62,6 @@ public class FlagManagerImpl implements FlagManager {
     public String newFlag(FlagBO flagBO) {
         // 填入业务Id
         flagBO.setFlagId(NumberSender.createFlagId());
-//        if (flagBO.getFlagName() == null) {
-//            LOG.error("=====>必填字段 flagName 为空");
-//            return null;
-//        }
         if (flagBO.getType() == null) {
             flagBO.setType(DEFAULT_FLAG_TYPE);
         }
@@ -92,7 +88,7 @@ public class FlagManagerImpl implements FlagManager {
     }
 
     @Override
-    public int removeByFlagId(String flagId) {
+    public Integer removeByFlagId(String flagId) {
         int isFlagDeleted = flagMapper.deleteByFlagId(flagId);
         int isFlagBindDeleted = flagBindMapper.deleteByFlagId(flagId);
         int isTaskDeleted = taskMapper.countTaskByFlagId(flagId) > 0 ? taskMapper.deleteByFlagId(flagId) : 2;
@@ -105,13 +101,13 @@ public class FlagManagerImpl implements FlagManager {
             return 1;
         } else {
             LOG.error("---->关联表未删除成功，flagId：{}", flagId);
-            return 0;
+            return null;
         }
 
     }
 
     @Override
-    public int modifyStatusByFlagId(String flagId, Integer status) {
+    public Integer modifyStatusByFlagId(String flagId, Integer status) {
         int isFlagModified = flagMapper.updateStatusByFlagId(flagId, status);
         int isTaskModified = taskMapper.countTaskByFlagId(flagId) > 0 ? taskMapper.updateStatusByFlagId(flagId, 2) : 2;
         if (isFlagModified == 1 && isTaskModified == 1) {
@@ -121,13 +117,17 @@ public class FlagManagerImpl implements FlagManager {
             return 1;
         } else {
             LOG.error("---->关联表未更新成功，flagId：{}", flagId);
-            return 0;
+            return null;
         }
 
     }
 
     @Override
-    public int modifyFlagBasic(FlagBO flagBO) {
+    public Integer modifyFlagBasic(FlagBO flagBO) {
+        if (null == flagBO) {
+            LOG.error("---->要修改的基本信息不能为空");
+            return null;
+        }
         FlagPO flagPO = TransformFlag.TransformBO2PO(flagBO);
         return flagMapper.update(flagPO);
     }

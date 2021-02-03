@@ -19,7 +19,7 @@ public class UserPO implements Serializable {
      */
     private String loginName;
 
-    private String passWord;
+    private String password;
 
     /**
      * 用户号码，登录账号

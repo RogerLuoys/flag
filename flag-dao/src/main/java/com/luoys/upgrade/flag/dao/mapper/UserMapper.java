@@ -2,14 +2,16 @@ package com.luoys.upgrade.flag.dao.mapper;
 
 import com.luoys.upgrade.flag.dao.po.UserPO;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserMapper {
 
     int insert(UserPO userPO);
 
     int update(UserPO userPO);
 
-    int checkUser(@Param("loginName") String loginName, @Param("passWord") String passWord);
+    UserPO checkUser(@Param("loginName") String loginName, @Param("password") String password);
 
     int deleteByPrimaryKey(Integer id);
 

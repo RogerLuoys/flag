@@ -6,5 +6,5 @@ public interface TaskDailyManager {
 
     String newTaskDaily(TaskDailyBO taskDailyBO);
 
-    int modifyTaskDailyStatus(String taskDailyId, Integer status);
+    Integer modifyTaskDailyStatus(String taskDailyId, Integer status);
 }

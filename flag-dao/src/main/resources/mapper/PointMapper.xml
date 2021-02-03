@@ -13,7 +13,7 @@
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, point_id, owner_id, usable_point, expend_point, `type`, `status`, is_delete,
+    id, point_id, owner_id, usable_point, expend_point, `type`, `status`,
     gmt_create, gmt_modified
   </sql>
 

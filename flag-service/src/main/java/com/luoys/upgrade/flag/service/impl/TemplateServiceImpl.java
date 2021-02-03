@@ -29,7 +29,7 @@ public class TemplateServiceImpl implements TemplateService {
     @RequestMapping(value = "/queryFlagTemplateDetail", method = RequestMethod.GET)
     public Result<FlagTemplateBO> queryFlagTemplateDetail(@RequestParam("flagTemplateId") String flagTemplateId) {
         LOG.info("====>查询flag模板详情开始：flagTemplateId={}", flagTemplateId);
-        return Result.success(templateManager.queryFlagTemplateByFlagTemplateId(flagTemplateId));
+        return Result.ifSuccess(templateManager.queryFlagTemplateByFlagTemplateId(flagTemplateId));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class TemplateServiceImpl implements TemplateService {
     public Result<List<FlagTemplateBO>> queryFlagTemplateList(@RequestParam("ownerId") String ownerId,
                                                               @RequestParam(value = "flagName", required = false) String flagName){
         LOG.info("====>查询flag模板列表开始：ownerId={}, flagName={}", ownerId, flagName);
-        return Result.success(templateManager.queryFlagTemplateList(ownerId, flagName));
+        return Result.ifSuccess(templateManager.queryFlagTemplateList(ownerId, flagName));
     }
 
 }

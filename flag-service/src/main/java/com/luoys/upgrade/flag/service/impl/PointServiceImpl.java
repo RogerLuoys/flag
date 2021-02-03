@@ -25,14 +25,14 @@ public class PointServiceImpl implements PointService {
     @RequestMapping(value = "/queryPointSummary", method = RequestMethod.GET)
     public Result<PointBO> queryPointSummary(@RequestParam("ownerId") String ownerId) {
         LOG.info("====》查询用户总积分开始：ownerId={}", ownerId);
-        return Result.success(pointManager.queryPointByOwnerId(ownerId));
+        return Result.ifSuccess(pointManager.queryPointByOwnerId(ownerId));
     }
 
     @Override
     @RequestMapping(value = "/queryPointLogList", method = RequestMethod.GET)
     public Result<List<PointLogBO>> queryPointLogList(@RequestParam("pointId") String pointId, @RequestParam("type") Integer type) {
         LOG.info("====》查询用户积分记录列表开始：pointId={}， type={}", pointId, type);
-        return Result.success(pointManager.queryPointLog(pointId, type));
+        return Result.ifSuccess(pointManager.queryPointLog(pointId, type));
     }
 
 
@@ -40,6 +40,6 @@ public class PointServiceImpl implements PointService {
     @RequestMapping(value = "/newPointLog", method = RequestMethod.POST)
     public Result<String> newPointLog(@RequestBody PointLogBO pointLogBO) {
         LOG.info("====》新增用户积分记录开始：{}", pointLogBO);
-        return Result.success(pointManager.newPointLog(pointLogBO));
+        return Result.ifSuccess(pointManager.newPointLog(pointLogBO));
     }
 }

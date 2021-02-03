@@ -24,7 +24,7 @@ public class ReportServiceImpl implements ReportService {
     @RequestMapping(value = "/queryReportDetail", method = RequestMethod.GET)
     public Result<ReportBO> queryReportDetail(@RequestParam("flagId") String flagId) {
         LOG.info("=====》查询flag报告详情开始：flagId={}", flagId);
-        return Result.success(reportManager.queryReportByFlagId(flagId));
+        return Result.ifSuccess(reportManager.queryReportByFlagId(flagId));
     }
 
 }

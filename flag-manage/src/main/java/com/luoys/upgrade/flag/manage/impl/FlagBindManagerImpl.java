@@ -46,6 +46,9 @@ public class FlagBindManagerImpl implements FlagBindManager {
 
     @Override
     public List<UserFlagBO> queryUserFlag(FlagQueryBO flagQueryBO) {
+        if (null == flagQueryBO) {
+            return null;
+        }
         int startIndex = (flagQueryBO.getPageIndex() - 1) * 10;
         List<UserFlagPO> pos = flagBindMapper.listUserFlag(
                 flagQueryBO.getOwnerId(), flagQueryBO.getWitnessId(), flagQueryBO.getType(),
@@ -54,14 +57,22 @@ public class FlagBindManagerImpl implements FlagBindManager {
     }
 
     @Override
-    public int countUserFlag(FlagQueryBO flagQueryBO) {
+    public Integer countUserFlag(FlagQueryBO flagQueryBO) {
+        if (null == flagQueryBO) {
+            LOG.error("----》查询入参不能为空");
+            return null;
+        }
         return flagBindMapper.countUserFlag(
                 flagQueryBO.getOwnerId(), flagQueryBO.getWitnessId(), flagQueryBO.getType(),
                 flagQueryBO.getStatus(), flagQueryBO.getFlagName());
     }
 
     @Override
-    public int modifyWitness(FlagBindBO flagBindBO) {
+    public Integer modifyWitness(FlagBindBO flagBindBO) {
+        if (null == flagBindBO) {
+            LOG.error("----》入参不能为空");
+            return null;
+        }
         FlagBindPO flagBindPO = TransformFlagBind.TransformFlagBindBO2PO(flagBindBO);
         return flagBindMapper.update(flagBindPO);
     }
@@ -78,10 +89,12 @@ public class FlagBindManagerImpl implements FlagBindManager {
         return TransformFlagBind.TransformUserTaskDailyPO2BO(poList);
     }
 
-
-
     @Override
     public List<UserReportBO> queryUserReport(String ownerId) {
+        if (null == ownerId) {
+            LOG.error("----》入参不能为空");
+            return null;
+        }
         List<UserReportPO> poList = flagBindMapper.listUserReport(ownerId, null, null);
         return TransformFlagBind.TransformUserReportPO2BO(poList);
     }

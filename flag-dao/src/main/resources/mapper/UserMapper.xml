@@ -5,7 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="login_name" jdbcType="VARCHAR" property="loginName" />
-    <result column="pass_word" jdbcType="VARCHAR" property="passWord" />
+    <result column="pass_word" jdbcType="VARCHAR" property="password" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="type" jdbcType="TINYINT" property="type" />
@@ -23,7 +23,7 @@
                       phone, user_name, `type`,
                       `status`, is_delete, gmt_create,
                       gmt_modified)
-    values (#{userId,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR},
+    values (#{userId,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
             #{phone,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT},
             #{status,jdbcType=TINYINT}, 0, now(), now())
   </insert>
@@ -34,8 +34,8 @@
       <if test="loginName != null">
         login_name = #{loginName,jdbcType=VARCHAR},
       </if>
-      <if test="passWord != null">
-        pass_word = #{passWord,jdbcType=VARCHAR},
+      <if test="password != null">
+        pass_word = #{password,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
@@ -57,12 +57,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="checkUser" resultType="java.lang.Integer">
+  <select id="checkUser" resultMap="BaseResultMap">
     select
-    count(1)
+    <include refid="Base_Column_List" />
     from user
-    where login_name = #{loginName,jdbcType=VARCHAR}
-    and pass_word = #{passWord,jdbcType=VARCHAR}
+    where is_delete = 0
+    and login_name = #{loginName,jdbcType=VARCHAR}
+    and pass_word = #{password,jdbcType=VARCHAR}
   </select>
 
   <select id="selectByLoginName" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -84,7 +85,7 @@
       <if test="loginName != null">
         login_name,
       </if>
-      <if test="passWord != null">
+      <if test="password != null">
         pass_word,
       </if>
       <if test="phone != null">
@@ -116,8 +117,8 @@
       <if test="loginName != null">
         #{loginName,jdbcType=VARCHAR},
       </if>
-      <if test="passWord != null">
-        #{passWord,jdbcType=VARCHAR},
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
@@ -151,8 +152,8 @@
       <if test="loginName != null">
         login_name = #{loginName,jdbcType=VARCHAR},
       </if>
-      <if test="passWord != null">
-        pass_word = #{passWord,jdbcType=VARCHAR},
+      <if test="password != null">
+        pass_word = #{password,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
@@ -182,7 +183,7 @@
     update user
     set user_id = #{userId,jdbcType=VARCHAR},
       login_name = #{loginName,jdbcType=VARCHAR},
-      pass_word = #{passWord,jdbcType=VARCHAR},
+      pass_word = #{password,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
       `type` = #{type,jdbcType=TINYINT},

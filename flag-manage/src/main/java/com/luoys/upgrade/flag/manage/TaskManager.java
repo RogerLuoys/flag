@@ -6,10 +6,10 @@ public interface TaskManager {
 
     String newTask(TaskBO taskBO);
 
-    int modifyTask(TaskBO taskBO);
+    Integer modifyTask(TaskBO taskBO);
 
     TaskBO queryTaskByTaskId(String taskId);
 
-    int automaticConvertWeekTask();
+    Integer automaticConvertWeekTask();
 
 }

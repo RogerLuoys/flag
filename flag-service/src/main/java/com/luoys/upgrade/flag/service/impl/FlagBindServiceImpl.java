@@ -37,7 +37,7 @@ public class FlagBindServiceImpl implements FlagBindService {
         PageListJO<UserFlagBO> pageListJO = new PageListJO<>();
         pageListJO.setList(flagBindManager.queryUserFlag(flagQueryBO));
         pageListJO.setTotal(flagBindManager.countUserFlag(flagQueryBO));
-        return Result.success(pageListJO);
+        return Result.ifSuccess(pageListJO);
     }
 
     @Override
@@ -47,20 +47,20 @@ public class FlagBindServiceImpl implements FlagBindService {
         if (ownerId == null || ownerId == "") {
             return Result.error("----》所有者不能为空");
         }
-        return Result.success(flagBindManager.queryUserReport(ownerId));
+        return Result.ifSuccess(flagBindManager.queryUserReport(ownerId));
     }
 
     @Override
     @RequestMapping(value = "/modifyWitness", method = RequestMethod.PUT)
     public Result<String> modifyWitness(@RequestBody FlagBindBO flagBindBO) {
         LOG.info("====》修改见证人开始：{}", JSON.toJSONString(flagBindBO));
-        return Result.success(flagBindManager.modifyWitness(flagBindBO));
+        return Result.ifSuccess(flagBindManager.modifyWitness(flagBindBO));
     }
 
     @Override
     @RequestMapping(value = "/queryTaskDailyList", method = RequestMethod.POST)
     public Result<List<TaskDailyBO>> queryTaskDailyList(@RequestBody TaskDailyQueryBO taskDailyQueryBO) {
         LOG.info("====》按用户查询每日任务列表开始：{}", JSON.toJSONString(taskDailyQueryBO));
-        return Result.success(flagBindManager.queryUserTaskDaily(taskDailyQueryBO));
+        return Result.ifSuccess(flagBindManager.queryUserTaskDaily(taskDailyQueryBO));
     }
 }

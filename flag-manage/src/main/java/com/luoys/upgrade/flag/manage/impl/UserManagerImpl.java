@@ -7,7 +7,9 @@ import com.luoys.upgrade.flag.manage.transform.TransformUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserManagerImpl implements UserManager {
 
     private static Logger LOG = LoggerFactory.getLogger(UserManagerImpl.class);
@@ -16,25 +18,25 @@ public class UserManagerImpl implements UserManager {
     private UserMapper userMapper;
 
     @Override
-    public int modifyUser(UserBO userBO){
+    public Integer modifyUser(UserBO userBO){
         if (userBO == null) {
-            return 0;
+            return null;
         }
         return userMapper.update(TransformUser.transformBO2PO(userBO));
     }
 
     @Override
-    public int checkUser(String loginName, String passWord){
+    public UserBO checkUser(String loginName, String passWord){
         if (loginName == null || passWord == null) {
-            return 0;
+            return null;
         }
-        return userMapper.checkUser(loginName, passWord);
+        return TransformUser.transformPO2BO(userMapper.checkUser(loginName, passWord));
     }
 
     @Override
-    public int newUser(UserBO userBO){
+    public Integer newUser(UserBO userBO){
         if (userBO == null) {
-            return 0;
+            return null;
         }
         return userMapper.insert(TransformUser.transformBO2PO(userBO));
     }
