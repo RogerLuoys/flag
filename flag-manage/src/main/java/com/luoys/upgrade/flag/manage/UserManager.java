@@ -8,6 +8,8 @@ public interface UserManager {
 
     UserBO queryByLoginInfo(String loginName, String passWord);
 
+    UserBO queryByUserId(String userId);
+
     Boolean checkUserExist(String loginName);
 
     Integer newUser(UserBO userBO);

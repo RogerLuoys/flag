@@ -23,7 +23,7 @@ public class UserManagerImpl implements UserManager {
     private UserMapper userMapper;
 
     @Override
-    public Integer modifyUser(UserBO userBO){
+    public Integer modifyUser(UserBO userBO) {
         if (userBO == null) {
             return null;
         }
@@ -31,11 +31,19 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
-    public UserBO queryByLoginInfo(String loginName, String passWord){
+    public UserBO queryByLoginInfo(String loginName, String passWord) {
         if (loginName == null || passWord == null) {
             return null;
         }
         return TransformUser.transformPO2BO(userMapper.selectByLoginInfo(loginName, passWord));
+    }
+
+    @Override
+    public UserBO queryByUserId(String userId) {
+        if (null == userId) {
+            return null;
+        }
+        return TransformUser.transformPO2BO(userMapper.selectByUserId(userId));
     }
 
     @Override
@@ -48,7 +56,7 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
-    public Integer newUser(UserBO userBO){
+    public Integer newUser(UserBO userBO) {
         if (userBO == null || userBO.getLoginName() == null || userBO.getPassword() == null) {
             LOG.error("----》入参为空");
             return null;
@@ -62,7 +70,7 @@ public class UserManagerImpl implements UserManager {
         if (userBO.getStatus() == null) {
             userBO.setStatus(DEFAULT_STATUS);
         }
-       userBO.setUserId(NumberSender.createUserId());
+        userBO.setUserId(NumberSender.createUserId());
         return userMapper.insert(TransformUser.transformBO2PO(userBO));
     }
 }

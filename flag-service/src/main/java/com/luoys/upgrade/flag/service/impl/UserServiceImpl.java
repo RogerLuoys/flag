@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserManager userManager;
 
+    @Override
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public Result<UserBO> login(@RequestParam("loginName") String loginName, @RequestParam("password") String password){
         LOG.info("====》用户登录开始：loginName={}, password={}", loginName, password);
@@ -27,6 +28,14 @@ public class UserServiceImpl implements UserService {
         return Result.ifSuccess(userManager.queryByLoginInfo(loginName, password));
     }
 
+    @Override
+    @RequestMapping(value = "/queryByUserId", method = RequestMethod.GET)
+    public Result<UserBO> queryByUserId(@RequestParam("userId") String userId) {
+        LOG.info("====》查询用户信息开始：userId={}", userId);
+        return Result.ifSuccess(userManager.queryByUserId(userId));
+    }
+
+    @Override
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public Result<Integer> register(@RequestBody UserBO userBO){
         LOG.info("====》注册用户开始：{}", userBO);
@@ -36,6 +45,7 @@ public class UserServiceImpl implements UserService {
         return Result.ifSuccess(userManager.newUser(userBO));
     }
 
+    @Override
     @RequestMapping(value = "/modifyUser", method = RequestMethod.PUT)
     public Result<Integer> modifyUser(@RequestBody UserBO userBO){
         LOG.info("====》修改用户信息开始：{}", userBO);
