@@ -11,13 +11,13 @@ public interface UserMapper {
 
     int update(UserPO userPO);
 
-    UserPO checkUser(@Param("loginName") String loginName, @Param("password") String password);
+    UserPO selectByLoginInfo(@Param("loginName") String loginName, @Param("password") String password);
+
+    UserPO selectByLoginName(String loginName);
 
     int deleteByPrimaryKey(Integer id);
 
     int insertSelective(UserPO record);
-
-    UserPO selectByLoginName(Integer id);
 
     int updateByPrimaryKeySelective(UserPO record);
 

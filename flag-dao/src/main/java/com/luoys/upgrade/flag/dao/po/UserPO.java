@@ -31,12 +31,12 @@ public class UserPO implements Serializable {
     /**
      * 1--管理员；2--普通账号
      */
-    private Byte type;
+    private Integer type;
 
     /**
      * 1-正常；
      */
-    private Byte status;
+    private Integer status;
 
     private Date gmtCreate;
 
