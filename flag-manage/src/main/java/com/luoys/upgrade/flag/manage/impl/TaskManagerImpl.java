@@ -84,6 +84,8 @@ public class TaskManagerImpl implements TaskManager {
             for (int i = 0; i < cycles.length; i++) {
                 taskDailyPO.setStartTime(TimeUtil.getWeekCycleStartTime(cycles[i]));
                 taskDailyPO.setEndTime(TimeUtil.getWeekCycleEndTime(cycles[i]));
+                taskDailyPO.setTaskDailyId(NumberSender.createTaskDailyId());
+                taskDailyPO.setStatus(1);
                 taskDailyMapper.insert(taskDailyPO);
                 successNumber++;
             }

@@ -4,6 +4,7 @@ import com.luoys.upgrade.flag.api.bo.TaskBO;
 import com.luoys.upgrade.flag.dao.po.TaskPO;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TransformTask {
@@ -14,7 +15,6 @@ public class TransformTask {
         }
         TaskPO po = new TaskPO();
         po.setCreatorId(bo.getCreatorId());
-        po.setCycle(bo.getCycle());
         po.setDescription(bo.getDescription());
         po.setFlagId(bo.getFlagId());
         po.setIsScanned(bo.getIsScanned());
@@ -23,6 +23,18 @@ public class TransformTask {
         po.setTaskId(bo.getTaskId());
         po.setTaskName(bo.getTaskName());
         po.setType(bo.getType());
+        // 如果任务周期字符串有值，则直接使用；否则将任务周期列表转为字符串（逗号分隔）
+        if (null != bo.getCycle()) {
+            po.setCycle(bo.getCycle());
+        } else {
+            StringBuilder cycles = new StringBuilder();
+            for (String cycle : bo.getCycleList()) {
+                cycles.append(cycle);
+                cycles.append(",");
+            }
+            cycles.delete(cycles.length() - 1, cycles.length());
+            po.setCycle(cycles.toString());
+        }
         return po;
     }
 
@@ -41,6 +53,9 @@ public class TransformTask {
         bo.setTaskId(po.getTaskId());
         bo.setTaskName(po.getTaskName());
         bo.setType(po.getType());
+        // 周期转换成List格式
+        String[] cycles = po.getCycle().split(",");
+        bo.setCycleList(new ArrayList<>(Arrays.asList(cycles)));
         return bo;
     }
 

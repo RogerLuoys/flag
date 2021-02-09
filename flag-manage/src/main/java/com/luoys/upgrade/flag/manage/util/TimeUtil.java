@@ -19,7 +19,7 @@ public class TimeUtil {
      * @param cycle task表里的周cycle
      * @return 以周为周期的每日任务开始时间
      */
-    public static Date getWeekCycleStartTime(int cycle) {
+    public static Date getWeekCycleStartTime(long cycle) {
         if (cycle < 1 || cycle > 7) {
             return null;
         }
@@ -34,7 +34,7 @@ public class TimeUtil {
      * @return 以周为周期的每日任务开始时间
      */
     public static Date getWeekCycleStartTime(String cycle) {
-        return getWeekCycleStartTime(Integer.parseInt(cycle));
+        return getWeekCycleStartTime(Long.parseLong(cycle));
     }
 
     /**
@@ -42,7 +42,7 @@ public class TimeUtil {
      * @param cycle task表里的周cycle
      * @return 以周为周期的每日任务结束时间
      */
-    public static Date getWeekCycleEndTime(int cycle) {
+    public static Date getWeekCycleEndTime(long cycle) {
         if (cycle < 1 || cycle > 7) {
             return null;
         }
@@ -57,6 +57,6 @@ public class TimeUtil {
      * @return 以周为周期的每日任务结束时间
      */
     public static Date getWeekCycleEndTime(String cycle) {
-        return getWeekCycleEndTime(Integer.parseInt(cycle));
+        return getWeekCycleEndTime(Long.parseLong(cycle));
     }
 }

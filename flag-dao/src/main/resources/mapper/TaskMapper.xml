@@ -115,6 +115,7 @@
     from task
     where is_delete = 0
     and status = 2
+      and is_scanned = 0
     and type = #{type,jdbcType=INTEGER}
   </select>
 

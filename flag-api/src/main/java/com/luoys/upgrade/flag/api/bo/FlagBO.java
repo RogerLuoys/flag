@@ -25,7 +25,8 @@ public class FlagBO {
     private String createId;
 
     // flag 关联的任务信息
-    private List<TaskBO> tasks;
+    private List<TaskBO> taskList;
+    private Integer totalTask;
 
     // flag 关联的账户信息
     private String ownerId;

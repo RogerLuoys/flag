@@ -39,9 +39,12 @@ public class FlagManagerImpl implements FlagManager {
     // 查询flag详情
     @Override
     public FlagBO queryFlagByFlagId(String flagId) {
+        // 查询flag基本信息
         FlagPO flagPO = flagMapper.selectByFlagId(flagId);
-        FlagBindPO flagBindPO = flagBindMapper.selectByFlagId(flagId);
         FlagBO flagBO = TransformFlag.TransformPO2BO(flagPO);
+
+        // 查询flag绑定关系
+        FlagBindPO flagBindPO = flagBindMapper.selectByFlagId(flagId);
         if (flagBindPO == null) {
             LOG.error("====>未查询到flag与账户关联信息：{}", flagId);
             return null;
@@ -51,10 +54,11 @@ public class FlagManagerImpl implements FlagManager {
         flagBO.setWitnessId(flagBindPO.getWitnessId());
         flagBO.setWitnessName(flagBindPO.getWitnessName());
 
-        // 关联任务
+        // 关联周期任务
         List<TaskPO> taskPOList = taskMapper.listByFlagId(flagId);
         List<TaskBO> taskBOList = TransformTask.TransformPO2BO(taskPOList);
-        flagBO.setTasks(taskBOList);
+        flagBO.setTaskList(taskBOList);
+        flagBO.setTotalTask(taskBOList.size());
         return flagBO;
     }
 
