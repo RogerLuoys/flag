@@ -23,8 +23,8 @@ public class TimeUtil {
         if (cycle < 1 || cycle > 7) {
             return null;
         }
-        // 获取当天零点
-        Date todayStart = getToday(0, 0, 0);
+        // 获取当天零点（有精度丢失）
+        Date todayStart = getToday(0, 0, 30);
         return new Date(todayStart.getTime() + 24 * 60 * 60 * 1000 * cycle);
     }
 
@@ -46,8 +46,8 @@ public class TimeUtil {
         if (cycle < 1 || cycle > 7) {
             return null;
         }
-        // 获取当天半夜
-        Date todayEnd = getToday(23, 59, 59);
+        // 获取当天半夜（有精度丢失）
+        Date todayEnd = getToday(23, 59, 30);
         return new Date(todayEnd.getTime() + 24 * 60 * 60 * 1000 * cycle);
     }
 

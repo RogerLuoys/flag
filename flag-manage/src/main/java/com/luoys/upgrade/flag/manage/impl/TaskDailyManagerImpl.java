@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TaskDailyManagerImpl implements TaskDailyManager {
 
-    private static Logger LOG = LoggerFactory.getLogger(TaskDailyManagerImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TaskDailyManagerImpl.class);
 
     @Autowired
     private TaskDailyMapper taskDailyMapper;

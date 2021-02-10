@@ -22,7 +22,7 @@ import java.util.List;
 @Component
 public class FlagManagerImpl implements FlagManager {
 
-    private static Logger LOG = LoggerFactory.getLogger(FlagManagerImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FlagManagerImpl.class);
 
     private final Integer DEFAULT_FLAG_TYPE = 1;
     private final Integer DEFAULT_PRIORITY = 1;

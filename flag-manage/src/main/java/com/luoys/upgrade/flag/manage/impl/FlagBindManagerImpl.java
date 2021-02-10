@@ -18,7 +18,7 @@ import java.util.List;
 @Component
 public class FlagBindManagerImpl implements FlagBindManager {
 
-    private static Logger LOG = LoggerFactory.getLogger(FlagBindManager.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FlagBindManager.class);
 
 
     @Autowired

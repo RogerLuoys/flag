@@ -19,7 +19,7 @@ import java.util.List;
 @Component
 public class TemplateManagerImpl implements TemplateManager {
 
-    private static Logger LOG = LoggerFactory.getLogger(TemplateManagerImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TemplateManagerImpl.class);
 
     @Autowired
     private FlagTemplateMapper flagTemplateMapper;

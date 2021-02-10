@@ -18,7 +18,7 @@ import java.util.List;
 
 @Component
 public class ReportManagerImpl implements ReportManager {
-    private static Logger LOG = LoggerFactory.getLogger(ReportManagerImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ReportManagerImpl.class);
 
     @Autowired
     private FlagMapper flagMapper;
