@@ -22,6 +22,9 @@ public class TransformFlagBind {
         po.setOwnerId(bo.getOwnerId());
         po.setStatus(bo.getStatus());
         po.setType(bo.getType());
+        po.setOwnerName(bo.getOwnerName());
+        po.setWitnessId(bo.getWitnessId());
+        po.setWitnessName(bo.getWitnessName());
         return po;
     }
 

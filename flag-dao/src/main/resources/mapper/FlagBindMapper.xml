@@ -82,8 +82,11 @@
   <update id="update" parameterType="com.luoys.upgrade.flag.dao.po.FlagBindPO">
     update flag_bind
     <set>
-      <if test="ownerId != null">
-        owner_id = #{ownerId,jdbcType=VARCHAR},
+      <if test="witnessId != null">
+        witness_id = #{witnessId,jdbcType=VARCHAR},
+      </if>
+      <if test="witnessName != null">
+        witness_name = #{witnessName,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         `type` = #{type,jdbcType=TINYINT},
@@ -93,7 +96,7 @@
       </if>
       gmt_modified = now(),
     </set>
-    where flag_id = #{flag_id,jdbcType=VARCHAR}
+    where flag_id = #{flagId,jdbcType=VARCHAR}
   </update>
 
   <!--查询相关sql-->
