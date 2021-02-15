@@ -41,6 +41,19 @@
     where task_daily_id = #{taskDailyId,jdbcType=VARCHAR}
   </update>
 
+  <update id="updateCommentByTaskDailyId">
+    update task_daily
+    set comment = #{comment,jdbcType=VARCHAR},
+        gmt_modified = now()
+    where task_daily_id = #{taskDailyId,jdbcType=VARCHAR}
+  </update>
+
+  <update id="deleteByTaskDailyId">
+    update task_daily
+    set is_delete = 1,
+        gmt_modified = now()
+    where task_daily_id = #{taskDailyId,jdbcType=VARCHAR}
+  </update>
 
   <select id="listByFlagId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select

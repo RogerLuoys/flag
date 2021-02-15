@@ -13,6 +13,10 @@ public interface TaskDailyMapper {
 
     int updateStatusByTaskDailyId(@Param("taskDailyId") String taskDailyId, @Param("status") Integer status);
 
+    int updateCommentByTaskDailyId(@Param("taskDailyId") String taskDailyId, @Param("comment") String comment);
+
+    int deleteByTaskDailyId(@Param("taskDailyId") String taskDailyId);
+
     List<TaskDailyPO> listByFlagId(@Param("flagId") String flagId);
 
     int deleteByPrimaryKey(Integer id);

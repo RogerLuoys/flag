@@ -68,4 +68,13 @@ public class TaskDailyManagerImpl implements TaskDailyManager {
         }
         return taskDailyMapper.updateStatusByTaskDailyId(taskDailyId, status);
     }
+
+    @Override
+    public Integer modifyTaskDailyComment(String taskDailyId, String comment) {
+        if (taskDailyId == null || comment == null) {
+            LOG.error("----》入参不能为空，修改备注失败");
+            return null;
+        }
+        return taskDailyMapper.updateCommentByTaskDailyId(taskDailyId, comment);
+    }
 }
