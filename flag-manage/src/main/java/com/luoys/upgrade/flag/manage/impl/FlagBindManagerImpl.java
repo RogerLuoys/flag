@@ -90,12 +90,12 @@ public class FlagBindManagerImpl implements FlagBindManager {
     }
 
     @Override
-    public List<UserReportBO> queryUserReport(String ownerId) {
+    public List<UserReportBO> queryUserReport(String ownerId, Integer status) {
         if (null == ownerId) {
             LOG.error("----》入参不能为空");
             return null;
         }
-        List<UserReportPO> poList = flagBindMapper.listUserReport(ownerId, null, null);
+        List<UserReportPO> poList = flagBindMapper.listUserReport(ownerId, status, null, null);
         return TransformFlagBind.TransformUserReportPO2BO(poList);
     }
 

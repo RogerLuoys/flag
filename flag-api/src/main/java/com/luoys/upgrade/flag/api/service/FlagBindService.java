@@ -12,7 +12,7 @@ public interface FlagBindService {
 
     Result<PageListJO<UserFlagBO>> queryFlagList(FlagQueryBO flagQueryBO);
 
-    Result<List<UserReportBO>> queryReportList(String ownerId);
+    Result<List<UserReportBO>> queryReportList(String ownerId, Integer status);
 
     Result<String> modifyWitness(FlagBindBO flagBindBO);
 

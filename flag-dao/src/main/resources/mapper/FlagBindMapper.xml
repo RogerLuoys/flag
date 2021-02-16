@@ -194,6 +194,9 @@
     where
     f.type != 3
     and fb.owner_id = #{ownerId,jdbcType=VARCHAR}
+    <if test="status != null">
+      and f.status = #{status,jdbcType=TINYINT}
+    </if>
     <if test="startTime != null">
       and td.start_time >= #{startTime,jdbcType=TIMESTAMP}
     </if>

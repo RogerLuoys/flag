@@ -29,7 +29,7 @@ public interface FlagBindMapper {
 
     FlagBindPO selectByFlagId(String flagId);
 
-    List<UserReportPO> listUserReport(@Param("ownerId") String ownerId, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+    List<UserReportPO> listUserReport(@Param("ownerId") String ownerId, @Param("status") Integer status, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
 //
 //    int insertSelective(FlagBindPO record);

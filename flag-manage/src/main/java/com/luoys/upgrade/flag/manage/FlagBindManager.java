@@ -13,7 +13,7 @@ public interface FlagBindManager {
 
     List<TaskDailyBO> queryUserTaskDaily(TaskDailyQueryBO taskDailyQueryBO);
 
-    List<UserReportBO> queryUserReport(String ownerId);
+    List<UserReportBO> queryUserReport(String ownerId, Integer status);
 
     Integer modifyWitness(FlagBindBO flagBindBO);
 }
