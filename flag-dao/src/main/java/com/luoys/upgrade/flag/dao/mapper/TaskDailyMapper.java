@@ -19,11 +19,12 @@ public interface TaskDailyMapper {
 
     List<TaskDailyPO> listByFlagId(@Param("flagId") String flagId);
 
+    TaskDailyPO selectByTaskDailyId(String taskDailyId);
+
+
     int deleteByPrimaryKey(Integer id);
 
     int insertSelective(TaskDailyPO record);
-
-    TaskDailyPO selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(TaskDailyPO record);
 

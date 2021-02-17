@@ -62,12 +62,14 @@
     where flag_id = #{flagId,jdbcType=VARCHAR}
   </select>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByTaskDailyId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from task_daily
-    where id = #{id,jdbcType=INTEGER}
+    where task_daily_id = #{taskDailyId,jdbcType=INTEGER}
   </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from task_daily
     where id = #{id,jdbcType=INTEGER}

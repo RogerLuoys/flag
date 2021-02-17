@@ -17,12 +17,51 @@
     gmt_create, gmt_modified
   </sql>
 
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.PointPO" useGeneratedKeys="true">
+    insert into point (point_id, owner_id, usable_point,
+                       expend_point, `type`, `status`,
+                       is_delete, gmt_create, gmt_modified
+    )
+    values (#{pointId,jdbcType=VARCHAR}, #{ownerId,jdbcType=VARCHAR}, #{usablePoint,jdbcType=INTEGER},
+            #{expendPoint,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{status,jdbcType=TINYINT},
+            0, now(), now()
+           )
+  </insert>
+
+  <update id="update" parameterType="com.luoys.upgrade.flag.dao.po.PointPO">
+    update point
+    <set>
+      <if test="usablePoint != null">
+        usable_point = #{usablePoint,jdbcType=INTEGER},
+      </if>
+      <if test="expendPoint != null">
+        expend_point = #{expendPoint,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      gmt_modified = now(),
+    </set>
+    where point_id = #{pointId,jdbcType=VARCHAR}
+  </update>
+
   <select id="selectByOwnerId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from point
     where is_delete = 0
     and owner_id = #{ownerId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByPointId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from point
+    where is_delete = 0
+    and point_id = #{pointId,jdbcType=VARCHAR}
   </select>
 
 
@@ -36,16 +75,7 @@
     delete from point
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.PointPO" useGeneratedKeys="true">
-    insert into point (point_id, owner_id, usable_point, 
-      expend_point, `type`, `status`, 
-      is_delete, gmt_create, gmt_modified
-      )
-    values (#{pointId,jdbcType=VARCHAR}, #{ownerId,jdbcType=VARCHAR}, #{usablePoint,jdbcType=INTEGER}, 
-      #{expendPoint,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, 
-      #{isDelete,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
-      )
-  </insert>
+
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.PointPO" useGeneratedKeys="true">
     insert into point
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -107,39 +137,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.luoys.upgrade.flag.dao.po.PointPO">
-    update point
-    <set>
-      <if test="pointId != null">
-        point_id = #{pointId,jdbcType=VARCHAR},
-      </if>
-      <if test="ownerId != null">
-        owner_id = #{ownerId,jdbcType=VARCHAR},
-      </if>
-      <if test="usablePoint != null">
-        usable_point = #{usablePoint,jdbcType=INTEGER},
-      </if>
-      <if test="expendPoint != null">
-        expend_point = #{expendPoint,jdbcType=INTEGER},
-      </if>
-      <if test="type != null">
-        `type` = #{type,jdbcType=TINYINT},
-      </if>
-      <if test="status != null">
-        `status` = #{status,jdbcType=TINYINT},
-      </if>
-      <if test="isDelete != null">
-        is_delete = #{isDelete,jdbcType=TINYINT},
-      </if>
-      <if test="gmtCreate != null">
-        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="gmtModified != null">
-        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
   <update id="updateByPrimaryKey" parameterType="com.luoys.upgrade.flag.dao.po.PointPO">
     update point
     set point_id = #{pointId,jdbcType=VARCHAR},

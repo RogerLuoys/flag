@@ -2,12 +2,8 @@ package com.luoys.upgrade.flag.manage.impl;
 
 import com.luoys.upgrade.flag.api.NumberSender;
 import com.luoys.upgrade.flag.api.bo.TaskDailyBO;
-import com.luoys.upgrade.flag.dao.mapper.FlagBindMapper;
-import com.luoys.upgrade.flag.dao.mapper.FlagMapper;
-import com.luoys.upgrade.flag.dao.mapper.TaskDailyMapper;
-import com.luoys.upgrade.flag.dao.po.FlagBindPO;
-import com.luoys.upgrade.flag.dao.po.FlagPO;
-import com.luoys.upgrade.flag.dao.po.TaskDailyPO;
+import com.luoys.upgrade.flag.dao.mapper.*;
+import com.luoys.upgrade.flag.dao.po.*;
 import com.luoys.upgrade.flag.manage.TaskDailyManager;
 import com.luoys.upgrade.flag.manage.transform.TransformTaskDaily;
 import org.slf4j.Logger;
@@ -15,10 +11,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 @Component
 public class TaskDailyManagerImpl implements TaskDailyManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(TaskDailyManagerImpl.class);
+    private static final Integer COMPLETED = 2;
 
     @Autowired
     private TaskDailyMapper taskDailyMapper;
@@ -28,6 +27,12 @@ public class TaskDailyManagerImpl implements TaskDailyManager {
 
     @Autowired
     private FlagBindMapper flagBindMapper;
+
+    @Autowired
+    private PointLogMapper pointLogMapper;
+
+    @Autowired
+    private PointMapper pointMapper;
 
     @Override
     public String newTaskDaily(TaskDailyBO taskDailyBO) {
@@ -61,12 +66,32 @@ public class TaskDailyManagerImpl implements TaskDailyManager {
 
 
     @Override
-    public Integer modifyTaskDailyStatus(String taskDailyId, Integer status) {
-        if (taskDailyId == null || status == null) {
+    public Integer modifyTaskDailyStatus(String taskDailyId, Integer status, String pointId) {
+        if (taskDailyId == null || status == null || pointId == null) {
             LOG.error("----》入参不能为空，修改状态失败");
             return null;
         }
-        return taskDailyMapper.updateStatusByTaskDailyId(taskDailyId, status);
+        if (status == COMPLETED) {
+            TaskDailyPO taskDailyPO = taskDailyMapper.selectByTaskDailyId(taskDailyId);
+            PointLogPO pointLogPO = new PointLogPO();
+            pointLogPO.setPointId(pointId);
+            pointLogPO.setDescription("完成每日任务获得");
+            pointLogPO.setComment(taskDailyPO.getTaskDailyName());
+            pointLogPO.setPoint(taskDailyPO.getPoint());
+            pointLogPO.setRecordTime(new Date());
+            pointLogPO.setType(1);
+            LOG.info("====》增加积分记录：{}", pointLogPO);
+            int pointLogResult = pointLogMapper.insert(pointLogPO);
+            PointPO pointPO = pointMapper.selectByPointId(pointId);
+            int usablePoint = pointPO.getUsablePoint() + taskDailyPO.getPoint();
+            pointPO.setUsablePoint(usablePoint);
+            LOG.info("====》增加账号可用积分：{}", pointPO);
+            int pointIncrementResult = pointMapper.update(pointPO);
+            int updateTaskDailyResult = taskDailyMapper.updateStatusByTaskDailyId(taskDailyId, status);
+            return (pointIncrementResult == 1 && pointLogResult == 1 && updateTaskDailyResult == 1) ? 1 : null;
+        } else {
+            return taskDailyMapper.updateStatusByTaskDailyId(taskDailyId, status);
+        }
     }
 
     @Override

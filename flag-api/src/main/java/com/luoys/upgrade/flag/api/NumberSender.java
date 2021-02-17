@@ -8,6 +8,7 @@ public class NumberSender {
     private static final String TASK_PREFIX = "2";
     private static final String TASK_DAILY_PREFIX = "3";
     private static final String USER_PREFIX = "4";
+    private static final String POINT_PREFIX = "5";
     private static final Integer RANDOM_BOUND = 9;
 
     private static Random rd = new Random();
@@ -43,5 +44,10 @@ public class NumberSender {
     public static String createUserId() {
 
         return USER_PREFIX + createIdByCurrentTime();
+    }
+
+    public static String createPointId() {
+
+        return POINT_PREFIX + createIdByCurrentTime();
     }
 }

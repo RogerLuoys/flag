@@ -28,9 +28,10 @@ public class TaskDailyServiceImpl implements TaskDailyService {
 
     @Override
     @RequestMapping(value = "/modifyTaskDailyStatus", method = RequestMethod.PUT)
-    public Result<String> modifyTaskDailyStatus(@RequestParam("taskDailyId") String taskDailyId, @RequestParam("status") Integer status) {
-        LOG.info("====》修改每日任务状态开始：taskDailyId={}，status={}", taskDailyId, status);
-        return Result.ifSuccess(taskDailyManager.modifyTaskDailyStatus(taskDailyId, status));
+    public Result<Integer> modifyTaskDailyStatus(
+            @RequestParam("taskDailyId") String taskDailyId, @RequestParam("status") Integer status, @RequestParam("pointId") String pointId) {
+        LOG.info("====》修改每日任务状态开始：taskDailyId={}，status={}, pointId={}", taskDailyId, status, pointId);
+        return Result.ifSuccess(taskDailyManager.modifyTaskDailyStatus(taskDailyId, status, pointId));
     }
 
     @Override

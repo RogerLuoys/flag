@@ -2,7 +2,9 @@ package com.luoys.upgrade.flag.manage.impl;
 
 import com.luoys.upgrade.flag.api.NumberSender;
 import com.luoys.upgrade.flag.api.bo.UserBO;
+import com.luoys.upgrade.flag.dao.mapper.PointMapper;
 import com.luoys.upgrade.flag.dao.mapper.UserMapper;
+import com.luoys.upgrade.flag.dao.po.PointPO;
 import com.luoys.upgrade.flag.dao.po.UserPO;
 import com.luoys.upgrade.flag.manage.UserManager;
 import com.luoys.upgrade.flag.manage.transform.TransformUser;
@@ -21,6 +23,9 @@ public class UserManagerImpl implements UserManager {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private PointMapper pointMapper;
 
     @Override
     public Integer modifyUser(UserBO userBO) {
@@ -71,6 +76,16 @@ public class UserManagerImpl implements UserManager {
             userBO.setStatus(DEFAULT_STATUS);
         }
         userBO.setUserId(NumberSender.createUserId());
-        return userMapper.insert(TransformUser.transformBO2PO(userBO));
+        LOG.info("====》新增用户：{}", userBO);
+        int insertUserResult = userMapper.insert(TransformUser.transformBO2PO(userBO));
+        PointPO pointPO = new PointPO();
+        pointPO.setUsablePoint(0);
+        pointPO.setExpendPoint(0);
+        pointPO.setStatus(1);
+        pointPO.setOwnerId(userBO.getUserId());
+        pointPO.setPointId(NumberSender.createPointId());
+        LOG.info("====》新增积分账号：{}", pointPO);
+        int insertPointResult = pointMapper.insert(pointPO);
+        return (insertUserResult == 1 && insertPointResult == 1) ? 1 : null;
     }
 }
