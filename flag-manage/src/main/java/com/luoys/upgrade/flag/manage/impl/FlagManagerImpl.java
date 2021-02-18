@@ -87,8 +87,17 @@ public class FlagManagerImpl implements FlagManager {
         flagBindPO.setStatus(1);
         flagBindPO.setType(1);
         flagBindMapper.insert(flagBindPO);
+        if (flagBO.getTaskList().size() == 0) {
+            // 无任务需要新增
+            return flagBO.getFlagId();
+        }
+        for (TaskBO item : flagBO.getTaskList()) {
+            TaskPO taskPO = TransformTask.transformBO2PO(item);
+            taskPO.setTaskId(NumberSender.createTaskId());
+            LOG.info("=====>创建周期任务：{}", taskPO);
+            taskMapper.insert(TransformTask.transformBO2PO(item));
+        }
         return flagBO.getFlagId();
-
     }
 
     @Override

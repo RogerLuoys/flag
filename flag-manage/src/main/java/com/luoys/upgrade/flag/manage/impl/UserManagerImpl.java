@@ -5,7 +5,6 @@ import com.luoys.upgrade.flag.api.bo.UserBO;
 import com.luoys.upgrade.flag.dao.mapper.PointMapper;
 import com.luoys.upgrade.flag.dao.mapper.UserMapper;
 import com.luoys.upgrade.flag.dao.po.PointPO;
-import com.luoys.upgrade.flag.dao.po.UserPO;
 import com.luoys.upgrade.flag.manage.UserManager;
 import com.luoys.upgrade.flag.manage.transform.TransformUser;
 import org.slf4j.Logger;
