@@ -1,5 +1,6 @@
 package com.luoys.upgrade.flag.manage.transform;
 
+import com.luoys.upgrade.flag.api.bo.FlagBO;
 import com.luoys.upgrade.flag.api.bo.FlagTemplateBO;
 import com.luoys.upgrade.flag.api.bo.PointLogBO;
 import com.luoys.upgrade.flag.dao.po.FlagTemplatePO;
@@ -35,4 +36,19 @@ public class TransformFlagTemplate {
         }
         return bo;
     }
+
+
+    public static FlagBO transformTemplateBO2FlagBO(FlagTemplateBO flagTemplateBO) {
+        if (flagTemplateBO == null) {
+            return null;
+        }
+        FlagBO flagBO = new FlagBO();
+        flagBO.setOwnerId(flagTemplateBO.getOwnerId());
+        flagBO.setFlagName(flagTemplateBO.getFlagName());
+        flagBO.setExpected(flagTemplateBO.getExpected());
+        flagBO.setDescription(flagTemplateBO.getDescription());
+        flagBO.setType(flagTemplateBO.getType());
+        return flagBO;
+    }
+
 }

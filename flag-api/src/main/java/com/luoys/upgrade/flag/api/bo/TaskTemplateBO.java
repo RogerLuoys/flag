@@ -2,6 +2,8 @@ package com.luoys.upgrade.flag.api.bo;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class TaskTemplateBO {
 
@@ -29,6 +31,8 @@ public class TaskTemplateBO {
      * 1-临时任务：20200101；2-按周循环：Mon=周一；3-按月循环：01=每月1号；4-按年循环：0101=每年一月一日；5-NewYear=新年
      */
     private String cycle;
+
+    private List<String> cycleList;
 
     private String ownerId;
 

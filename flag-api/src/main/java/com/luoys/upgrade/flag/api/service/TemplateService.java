@@ -12,4 +12,5 @@ public interface TemplateService {
 
     Result<List<FlagTemplateBO>> queryFlagTemplateList(String ownerId, String flagName);
 
+    Result<String> useFlagTemplate(FlagTemplateBO flagTemplateBO);
 }
