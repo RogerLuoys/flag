@@ -1,6 +1,6 @@
 package com.luoys.upgrade.flag.manage.impl;
 
-import com.luoys.upgrade.flag.api.NumberSender;
+import com.luoys.common.api.NumberSender;
 import com.luoys.upgrade.flag.api.bo.TaskBO;
 import com.luoys.upgrade.flag.dao.mapper.TaskDailyMapper;
 import com.luoys.upgrade.flag.dao.mapper.TaskMapper;

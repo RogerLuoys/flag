@@ -1,12 +1,11 @@
 package com.luoys.upgrade.flag.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.luoys.upgrade.flag.api.PageListJO;
-import com.luoys.upgrade.flag.api.Result;
+import com.luoys.common.api.PageInfo;
+import com.luoys.common.api.Result;
 import com.luoys.upgrade.flag.api.bo.*;
 import com.luoys.upgrade.flag.api.service.FlagBindService;
 import com.luoys.upgrade.flag.manage.FlagBindManager;
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ public class FlagBindServiceImpl implements FlagBindService {
 
     @Override
     @RequestMapping(value = "/queryFlagList", method = RequestMethod.POST)
-    public Result<PageListJO<UserFlagBO>> queryFlagList(@RequestBody FlagQueryBO flagQueryBO) {
+    public Result<PageInfo<UserFlagBO>> queryFlagList(@RequestBody FlagQueryBO flagQueryBO) {
         LOG.info("====》按用户查询flag列表开始：{}", JSON.toJSONString(flagQueryBO));
         if (flagQueryBO.getOwnerId() == null && flagQueryBO.getWitnessId() == null) {
             return Result.error("---->所有者ID和见证人ID不能同时为空");
@@ -34,10 +33,10 @@ public class FlagBindServiceImpl implements FlagBindService {
         if (flagQueryBO.getPageIndex() == null) {
             flagQueryBO.setPageIndex(1);
         }
-        PageListJO<UserFlagBO> pageListJO = new PageListJO<>();
-        pageListJO.setList(flagBindManager.queryUserFlag(flagQueryBO));
-        pageListJO.setTotal(flagBindManager.countUserFlag(flagQueryBO));
-        return Result.ifSuccess(pageListJO);
+        PageInfo<UserFlagBO> pageInfo = new PageInfo<>();
+        pageInfo.setList(flagBindManager.queryUserFlag(flagQueryBO));
+        pageInfo.setTotal(flagBindManager.countUserFlag(flagQueryBO));
+        return Result.ifSuccess(pageInfo);
     }
 
     @Override

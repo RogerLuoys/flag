@@ -1,7 +1,7 @@
 package com.luoys.upgrade.flag.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.luoys.upgrade.flag.api.Result;
+import com.luoys.common.api.Result;
 import com.luoys.upgrade.flag.api.bo.TaskDailyBO;
 import com.luoys.upgrade.flag.api.service.TaskDailyService;
 import com.luoys.upgrade.flag.manage.TaskDailyManager;

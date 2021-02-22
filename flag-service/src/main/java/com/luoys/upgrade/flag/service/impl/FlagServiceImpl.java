@@ -1,11 +1,11 @@
 package com.luoys.upgrade.flag.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.luoys.common.api.Result;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
 import com.luoys.upgrade.flag.api.service.FlagService;
 import com.luoys.upgrade.flag.manage.FlagBindManager;
 import com.luoys.upgrade.flag.manage.FlagManager;
-import com.luoys.upgrade.flag.api.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

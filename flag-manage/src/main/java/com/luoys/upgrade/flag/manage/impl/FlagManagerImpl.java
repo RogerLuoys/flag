@@ -1,6 +1,6 @@
 package com.luoys.upgrade.flag.manage.impl;
 
-import com.luoys.upgrade.flag.api.NumberSender;
+import com.luoys.common.api.NumberSender;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
 import com.luoys.upgrade.flag.api.bo.TaskBO;
 import com.luoys.upgrade.flag.dao.mapper.FlagBindMapper;
@@ -87,7 +87,7 @@ public class FlagManagerImpl implements FlagManager {
         flagBindPO.setStatus(1);
         flagBindPO.setType(1);
         flagBindMapper.insert(flagBindPO);
-        if (flagBO.getTaskList().size() == 0) {
+        if (null == flagBO.getTaskList() || flagBO.getTaskList().size() == 0) {
             // 无任务需要新增
             return flagBO.getFlagId();
         }

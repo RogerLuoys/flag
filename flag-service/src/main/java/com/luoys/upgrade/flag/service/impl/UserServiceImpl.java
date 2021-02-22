@@ -1,6 +1,6 @@
 package com.luoys.upgrade.flag.service.impl;
 
-import com.luoys.upgrade.flag.api.Result;
+import com.luoys.common.api.Result;
 import com.luoys.upgrade.flag.api.bo.UserBO;
 import com.luoys.upgrade.flag.api.service.UserService;
 import com.luoys.upgrade.flag.manage.UserManager;

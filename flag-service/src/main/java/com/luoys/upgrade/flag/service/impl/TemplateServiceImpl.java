@@ -1,9 +1,8 @@
 package com.luoys.upgrade.flag.service.impl;
 
-import com.luoys.upgrade.flag.api.Result;
+import com.luoys.common.api.Result;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
 import com.luoys.upgrade.flag.api.bo.FlagTemplateBO;
-import com.luoys.upgrade.flag.api.bo.TaskTemplateBO;
 import com.luoys.upgrade.flag.api.service.TemplateService;
 import com.luoys.upgrade.flag.manage.FlagManager;
 import com.luoys.upgrade.flag.manage.TemplateManager;

@@ -1,6 +1,6 @@
 package com.luoys.upgrade.flag.service;
 
-import com.luoys.upgrade.flag.api.Result;
+import com.luoys.common.api.Result;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
