@@ -27,7 +27,7 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.1.2</version>
+<!--            <version>2.1.2</version>-->
         </dependency>
 
         <dependency>
@@ -45,27 +45,27 @@
         <dependency>
             <groupId>com.luoys.upgrade.flag</groupId>
             <artifactId>flag-api</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+<!--            <version>1.0.1-SNAPSHOT</version>-->
         </dependency>
         <dependency>
             <groupId>com.luoys.upgrade.flag</groupId>
             <artifactId>flag-dao</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+<!--            <version>1.0.1-SNAPSHOT</version>-->
         </dependency>
         <dependency>
             <groupId>com.luoys.upgrade.flag</groupId>
             <artifactId>flag-manage</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+<!--            <version>1.0.1-SNAPSHOT</version>-->
         </dependency>
         <dependency>
             <groupId>com.luoys.upgrade.flag</groupId>
             <artifactId>flag-schedule</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+<!--            <version>1.0.1-SNAPSHOT</version>-->
         </dependency>
         <dependency>
             <groupId>com.luoys.upgrade.flag</groupId>
             <artifactId>flag-service</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+<!--            <version>1.0.1-SNAPSHOT</version>-->
         </dependency>
         <dependency>
             <groupId>junit</groupId>

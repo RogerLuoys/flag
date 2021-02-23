@@ -27,13 +27,55 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <flag.api.version>1.0.1-SNAPSHOT</flag.api.version>
+        <flag.dao.version>1.0.1-SNAPSHOT</flag.dao.version>
+        <flag.manage.version>1.0.1-SNAPSHOT</flag.manage.version>
+        <flag.schedule.version>1.0.1-SNAPSHOT</flag.schedule.version>
+        <flag.service.version>1.0.1-SNAPSHOT</flag.service.version>
+        <luoys.common.version>1.0.1-SNAPSHOT</luoys.common.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>2.1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.luoys.upgrade.flag</groupId>
+                <artifactId>flag-api</artifactId>
+                <version>${flag.api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.luoys.upgrade.flag</groupId>
+                <artifactId>flag-dao</artifactId>
+                <version>${flag.dao.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.luoys.upgrade.flag</groupId>
+                <artifactId>flag-manage</artifactId>
+                <version>${flag.manage.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.luoys.upgrade.flag</groupId>
+                <artifactId>flag-schedule</artifactId>
+                <version>${flag.schedule.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.luoys.upgrade.flag</groupId>
+                <artifactId>flag-service</artifactId>
+                <version>${flag.service.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
             <groupId>com.luoys</groupId>
             <artifactId>common</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>${luoys.common.version}</version>
         </dependency>
     </dependencies>
 
