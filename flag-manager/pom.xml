@@ -8,25 +8,36 @@
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>flag-service</artifactId>
-    <version>${flag.service.version}</version>
 
+    <artifactId>flag-manager</artifactId>
+    <version>${flag.manager.version}</version>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
     <dependencies>
+        <dependency>
+            <groupId>com.luoys.upgrade.flag</groupId>
+            <artifactId>flag-dao</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.luoys.upgrade.flag</groupId>
             <artifactId>flag-api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.luoys.upgrade.flag</groupId>
-            <artifactId>flag-manager</artifactId>
+            <groupId>com.luoys.upgrade</groupId>
+            <artifactId>user-center-api</artifactId>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.71</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>
@@ -35,10 +46,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
     </dependencies>
 
 </project>

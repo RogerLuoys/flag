@@ -5,11 +5,11 @@
     <packaging>pom</packaging>
     <modules>
         <module>flag-service</module>
-        <module>flag-manage</module>
         <module>flag-dao</module>
         <module>flag-api</module>
         <module>flag-schedule</module>
         <module>flag-starter</module>
+        <module>flag-manager</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -30,7 +30,7 @@
 
         <flag.api.version>1.0.1-SNAPSHOT</flag.api.version>
         <flag.dao.version>1.0.1-SNAPSHOT</flag.dao.version>
-        <flag.manage.version>1.0.1-SNAPSHOT</flag.manage.version>
+        <flag.manager.version>1.0.1-SNAPSHOT</flag.manager.version>
         <flag.schedule.version>1.0.1-SNAPSHOT</flag.schedule.version>
         <flag.service.version>1.0.1-SNAPSHOT</flag.service.version>
         <luoys.common.version>1.0.1-SNAPSHOT</luoys.common.version>
@@ -44,6 +44,17 @@
                 <version>2.1.2</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>2.7.7</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.luoys.upgrade</groupId>
+                <artifactId>user-center-api</artifactId>
+                <version>1.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
                 <groupId>com.luoys.upgrade.flag</groupId>
                 <artifactId>flag-api</artifactId>
                 <version>${flag.api.version}</version>
@@ -55,8 +66,8 @@
             </dependency>
             <dependency>
                 <groupId>com.luoys.upgrade.flag</groupId>
-                <artifactId>flag-manage</artifactId>
-                <version>${flag.manage.version}</version>
+                <artifactId>flag-manager</artifactId>
+                <version>${flag.manager.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.luoys.upgrade.flag</groupId>

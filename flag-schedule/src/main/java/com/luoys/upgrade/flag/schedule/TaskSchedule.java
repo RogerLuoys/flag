@@ -1,6 +1,6 @@
 package com.luoys.upgrade.flag.schedule;
 
-import com.luoys.upgrade.flag.manage.TaskManager;
+import com.luoys.upgrade.flag.manager.TaskManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

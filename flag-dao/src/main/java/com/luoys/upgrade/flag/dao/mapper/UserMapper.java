@@ -4,6 +4,7 @@ import com.luoys.upgrade.flag.dao.po.UserPO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+@Deprecated
 @Repository
 public interface UserMapper {
 

@@ -4,7 +4,7 @@ import com.luoys.common.api.Result;
 import com.luoys.upgrade.flag.api.bo.PointBO;
 import com.luoys.upgrade.flag.api.bo.PointLogBO;
 import com.luoys.upgrade.flag.api.service.PointService;
-import com.luoys.upgrade.flag.manage.PointManager;
+import com.luoys.upgrade.flag.manager.PointManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

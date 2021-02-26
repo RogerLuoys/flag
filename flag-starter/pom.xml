@@ -27,9 +27,11 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-<!--            <version>2.1.2</version>-->
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -45,27 +47,22 @@
         <dependency>
             <groupId>com.luoys.upgrade.flag</groupId>
             <artifactId>flag-api</artifactId>
-<!--            <version>1.0.1-SNAPSHOT</version>-->
         </dependency>
         <dependency>
             <groupId>com.luoys.upgrade.flag</groupId>
             <artifactId>flag-dao</artifactId>
-<!--            <version>1.0.1-SNAPSHOT</version>-->
         </dependency>
         <dependency>
             <groupId>com.luoys.upgrade.flag</groupId>
-            <artifactId>flag-manage</artifactId>
-<!--            <version>1.0.1-SNAPSHOT</version>-->
+            <artifactId>flag-manager</artifactId>
         </dependency>
         <dependency>
             <groupId>com.luoys.upgrade.flag</groupId>
             <artifactId>flag-schedule</artifactId>
-<!--            <version>1.0.1-SNAPSHOT</version>-->
         </dependency>
         <dependency>
             <groupId>com.luoys.upgrade.flag</groupId>
             <artifactId>flag-service</artifactId>
-<!--            <version>1.0.1-SNAPSHOT</version>-->
         </dependency>
         <dependency>
             <groupId>junit</groupId>

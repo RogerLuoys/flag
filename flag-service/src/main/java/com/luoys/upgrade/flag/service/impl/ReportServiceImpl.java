@@ -3,7 +3,7 @@ package com.luoys.upgrade.flag.service.impl;
 import com.luoys.common.api.Result;
 import com.luoys.upgrade.flag.api.bo.ReportBO;
 import com.luoys.upgrade.flag.api.service.ReportService;
-import com.luoys.upgrade.flag.manage.ReportManager;
+import com.luoys.upgrade.flag.manager.ReportManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

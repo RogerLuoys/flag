@@ -8,6 +8,7 @@ import lombok.Data;
  * user
  * @author 
  */
+@Deprecated
 @Data
 public class UserPO implements Serializable {
     private Integer id;

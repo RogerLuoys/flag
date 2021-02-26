@@ -8,13 +8,12 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>flag-schedule</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>${flag.schedule.version}</version>
 
     <dependencies>
         <dependency>
             <groupId>com.luoys.upgrade.flag</groupId>
-            <artifactId>flag-manage</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <artifactId>flag-manager</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.luoys.common.api.Result;
 import com.luoys.upgrade.flag.api.bo.TaskDailyBO;
 import com.luoys.upgrade.flag.api.service.TaskDailyService;
-import com.luoys.upgrade.flag.manage.TaskDailyManager;
+import com.luoys.upgrade.flag.manager.TaskDailyManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
