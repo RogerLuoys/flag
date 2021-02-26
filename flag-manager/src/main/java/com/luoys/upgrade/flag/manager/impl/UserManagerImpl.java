@@ -25,8 +25,8 @@ public class UserManagerImpl implements UserManager {
     @Autowired
     private UserMapper userMapper;
 
-//    @DubboReference
-//    private UserService userService;
+    @DubboReference
+    private UserService userService;
 
     @Autowired
     private PointMapper pointMapper;
