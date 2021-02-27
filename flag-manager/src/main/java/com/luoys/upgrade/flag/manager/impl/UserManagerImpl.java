@@ -7,7 +7,7 @@ import com.luoys.upgrade.flag.dao.mapper.UserMapper;
 import com.luoys.upgrade.flag.dao.po.PointPO;
 import com.luoys.upgrade.flag.manager.UserManager;
 import com.luoys.upgrade.flag.manager.transform.TransformUser;
-import com.luoys.upgrade.uc.api.service.UserService;
+import com.luoys.upgrade.uc.share.service.UserService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +36,7 @@ public class UserManagerImpl implements UserManager {
         if (userBO == null) {
             return null;
         }
+
         return userMapper.update(TransformUser.transformBO2PO(userBO));
     }
 
@@ -44,7 +45,8 @@ public class UserManagerImpl implements UserManager {
         if (loginName == null || passWord == null) {
             return null;
         }
-        return TransformUser.transformPO2BO(userMapper.selectByLoginInfo(loginName, passWord));
+//        return TransformUser.transformPO2BO(userMapper.selectByLoginInfo(loginName, passWord));
+        return TransformUser.transformDTO2BO(userService.login(loginName, null, passWord).getData());
     }
 
     @Override
@@ -52,17 +54,18 @@ public class UserManagerImpl implements UserManager {
         if (null == userId) {
             return null;
         }
-        return TransformUser.transformPO2BO(userMapper.selectByUserId(userId));
+//        return TransformUser.transformPO2BO(userMapper.selectByUserId(userId));
+        return TransformUser.transformDTO2BO(userService.queryByUserId(userId).getData());
     }
 
-    @Override
-    public Boolean checkUserExist(String loginName) {
-        if (loginName == null) {
-            LOG.error("----》入参为空");
-            return null;
-        }
-        return null == userMapper.selectByLoginName(loginName) ? false : true;
-    }
+//    @Override
+//    public Boolean checkUserExist(String loginName) {
+//        if (loginName == null) {
+//            LOG.error("----》入参为空");
+//            return null;
+//        }
+//        return null == userMapper.selectByLoginName(loginName) ? false : true;
+//    }
 
     @Override
     public Integer newUser(UserBO userBO) {
@@ -81,7 +84,11 @@ public class UserManagerImpl implements UserManager {
         }
         userBO.setUserId(NumberSender.createUserId());
         LOG.info("====》新增用户：{}", userBO);
-        int insertUserResult = userMapper.insert(TransformUser.transformBO2PO(userBO));
+        String insertUserResult = userService.register(TransformUser.transformBO2DTO(userBO)).getData();
+        if (!insertUserResult.equals("成功")) {
+            LOG.error("----》新增用户失败");
+            return null;
+        }
         PointPO pointPO = new PointPO();
         pointPO.setUsablePoint(0);
         pointPO.setExpendPoint(0);
@@ -90,6 +97,6 @@ public class UserManagerImpl implements UserManager {
         pointPO.setPointId(NumberSender.createPointId());
         LOG.info("====》新增积分账号：{}", pointPO);
         int insertPointResult = pointMapper.insert(pointPO);
-        return (insertUserResult == 1 && insertPointResult == 1) ? 1 : null;
+        return insertPointResult == 1 ? 1 : null;
     }
 }

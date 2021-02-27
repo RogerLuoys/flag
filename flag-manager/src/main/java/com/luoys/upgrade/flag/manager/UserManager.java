@@ -10,7 +10,7 @@ public interface UserManager {
 
     UserBO queryByUserId(String userId);
 
-    Boolean checkUserExist(String loginName);
+//    Boolean checkUserExist(String loginName);
 
     Integer newUser(UserBO userBO);
 }

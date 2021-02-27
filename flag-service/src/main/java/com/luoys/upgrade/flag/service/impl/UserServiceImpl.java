@@ -22,9 +22,6 @@ public class UserServiceImpl implements UserService {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public Result<UserBO> login(@RequestParam("loginName") String loginName, @RequestParam("password") String password){
         LOG.info("====》用户登录开始：loginName={}, password={}", loginName, password);
-        if (false == userManager.checkUserExist(loginName)) {
-            return Result.error(null, "登录名不存在");
-        }
         return Result.ifSuccess(userManager.queryByLoginInfo(loginName, password));
     }
 
@@ -39,9 +36,6 @@ public class UserServiceImpl implements UserService {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public Result<Integer> register(@RequestBody UserBO userBO){
         LOG.info("====》注册用户开始：{}", userBO);
-        if (true == userManager.checkUserExist(userBO.getLoginName())) {
-            return Result.error(null, "登录名已被注册");
-        }
         return Result.ifSuccess(userManager.newUser(userBO));
     }
 
