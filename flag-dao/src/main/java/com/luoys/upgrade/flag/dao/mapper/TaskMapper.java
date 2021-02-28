@@ -13,7 +13,7 @@ public interface TaskMapper {
 
     int updateStatusByFlagId(@Param("flagId") String flagId, @Param("status") Integer status);
 
-    int updateScanStatusByTaskId(@Param("taskId") String taskId, @Param("isScanned") Integer isScanned);
+    int updateScanTimeByTaskId(@Param("taskId") String taskId);
 
     int deleteByFlagId(String flagId);
 

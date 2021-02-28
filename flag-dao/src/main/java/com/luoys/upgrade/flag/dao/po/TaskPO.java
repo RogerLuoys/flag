@@ -40,7 +40,7 @@ public class TaskPO implements Serializable {
     /**
      * 是否被扫描生成每日任务
      */
-    private Integer isScanned;
+    private Date scanTime;
 
     private String creatorId;
 

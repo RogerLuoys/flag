@@ -11,13 +11,13 @@
     <result column="type" jdbcType="TINYINT" property="type" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="cycle" jdbcType="VARCHAR" property="cycle" />
-    <result column="is_scanned" jdbcType="TINYINT" property="isScanned" />
+    <result column="scan_time" jdbcType="TIMESTAMP" property="scanTime" />
     <result column="creator_id" jdbcType="VARCHAR" property="creatorId" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, task_id, flag_id, task_name, description, point, `type`, `status`, `cycle`, is_scanned, 
+    id, task_id, flag_id, task_name, description, point, `type`, `status`, `cycle`, scan_time,
     creator_id, gmt_create, gmt_modified
   </sql>
 
@@ -25,12 +25,12 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.luoys.upgrade.flag.dao.po.TaskPO" useGeneratedKeys="true">
     insert into task (task_id, flag_id, task_name,
                       description, point, `type`,
-                      `status`, `cycle`, is_scanned,
+                      `status`, `cycle`, scan_time,
                       creator_id, is_delete, gmt_create,
                       gmt_modified)
     values (#{taskId,jdbcType=VARCHAR}, #{flagId,jdbcType=VARCHAR}, #{taskName,jdbcType=VARCHAR},
                                         #{description,jdbcType=VARCHAR}, #{point,jdbcType=INTEGER}, #{type,jdbcType=TINYINT},
-                                        #{status,jdbcType=TINYINT}, #{cycle,jdbcType=VARCHAR}, #{isScanned,jdbcType=TINYINT},
+                                        #{status,jdbcType=TINYINT}, #{cycle,jdbcType=VARCHAR}, #{scanTime,jdbcType=TINYINT},
                                         #{creatorId,jdbcType=VARCHAR}, 0, now(), now())
   </insert>
 
@@ -42,9 +42,9 @@
     where flag_id = #{flagId,jdbcType=VARCHAR}
   </update>
 
-  <update id="updateScanStatusByTaskId">
+  <update id="updateScanTimeByTaskId">
     update task
-    set is_scanned = #{isScanned,jdbcType=TINYINT},
+    set scan_time = now(),
         gmt_modified = now()
     where task_id = #{taskId,jdbcType=VARCHAR}
   </update>
@@ -77,8 +77,8 @@
       <if test="cycle != null">
         `cycle` = #{cycle,jdbcType=VARCHAR},
       </if>
-      <if test="isScanned != null">
-        is_scanned = #{isScanned,jdbcType=TINYINT},
+      <if test="scanTime != null">
+        scan_time = #{scanTime,jdbcType=TINYINT},
       </if>
       gmt_modified = now(),
     </set>
@@ -109,13 +109,14 @@
     where task_id = #{taskId,jdbcType=VARCHAR}
   </select>
 
+  <!-- 小于号要用 &lt 转译，因为这是xml文件，小于号与标签开头重复 -->
   <select id="listByType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from task
     where is_delete = 0
     and status = 2
-      and is_scanned = 0
+      and scan_time &lt; now()
     and type = #{type,jdbcType=INTEGER}
   </select>
 
@@ -150,8 +151,8 @@
       <if test="cycle != null">
         `cycle`,
       </if>
-      <if test="isScanned != null">
-        is_scanned,
+      <if test="scanTime != null">
+        scan_time,
       </if>
       <if test="creatorId != null">
         creator_id,
@@ -191,8 +192,8 @@
       <if test="cycle != null">
         #{cycle,jdbcType=VARCHAR},
       </if>
-      <if test="isScanned != null">
-        #{isScanned,jdbcType=TINYINT},
+      <if test="scanTime != null">
+        #{scanTime,jdbcType=TINYINT},
       </if>
       <if test="creatorId != null">
         #{creatorId,jdbcType=VARCHAR},
@@ -219,7 +220,7 @@
       `type` = #{type,jdbcType=TINYINT},
       `status` = #{status,jdbcType=TINYINT},
       `cycle` = #{cycle,jdbcType=VARCHAR},
-      is_scanned = #{isScanned,jdbcType=TINYINT},
+      scan_time = #{scanTime,jdbcType=TINYINT},
       creator_id = #{creatorId,jdbcType=VARCHAR},
       is_delete = #{isDelete,jdbcType=TINYINT},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},

@@ -68,7 +68,7 @@ public class TaskManagerImpl implements TaskManager {
     public Integer automaticConvertWeekTask() {
         List<TaskPO> taskPOList = taskMapper.listByType(WEEKLY_CYCLE);
         if (taskPOList.size() == 0) {
-            LOG.error("----》未发现需要转换的周循环任务");
+            LOG.warn("----》未发现需要转换的周循环任务");
             return null;
         }
         LOG.info("====》需要转换的周循环任务数为：{}", taskPOList.size());
@@ -89,8 +89,7 @@ public class TaskManagerImpl implements TaskManager {
                 taskDailyMapper.insert(taskDailyPO);
                 successNumber++;
             }
-            // todo 改成lastScanTime
-            taskMapper.updateScanStatusByTaskId(taskDailyPO.getTaskId(), SCAN_SUCCESS);
+            taskMapper.updateScanTimeByTaskId(taskDailyPO.getTaskId());
         }
         LOG.info("====》由周循环任务生成的每日任务数为：{}", successNumber);
         return successNumber;
