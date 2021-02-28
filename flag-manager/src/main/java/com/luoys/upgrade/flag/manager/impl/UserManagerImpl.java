@@ -1,12 +1,14 @@
 package com.luoys.upgrade.flag.manager.impl;
 
 import com.luoys.common.api.NumberSender;
+import com.luoys.common.api.Result;
 import com.luoys.upgrade.flag.api.bo.UserBO;
 import com.luoys.upgrade.flag.dao.mapper.PointMapper;
 import com.luoys.upgrade.flag.dao.mapper.UserMapper;
 import com.luoys.upgrade.flag.dao.po.PointPO;
 import com.luoys.upgrade.flag.manager.UserManager;
 import com.luoys.upgrade.flag.manager.transform.TransformUser;
+import com.luoys.upgrade.uc.share.dto.UserDTO;
 import com.luoys.upgrade.uc.share.service.UserService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.slf4j.Logger;
@@ -74,19 +76,19 @@ public class UserManagerImpl implements UserManager {
             LOG.error("----》入参为空");
             return null;
         }
-        if (userBO.getUserName() == null) {
-            userBO.setUserName(DEFAULT_USER_NAME);
-        }
-        if (userBO.getType() == null) {
-            userBO.setType(DEFAULT_TYPE);
-        }
-        if (userBO.getStatus() == null) {
-            userBO.setStatus(DEFAULT_STATUS);
-        }
-        userBO.setUserId(NumberSender.createUserId());
+//        if (userBO.getUserName() == null) {
+//            userBO.setUserName(DEFAULT_USER_NAME);
+//        }
+//        if (userBO.getType() == null) {
+//            userBO.setType(DEFAULT_TYPE);
+//        }
+//        if (userBO.getStatus() == null) {
+//            userBO.setStatus(DEFAULT_STATUS);
+//        }
+//        userBO.setUserId(NumberSender.createUserId());
         LOG.info("====》新增用户：{}", userBO);
-        String insertUserResult = userService.register(TransformUser.transformBO2DTO(userBO)).getData();
-        if (!insertUserResult.equals("成功")) {
+        Result<UserDTO> result = userService.register(TransformUser.transformBO2DTO(userBO));
+        if (!result.isSuccess()) {
             LOG.error("----》新增用户失败");
             return null;
         }
@@ -94,7 +96,7 @@ public class UserManagerImpl implements UserManager {
         pointPO.setUsablePoint(0);
         pointPO.setExpendPoint(0);
         pointPO.setStatus(1);
-        pointPO.setOwnerId(userBO.getUserId());
+        pointPO.setOwnerId(result.getData().getUserId());
         pointPO.setPointId(NumberSender.createPointId());
         LOG.info("====》新增积分账号：{}", pointPO);
         int insertPointResult = pointMapper.insert(pointPO);
