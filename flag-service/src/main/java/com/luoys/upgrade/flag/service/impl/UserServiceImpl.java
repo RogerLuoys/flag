@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @RequestMapping(value = "/modifyUser", method = RequestMethod.PUT)
-    public Result<Integer> modifyUser(@RequestBody UserBO userBO){
+    public Result<Boolean> modifyUser(@RequestBody UserBO userBO){
         LOG.info("====》修改用户信息开始：{}", userBO);
         return Result.ifSuccess(userManager.modifyUser(userBO));
     }

@@ -22,8 +22,8 @@ public class UserManagerImpl implements UserManager {
     private final static int DEFAULT_TYPE = 2;
     private final static int DEFAULT_STATUS = 1;
 
-    @Autowired
-    private UserMapper userMapper;
+//    @Autowired
+//    private UserMapper userMapper;
 
     @DubboReference
     private UserService userService;
@@ -32,12 +32,13 @@ public class UserManagerImpl implements UserManager {
     private PointMapper pointMapper;
 
     @Override
-    public Integer modifyUser(UserBO userBO) {
+    public Boolean modifyUser(UserBO userBO) {
         if (userBO == null) {
             return null;
         }
 
-        return userMapper.update(TransformUser.transformBO2PO(userBO));
+//        return userMapper.update(TransformUser.transformBO2PO(userBO));
+        return userService.modifyUser(TransformUser.transformBO2DTO(userBO)).isSuccess();
     }
 
     @Override
