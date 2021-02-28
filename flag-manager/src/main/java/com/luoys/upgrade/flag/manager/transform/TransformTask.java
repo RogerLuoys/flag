@@ -17,7 +17,7 @@ public class TransformTask {
         po.setCreatorId(bo.getCreatorId());
         po.setDescription(bo.getDescription());
         po.setFlagId(bo.getFlagId());
-        po.setIsScanned(bo.getIsScanned());
+        po.setScanTime(bo.getScanTime());
         po.setPoint(bo.getPoint());
         po.setStatus(bo.getStatus());
         po.setTaskId(bo.getTaskId());
@@ -47,7 +47,7 @@ public class TransformTask {
         bo.setCycle(po.getCycle());
         bo.setDescription(po.getDescription());
         bo.setFlagId(po.getFlagId());
-        bo.setIsScanned(po.getIsScanned());
+        bo.setScanTime(po.getScanTime());
         bo.setPoint(po.getPoint());
         bo.setStatus(po.getStatus());
         bo.setTaskId(po.getTaskId());

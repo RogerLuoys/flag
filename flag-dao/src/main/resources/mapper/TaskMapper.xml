@@ -116,8 +116,8 @@
     from task
     where is_delete = 0
     and status = 2
-      and scan_time &lt; now()
     and type = #{type,jdbcType=INTEGER}
+    and (scan_time is null or scan_time &lt; now())
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
