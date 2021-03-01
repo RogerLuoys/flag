@@ -34,7 +34,7 @@
         <flag.schedule.version>1.0.1-SNAPSHOT</flag.schedule.version>
         <flag.service.version>1.0.1-SNAPSHOT</flag.service.version>
         <common.version>1.0.1-SNAPSHOT</common.version>
-        <uc.share.version>1.0.1-SNAPSHOT</uc.share.version>
+        <uc.share.version>1.0.2-SNAPSHOT</uc.share.version>
     </properties>
 
     <dependencyManagement>
