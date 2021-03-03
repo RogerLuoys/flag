@@ -19,6 +19,8 @@ import java.util.List;
 public class FlagBindManagerImpl implements FlagBindManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(FlagBindManager.class);
+    private static final Integer DEFAULT_STATUS = 1;
+    private static final Integer DEFAULT_TYPE = 1;
 
 
     @Autowired
@@ -35,10 +37,10 @@ public class FlagBindManagerImpl implements FlagBindManager {
             LOG.error("=====>必填字段 userId 不能为空");
         }
         if (flagBindBO.getStatus() == null) {
-            flagBindBO.setStatus(1);
+            flagBindBO.setStatus(DEFAULT_STATUS);
         }
         if (flagBindBO.getType() == null) {
-            flagBindBO.setType(1);
+            flagBindBO.setType(DEFAULT_TYPE);
         }
         flagBindMapper.insert(TransformFlagBind.TransformFlagBindBO2PO(flagBindBO));
         return flagBindBO;

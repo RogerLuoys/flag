@@ -24,9 +24,6 @@ public class UserManagerImpl implements UserManager {
     private final static int DEFAULT_TYPE = 2;
     private final static int DEFAULT_STATUS = 1;
 
-//    @Autowired
-//    private UserMapper userMapper;
-
     @DubboReference
     private UserService userService;
 
@@ -39,7 +36,6 @@ public class UserManagerImpl implements UserManager {
             return null;
         }
 
-//        return userMapper.update(TransformUser.transformBO2PO(userBO));
         return userService.modifyUser(TransformUser.transformBO2DTO(userBO)).isSuccess();
     }
 
@@ -48,7 +44,6 @@ public class UserManagerImpl implements UserManager {
         if (loginName == null || passWord == null) {
             return null;
         }
-//        return TransformUser.transformPO2BO(userMapper.selectByLoginInfo(loginName, passWord));
         return TransformUser.transformDTO2BO(userService.login(loginName, null, passWord).getData());
     }
 
@@ -57,18 +52,8 @@ public class UserManagerImpl implements UserManager {
         if (null == userId) {
             return null;
         }
-//        return TransformUser.transformPO2BO(userMapper.selectByUserId(userId));
         return TransformUser.transformDTO2BO(userService.queryByUserId(userId).getData());
     }
-
-//    @Override
-//    public Boolean checkUserExist(String loginName) {
-//        if (loginName == null) {
-//            LOG.error("----》入参为空");
-//            return null;
-//        }
-//        return null == userMapper.selectByLoginName(loginName) ? false : true;
-//    }
 
     @Override
     public Integer newUser(UserBO userBO) {
@@ -76,16 +61,6 @@ public class UserManagerImpl implements UserManager {
             LOG.error("----》入参为空");
             return null;
         }
-//        if (userBO.getUserName() == null) {
-//            userBO.setUserName(DEFAULT_USER_NAME);
-//        }
-//        if (userBO.getType() == null) {
-//            userBO.setType(DEFAULT_TYPE);
-//        }
-//        if (userBO.getStatus() == null) {
-//            userBO.setStatus(DEFAULT_STATUS);
-//        }
-//        userBO.setUserId(NumberSender.createUserId());
         LOG.info("====》新增用户：{}", userBO);
         Result<UserDTO> result = userService.register(TransformUser.transformBO2DTO(userBO));
         if (!result.isSuccess()) {

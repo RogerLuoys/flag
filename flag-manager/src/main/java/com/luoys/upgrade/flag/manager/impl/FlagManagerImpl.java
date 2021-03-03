@@ -28,6 +28,8 @@ public class FlagManagerImpl implements FlagManager {
     private final Integer DEFAULT_PRIORITY = 1;
     private final String DEFAULT_CREATOR = "1";
     private final Integer ADD_FLAG_SUCCESS = 1;
+    private final Integer DEFAULT_STATUS = 1;
+    private final Integer DEFAULT_TYPE = 1;
 
     @Autowired
     private FlagMapper flagMapper;
@@ -76,7 +78,7 @@ public class FlagManagerImpl implements FlagManager {
             flagBO.setCreateId(DEFAULT_CREATOR);
         }
         if (flagBO.getStatus() == null) {
-            flagBO.setStatus(1);
+            flagBO.setStatus(DEFAULT_STATUS);
         }
         FlagPO flagPO = TransformFlag.TransformBO2PO(flagBO);
         LOG.info("=====>flag创建，并填充默认值：{}", flagPO);
@@ -84,8 +86,8 @@ public class FlagManagerImpl implements FlagManager {
         FlagBindPO flagBindPO = new FlagBindPO();
         flagBindPO.setFlagId(flagBO.getFlagId());
         flagBindPO.setOwnerId(flagBO.getOwnerId());
-        flagBindPO.setStatus(1);
-        flagBindPO.setType(1);
+        flagBindPO.setStatus(DEFAULT_STATUS);
+        flagBindPO.setType(DEFAULT_TYPE);
         flagBindMapper.insert(flagBindPO);
         if (null == flagBO.getTaskList() || flagBO.getTaskList().size() == 0) {
             // 无任务需要新增
