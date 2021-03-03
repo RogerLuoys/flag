@@ -36,29 +36,33 @@ public class TaskDailyManagerImpl implements TaskDailyManager {
 
     @Override
     public String newTaskDaily(TaskDailyBO taskDailyBO) {
+        // 未关联flagId，需要新增flag相关数据
         if (taskDailyBO.getFlagId() == null || taskDailyBO.getFlagId() == "") {
             taskDailyBO.setFlagId(NumberSender.createFlagId());
+            FlagPO flagPO = new FlagPO();
+            flagPO.setFlagId(taskDailyBO.getFlagId());
+            flagPO.setFlagName(taskDailyBO.getTaskDailyName());
+            flagPO.setType(3);
+            flagPO.setStatus(3);
+            int isFlagCreated = flagMapper.insert(flagPO);
+            if (isFlagCreated == 0) {
+                LOG.error("----》新增Flag失败");
+                return null;
+            }
+            FlagBindPO flagBindPO = new FlagBindPO();
+            flagBindPO.setFlagId(taskDailyBO.getFlagId());
+            flagBindPO.setOwnerId(taskDailyBO.getOwnerId());
+            flagBindPO.setStatus(1);
+            flagBindPO.setType(1);
+            int isFlagBindCreated = flagBindMapper.insert(flagBindPO);
+            if (isFlagBindCreated == 0) {
+                LOG.error("----》新增FlagBind失败");
+                return null;
+            }
         }
-        FlagPO flagPO = new FlagPO();
-        flagPO.setFlagId(taskDailyBO.getFlagId());
-        flagPO.setFlagName(taskDailyBO.getTaskDailyName());
-        flagPO.setType(3);
-        flagPO.setStatus(3);
-        int isFlagCreated = flagMapper.insert(flagPO);
-        if (isFlagCreated == 0) {
-            return null;
-        }
-        FlagBindPO flagBindPO = new FlagBindPO();
-        flagBindPO.setFlagId(taskDailyBO.getFlagId());
-        flagBindPO.setOwnerId(taskDailyBO.getOwnerId());
-        flagBindPO.setStatus(1);
-        flagBindPO.setType(1);
-        int isFlagBindCreated = flagBindMapper.insert(flagBindPO);
-        if (isFlagBindCreated == 0) {
-            return null;
-        }
+        // 如果关联了FlagId，则直接插入FlagId
         taskDailyBO.setTaskDailyId(NumberSender.createTaskDailyId());
-        taskDailyBO.setFlagId(flagPO.getFlagId());
+        taskDailyBO.setFlagId(taskDailyBO.getFlagId());
         taskDailyBO.setStatus(1);
         TaskDailyPO taskDailyPO = TransformTaskDaily.transformBO2PO(taskDailyBO);
         return taskDailyMapper.insert(taskDailyPO) == 1 ? taskDailyPO.getTaskDailyId() : null;
