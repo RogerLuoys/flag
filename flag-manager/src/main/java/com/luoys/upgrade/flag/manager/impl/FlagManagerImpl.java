@@ -3,6 +3,8 @@ package com.luoys.upgrade.flag.manager.impl;
 import com.luoys.common.api.NumberSender;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
 import com.luoys.upgrade.flag.api.bo.TaskBO;
+import com.luoys.upgrade.flag.api.enums.FlagStatus;
+import com.luoys.upgrade.flag.api.enums.FlagType;
 import com.luoys.upgrade.flag.dao.mapper.FlagBindMapper;
 import com.luoys.upgrade.flag.dao.mapper.FlagMapper;
 import com.luoys.upgrade.flag.dao.mapper.TaskMapper;
@@ -24,11 +26,10 @@ public class FlagManagerImpl implements FlagManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(FlagManagerImpl.class);
 
-    private final Integer DEFAULT_FLAG_TYPE = 1;
+    private final Integer DEFAULT_FLAG_TYPE = FlagType.FLAG.getType();
     private final Integer DEFAULT_PRIORITY = 1;
     private final String DEFAULT_CREATOR = "1";
-    private final Integer ADD_FLAG_SUCCESS = 1;
-    private final Integer DEFAULT_STATUS = 1;
+    private final Integer DEFAULT_STATUS = FlagStatus.NOT_START.getStatus();
     private final Integer DEFAULT_TYPE = 1;
 
     @Autowired
@@ -68,8 +69,9 @@ public class FlagManagerImpl implements FlagManager {
     public String newFlag(FlagBO flagBO) {
         // 填入业务Id
         flagBO.setFlagId(NumberSender.createFlagId());
+        // 填入默认值
         if (flagBO.getType() == null) {
-            flagBO.setType(DEFAULT_FLAG_TYPE);
+            flagBO.setType(FlagType.FLAG.getType());
         }
         if (flagBO.getPriority() == null) {
             flagBO.setPriority(DEFAULT_PRIORITY);
@@ -78,7 +80,7 @@ public class FlagManagerImpl implements FlagManager {
             flagBO.setCreateId(DEFAULT_CREATOR);
         }
         if (flagBO.getStatus() == null) {
-            flagBO.setStatus(DEFAULT_STATUS);
+            flagBO.setStatus(FlagStatus.NOT_START.getStatus());
         }
         FlagPO flagPO = TransformFlag.TransformBO2PO(flagBO);
         LOG.info("=====>flag创建，并填充默认值：{}", flagPO);
