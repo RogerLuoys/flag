@@ -3,6 +3,7 @@ package com.luoys.upgrade.flag.manager.transform;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
 import com.luoys.upgrade.flag.api.bo.FlagTemplateBO;
 import com.luoys.upgrade.flag.api.bo.PointLogBO;
+import com.luoys.upgrade.flag.api.enums.FlagStatusEnum;
 import com.luoys.upgrade.flag.dao.po.FlagTemplatePO;
 import com.luoys.upgrade.flag.dao.po.PointLogPO;
 
@@ -47,7 +48,8 @@ public class TransformFlagTemplate {
         flagBO.setFlagName(flagTemplateBO.getFlagName());
         flagBO.setExpected(flagTemplateBO.getExpected());
         flagBO.setDescription(flagTemplateBO.getDescription());
-        flagBO.setType(flagTemplateBO.getType());
+        flagBO.setType(flagTemplateBO.getFlagType());
+        flagBO.setStatus(FlagStatusEnum.NOT_START.getCode());
         return flagBO;
     }
 

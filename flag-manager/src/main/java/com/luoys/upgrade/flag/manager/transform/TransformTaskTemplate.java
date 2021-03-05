@@ -3,6 +3,7 @@ package com.luoys.upgrade.flag.manager.transform;
 import com.luoys.upgrade.flag.api.bo.FlagTemplateBO;
 import com.luoys.upgrade.flag.api.bo.TaskBO;
 import com.luoys.upgrade.flag.api.bo.TaskTemplateBO;
+import com.luoys.upgrade.flag.api.enums.TaskStatusEnum;
 import com.luoys.upgrade.flag.dao.po.FlagTemplatePO;
 import com.luoys.upgrade.flag.dao.po.TaskTemplatePO;
 
@@ -51,6 +52,7 @@ public class TransformTaskTemplate {
         taskBO.setPoint(taskTemplateBO.getPoint());
         taskBO.setTaskName(taskTemplateBO.getTaskName());
         taskBO.setCycleList(taskTemplateBO.getCycleList());
+        taskBO.setStatus(TaskStatusEnum.PAUSE.getCode());
         return taskBO;
     }
 
