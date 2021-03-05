@@ -21,6 +21,7 @@ public class FlagBindManagerImpl implements FlagBindManager {
     private static final Logger LOG = LoggerFactory.getLogger(FlagBindManager.class);
     private static final Integer DEFAULT_STATUS = 1;
     private static final Integer DEFAULT_TYPE = 1;
+    private static final Integer DEFAULT_PAGE_SIZE = 10;
 
 
     @Autowired
@@ -51,7 +52,7 @@ public class FlagBindManagerImpl implements FlagBindManager {
         if (null == flagQueryBO) {
             return null;
         }
-        int startIndex = (flagQueryBO.getPageIndex() - 1) * 10;
+        int startIndex = (flagQueryBO.getPageIndex() - 1) * DEFAULT_PAGE_SIZE;
         List<UserFlagPO> pos = flagBindMapper.listUserFlag(
                 flagQueryBO.getOwnerId(), flagQueryBO.getWitnessId(), flagQueryBO.getType(),
                 flagQueryBO.getStatus(), flagQueryBO.getFlagName(), startIndex);

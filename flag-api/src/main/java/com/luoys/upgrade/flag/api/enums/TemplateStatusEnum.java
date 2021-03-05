@@ -3,16 +3,17 @@ package com.luoys.upgrade.flag.api.enums;
 import lombok.Getter;
 
 @Getter
-public enum TemplateStatus {
+public enum TemplateStatusEnum {
 
     PUBLIC(1, "公开"),
     PRIVATE(2, "私有");
 
-    private final Integer status;
+    private final Integer code;
     private final String description;
 
-    TemplateStatus(Integer status, String description){
-        this.status = status;
+    TemplateStatusEnum(Integer code, String description){
+        this.code = code;
         this.description = description;
     }
+
 }

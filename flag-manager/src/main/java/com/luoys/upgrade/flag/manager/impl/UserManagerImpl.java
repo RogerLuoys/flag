@@ -3,6 +3,7 @@ package com.luoys.upgrade.flag.manager.impl;
 import com.luoys.common.api.NumberSender;
 import com.luoys.common.api.Result;
 import com.luoys.upgrade.flag.api.bo.UserBO;
+import com.luoys.upgrade.flag.api.enums.PointStatusEnum;
 import com.luoys.upgrade.flag.dao.mapper.PointMapper;
 import com.luoys.upgrade.flag.dao.mapper.UserMapper;
 import com.luoys.upgrade.flag.dao.po.PointPO;
@@ -20,9 +21,7 @@ import org.springframework.stereotype.Component;
 public class UserManagerImpl implements UserManager {
 
     private final static Logger LOG = LoggerFactory.getLogger(UserManagerImpl.class);
-    private final static String DEFAULT_USER_NAME = "新干旗人";
-    private final static int DEFAULT_TYPE = 2;
-    private final static int DEFAULT_STATUS = 1;
+    private final static int INITIAL_POINT = 0;
 
     @DubboReference
     private UserService userService;
@@ -68,9 +67,9 @@ public class UserManagerImpl implements UserManager {
             return null;
         }
         PointPO pointPO = new PointPO();
-        pointPO.setUsablePoint(0);
-        pointPO.setExpendPoint(0);
-        pointPO.setStatus(1);
+        pointPO.setUsablePoint(INITIAL_POINT);
+        pointPO.setExpendPoint(INITIAL_POINT);
+        pointPO.setStatus(PointStatusEnum.NORMAL.getCode());
         pointPO.setOwnerId(result.getData().getUserId());
         pointPO.setPointId(NumberSender.createPointId());
         LOG.info("====》新增积分账号：{}", pointPO);

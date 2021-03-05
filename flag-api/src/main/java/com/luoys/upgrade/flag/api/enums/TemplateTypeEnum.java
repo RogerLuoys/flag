@@ -3,16 +3,16 @@ package com.luoys.upgrade.flag.api.enums;
 import lombok.Getter;
 
 @Getter
-public enum TemplateType {
+public enum TemplateTypeEnum {
 
     SYSTEM(1, "系统模板"),
     PERSONAL(2, "个人模板");
 
-    private final Integer type;
+    private final Integer code;
     private final String description;
 
-    TemplateType(Integer type, String description) {
-        this.type = type;
+    TemplateTypeEnum(Integer code, String description) {
+        this.code = code;
         this.description = description;
     }
 

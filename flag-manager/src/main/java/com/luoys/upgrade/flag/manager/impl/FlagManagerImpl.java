@@ -3,8 +3,10 @@ package com.luoys.upgrade.flag.manager.impl;
 import com.luoys.common.api.NumberSender;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
 import com.luoys.upgrade.flag.api.bo.TaskBO;
-import com.luoys.upgrade.flag.api.enums.FlagStatus;
-import com.luoys.upgrade.flag.api.enums.FlagType;
+import com.luoys.upgrade.flag.api.enums.FlagPriorityEnum;
+import com.luoys.upgrade.flag.api.enums.FlagStatusEnum;
+import com.luoys.upgrade.flag.api.enums.FlagTypeEnum;
+import com.luoys.upgrade.flag.api.enums.TaskStatusEnum;
 import com.luoys.upgrade.flag.dao.mapper.FlagBindMapper;
 import com.luoys.upgrade.flag.dao.mapper.FlagMapper;
 import com.luoys.upgrade.flag.dao.mapper.TaskMapper;
@@ -26,11 +28,7 @@ public class FlagManagerImpl implements FlagManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(FlagManagerImpl.class);
 
-    private final Integer DEFAULT_FLAG_TYPE = FlagType.FLAG.getType();
-    private final Integer DEFAULT_PRIORITY = 1;
     private final String DEFAULT_CREATOR = "1";
-    private final Integer DEFAULT_STATUS = FlagStatus.NOT_START.getStatus();
-    private final Integer DEFAULT_TYPE = 1;
 
     @Autowired
     private FlagMapper flagMapper;
@@ -69,18 +67,17 @@ public class FlagManagerImpl implements FlagManager {
     public String newFlag(FlagBO flagBO) {
         // 填入业务Id
         flagBO.setFlagId(NumberSender.createFlagId());
-        // 填入默认值
         if (flagBO.getType() == null) {
-            flagBO.setType(FlagType.FLAG.getType());
+            flagBO.setType(FlagTypeEnum.FLAG.getCode());
         }
         if (flagBO.getPriority() == null) {
-            flagBO.setPriority(DEFAULT_PRIORITY);
+            flagBO.setPriority(FlagPriorityEnum.GENERAL.getCode());
         }
         if (flagBO.getCreateId() == null) {
             flagBO.setCreateId(DEFAULT_CREATOR);
         }
         if (flagBO.getStatus() == null) {
-            flagBO.setStatus(FlagStatus.NOT_START.getStatus());
+            flagBO.setStatus(FlagStatusEnum.NOT_START.getCode());
         }
         FlagPO flagPO = TransformFlag.TransformBO2PO(flagBO);
         LOG.info("=====>flag创建，并填充默认值：{}", flagPO);
@@ -88,18 +85,18 @@ public class FlagManagerImpl implements FlagManager {
         FlagBindPO flagBindPO = new FlagBindPO();
         flagBindPO.setFlagId(flagBO.getFlagId());
         flagBindPO.setOwnerId(flagBO.getOwnerId());
-        flagBindPO.setStatus(DEFAULT_STATUS);
-        flagBindPO.setType(DEFAULT_TYPE);
+        flagBindPO.setStatus(FlagStatusEnum.NOT_START.getCode());
+        flagBindPO.setType(FlagTypeEnum.FLAG.getCode());
         flagBindMapper.insert(flagBindPO);
+        // 无任务需要新增
         if (null == flagBO.getTaskList() || flagBO.getTaskList().size() == 0) {
-            // 无任务需要新增
             return flagBO.getFlagId();
         }
         for (TaskBO item : flagBO.getTaskList()) {
             TaskPO taskPO = TransformTask.transformBO2PO(item);
             taskPO.setTaskId(NumberSender.createTaskId());
             if (null == taskPO.getStatus()) {
-                taskPO.setStatus(1);
+                taskPO.setStatus(TaskStatusEnum.PAUSE.getCode());
             }
             if (null == taskPO.getFlagId()) {
                 taskPO.setFlagId(flagBO.getFlagId());

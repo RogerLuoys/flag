@@ -2,6 +2,8 @@ package com.luoys.upgrade.flag.manager.impl;
 
 import com.luoys.common.api.NumberSender;
 import com.luoys.upgrade.flag.api.bo.TaskBO;
+import com.luoys.upgrade.flag.api.enums.TaskDailyStatusEnum;
+import com.luoys.upgrade.flag.api.enums.TaskTypeEnum;
 import com.luoys.upgrade.flag.dao.mapper.TaskDailyMapper;
 import com.luoys.upgrade.flag.dao.mapper.TaskMapper;
 import com.luoys.upgrade.flag.dao.po.TaskDailyPO;
@@ -20,8 +22,7 @@ import java.util.List;
 public class TaskManagerImpl implements TaskManager {
 
     private static Logger LOG = LoggerFactory.getLogger(TaskManagerImpl.class);
-    private final Integer WEEKLY_CYCLE = 2;
-    private final Integer SCAN_SUCCESS = 1;
+//    private final Integer WEEKLY_CYCLE = 2;
 
     @Autowired
     private TaskMapper taskMapper;
@@ -66,7 +67,7 @@ public class TaskManagerImpl implements TaskManager {
 
     @Override
     public Integer automaticConvertWeekTask() {
-        List<TaskPO> taskPOList = taskMapper.listByType(WEEKLY_CYCLE);
+        List<TaskPO> taskPOList = taskMapper.listByType(TaskTypeEnum.WEEK.getCode());
         if (taskPOList.size() == 0) {
             LOG.warn("----》未发现需要转换的周循环任务");
             return null;
@@ -85,7 +86,7 @@ public class TaskManagerImpl implements TaskManager {
                 taskDailyPO.setStartTime(TimeUtil.getWeekCycleStartTime(cycles[i]));
                 taskDailyPO.setEndTime(TimeUtil.getWeekCycleEndTime(cycles[i]));
                 taskDailyPO.setTaskDailyId(NumberSender.createTaskDailyId());
-                taskDailyPO.setStatus(1);
+                taskDailyPO.setStatus(TaskDailyStatusEnum.IN_PROGRESS.getCode());
                 taskDailyMapper.insert(taskDailyPO);
                 successNumber++;
             }

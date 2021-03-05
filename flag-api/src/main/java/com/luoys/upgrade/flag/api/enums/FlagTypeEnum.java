@@ -3,7 +3,7 @@ package com.luoys.upgrade.flag.api.enums;
 import lombok.Getter;
 
 @Getter
-public enum FlagType {
+public enum FlagTypeEnum {
 
     FLAG(1, "通常Flag"),
     HABIT(2, "习惯或长期Flag"),
@@ -11,11 +11,12 @@ public enum FlagType {
     TEMPORARY(3, "临时Flag");
 
 
-    private final Integer type;
+    private final Integer code;
     private final String description;
 
-    FlagType(Integer type, String description) {
-        this.type = type;
+    FlagTypeEnum(Integer code, String description) {
+        this.code = code;
         this.description = description;
     }
+
 }

@@ -3,7 +3,7 @@ package com.luoys.upgrade.flag.api.enums;
 import lombok.Getter;
 
 @Getter
-public enum FlagStatus {
+public enum FlagStatusEnum {
 
     NOT_START(1, "未开始"),
     IN_PROGRESS(2, "进行中"),
@@ -12,11 +12,12 @@ public enum FlagStatus {
     PAUSE(5, "暂停"),
     GIVE_UP(6, "放弃");
 
-    private final Integer status;
+    private final Integer code;
     private final String description;
 
-    FlagStatus(Integer status, String description) {
-        this.status = status;
+    FlagStatusEnum(Integer code, String description) {
+        this.code = code;
         this.description = description;
     }
+
 }

@@ -2,6 +2,10 @@ package com.luoys.upgrade.flag.manager.impl;
 
 import com.luoys.common.api.NumberSender;
 import com.luoys.upgrade.flag.api.bo.TaskDailyBO;
+import com.luoys.upgrade.flag.api.enums.FlagStatusEnum;
+import com.luoys.upgrade.flag.api.enums.FlagTypeEnum;
+import com.luoys.upgrade.flag.api.enums.PointLogTypeEnum;
+import com.luoys.upgrade.flag.api.enums.TaskDailyStatusEnum;
 import com.luoys.upgrade.flag.dao.mapper.*;
 import com.luoys.upgrade.flag.dao.po.*;
 import com.luoys.upgrade.flag.manager.TaskDailyManager;
@@ -36,14 +40,14 @@ public class TaskDailyManagerImpl implements TaskDailyManager {
 
     @Override
     public String newTaskDaily(TaskDailyBO taskDailyBO) {
-        // 未关联flagId，需要新增flag相关数据
+        // 未关联flagId，则需要新增flag相关数据
         if (taskDailyBO.getFlagId() == null || taskDailyBO.getFlagId() == "") {
             taskDailyBO.setFlagId(NumberSender.createFlagId());
             FlagPO flagPO = new FlagPO();
             flagPO.setFlagId(taskDailyBO.getFlagId());
             flagPO.setFlagName(taskDailyBO.getTaskDailyName());
-            flagPO.setType(3);
-            flagPO.setStatus(3);
+            flagPO.setType(FlagTypeEnum.TEMPORARY.getCode());
+            flagPO.setStatus(FlagStatusEnum.COMPLETED.getCode());
             int isFlagCreated = flagMapper.insert(flagPO);
             if (isFlagCreated == 0) {
                 LOG.error("----》新增Flag失败");
@@ -52,8 +56,8 @@ public class TaskDailyManagerImpl implements TaskDailyManager {
             FlagBindPO flagBindPO = new FlagBindPO();
             flagBindPO.setFlagId(taskDailyBO.getFlagId());
             flagBindPO.setOwnerId(taskDailyBO.getOwnerId());
-            flagBindPO.setStatus(1);
-            flagBindPO.setType(1);
+//            flagBindPO.setStatus(1);
+//            flagBindPO.setType(1);
             int isFlagBindCreated = flagBindMapper.insert(flagBindPO);
             if (isFlagBindCreated == 0) {
                 LOG.error("----》新增FlagBind失败");
@@ -63,7 +67,7 @@ public class TaskDailyManagerImpl implements TaskDailyManager {
         // 如果关联了FlagId，则直接插入FlagId
         taskDailyBO.setTaskDailyId(NumberSender.createTaskDailyId());
         taskDailyBO.setFlagId(taskDailyBO.getFlagId());
-        taskDailyBO.setStatus(1);
+        taskDailyBO.setStatus(TaskDailyStatusEnum.IN_PROGRESS.getCode());
         TaskDailyPO taskDailyPO = TransformTaskDaily.transformBO2PO(taskDailyBO);
         return taskDailyMapper.insert(taskDailyPO) == 1 ? taskDailyPO.getTaskDailyId() : null;
     }
@@ -83,7 +87,7 @@ public class TaskDailyManagerImpl implements TaskDailyManager {
             pointLogPO.setComment(taskDailyPO.getTaskDailyName());
             pointLogPO.setPoint(taskDailyPO.getPoint());
             pointLogPO.setRecordTime(new Date());
-            pointLogPO.setType(1);
+            pointLogPO.setType(PointLogTypeEnum.INCREASE.getCode());
             LOG.info("====》增加积分记录：{}", pointLogPO);
             int pointLogResult = pointLogMapper.insert(pointLogPO);
             PointPO pointPO = pointMapper.selectByPointId(pointId);
