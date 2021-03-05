@@ -59,7 +59,9 @@
     select
     <include refid="Base_Column_List" />
     from task_daily
-    where flag_id = #{flagId,jdbcType=VARCHAR}
+    where is_delete = 0
+    and status = 2
+    and flag_id = #{flagId,jdbcType=VARCHAR}
   </select>
 
   <select id="selectByTaskDailyId" parameterType="java.lang.String" resultMap="BaseResultMap">
