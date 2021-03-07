@@ -48,6 +48,20 @@
     where point_id = #{pointId,jdbcType=VARCHAR}
   </update>
 
+  <update id="updatePointByPointId">
+    update point
+    <set>
+      <if test="usablePoint != null">
+        usable_point = #{usablePoint,jdbcType=INTEGER},
+      </if>
+      <if test="expendPoint != null">
+        expend_point = #{expendPoint,jdbcType=INTEGER},
+      </if>
+      gmt_modified = now(),
+    </set>
+    where point_id = #{pointId,jdbcType=VARCHAR}
+  </update>
+
   <select id="selectByOwnerId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

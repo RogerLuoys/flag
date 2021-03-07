@@ -30,6 +30,7 @@ public class FlagManagerImpl implements FlagManager {
 
     private final String DEFAULT_CREATOR = "1";
 
+
     @Autowired
     private FlagMapper flagMapper;
     @Autowired
@@ -128,18 +129,43 @@ public class FlagManagerImpl implements FlagManager {
 
     @Override
     public Integer modifyStatusByFlagId(String flagId, Integer status) {
-        int isFlagModified = flagMapper.updateStatusByFlagId(flagId, status);
-        int isTaskModified = taskMapper.countTaskByFlagId(flagId) > 0 ? taskMapper.updateStatusByFlagId(flagId, 2) : 2;
-        if (isFlagModified == 1 && isTaskModified == 1) {
-            return 1;
-        } else if (isFlagModified == 1 && isTaskModified == 2) {
-            LOG.info("---->关联表无需更新，flagId：{}", flagId);
-            return 1;
-        } else {
-            LOG.error("---->关联表未更新成功，flagId：{}", flagId);
+        if (flagId == null || status == null) {
+            LOG.error("---->入参不能为空");
             return null;
         }
-
+        int isFlagModified = flagMapper.updateStatusByFlagId(flagId, status);
+        if (isFlagModified != 1) {
+            LOG.error("---->更新Flag状态失败");
+            return null;
+        }
+        if (taskMapper.countTaskByFlagId(flagId) == 0) {
+            LOG.info("---->无要更新的周期任务，更新状态流程结束");
+            return 1;
+        }
+        switch (FlagStatusEnum.fromCode(status)) {
+            case IN_PROGRESS:
+                return taskMapper.updateStatusByFlagId(flagId, TaskStatusEnum.IN_PROGRESS.getCode()) == 1 ? 1 : null;
+            case COMPLETED:
+                return taskMapper.updateStatusByFlagId(flagId, TaskStatusEnum.PAUSE.getCode()) == 1 ? 1 : null;
+            default:
+                LOG.info("====》无需更新周期任务状态");
+                return 1;
+        }
+//        int isTaskModified = taskMapper.countTaskByFlagId(flagId) > 0 ? taskMapper.updateStatusByFlagId(flagId, status) : 0;
+//        if (isTaskModified == 0) {
+//            LOG.error("---->更新Flag状态失败");
+//            return null;
+//        }
+//
+//        if (isFlagModified == 1 && isTaskModified == 1) {
+//            return 1;
+//        } else if (isFlagModified == 1 && isTaskModified == 2) {
+//            LOG.info("---->关联表无需更新，flagId：{}", flagId);
+//            return 1;
+//        } else {
+//            LOG.error("---->关联表未更新成功，flagId：{}", flagId);
+//            return null;
+//        }
     }
 
     @Override

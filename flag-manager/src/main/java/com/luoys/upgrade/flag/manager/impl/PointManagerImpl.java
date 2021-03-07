@@ -48,7 +48,6 @@ public class PointManagerImpl implements PointManager {
         return TransformPointLog.transformPO2BO(pointLogPOList);
     }
 
-
     @Override
     public String newPointLog(PointLogBO pointLogBO) {
         if (pointLogBO == null) {
@@ -64,7 +63,14 @@ public class PointManagerImpl implements PointManager {
         }
         PointLogPO pointLogPO = TransformPointLog.transformBO2PO(pointLogBO);
         int isPointLogCreated = pointLogMapper.insert(pointLogPO);
-        return isPointLogCreated == 1 ? pointLogPO.getPoint().toString() : null;
+        if (isPointLogCreated != 1) {
+            LOG.error("----》新增积分记录时失败");
+            return null;
+        }
+        int usablePoint = pointMapper.selectByPointId(pointLogBO.getPointId()).getUsablePoint();
+        int isPointIncrease = pointMapper.updatePointByPointId(
+                usablePoint + pointLogBO.getPoint(), null, pointLogBO.getPointId());
+        return isPointIncrease == 1 ? pointLogPO.getPoint().toString() : null;
     }
 
 }

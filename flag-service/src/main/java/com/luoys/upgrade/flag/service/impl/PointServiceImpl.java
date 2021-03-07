@@ -35,7 +35,6 @@ public class PointServiceImpl implements PointService {
         return Result.ifSuccess(pointManager.queryPointLog(pointId, type));
     }
 
-
     @Override
     @RequestMapping(value = "/newPointLog", method = RequestMethod.POST)
     public Result<String> newPointLog(@RequestBody PointLogBO pointLogBO) {
