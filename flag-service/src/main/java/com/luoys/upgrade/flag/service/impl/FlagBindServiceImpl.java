@@ -29,10 +29,10 @@ public class FlagBindServiceImpl implements FlagBindService {
     public Result<PageInfo<UserFlagBO>> queryFlagList(@RequestBody FlagQueryBO flagQueryBO) {
         LOG.info("====》按用户查询flag列表开始：{}", JSON.toJSONString(flagQueryBO));
         if (flagQueryBO.getOwnerId() == null && flagQueryBO.getWitnessId() == null) {
-            return Result.error("---->所有者ID和见证人ID不能同时为空");
+            return Result.error("所有者ID和见证人ID不能同时为空");
         }
         if (flagQueryBO.getPageIndex() == null) {
-            flagQueryBO.setPageIndex(1);
+            return Result.error("必须传入页码pageIndex");
         }
         PageInfo<UserFlagBO> pageInfo = new PageInfo<>();
         pageInfo.setList(flagBindManager.queryUserFlag(flagQueryBO));
@@ -46,7 +46,7 @@ public class FlagBindServiceImpl implements FlagBindService {
             @RequestParam("ownerId") String ownerId, @RequestParam(value = "status", required = false) Integer status) {
         LOG.info("====》按用户查询报告开始：ownerId={}", ownerId);
         if (ownerId == null || ownerId == "") {
-            return Result.error("----》所有者不能为空");
+            return Result.error("所有者不能为空");
         }
         return Result.ifSuccess(flagBindManager.queryUserReport(ownerId, status));
     }

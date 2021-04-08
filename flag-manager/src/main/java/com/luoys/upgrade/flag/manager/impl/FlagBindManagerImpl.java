@@ -1,5 +1,6 @@
 package com.luoys.upgrade.flag.manager.impl;
 
+import com.luoys.common.annotation.NotNull;
 import com.luoys.upgrade.flag.api.bo.*;
 import com.luoys.upgrade.flag.dao.mapper.FlagBindMapper;
 import com.luoys.upgrade.flag.dao.po.FlagBindPO;
