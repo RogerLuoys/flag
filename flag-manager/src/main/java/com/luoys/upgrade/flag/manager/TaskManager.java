@@ -1,14 +1,15 @@
 package com.luoys.upgrade.flag.manager;
 
+import com.luoys.common.annotation.NotNull;
 import com.luoys.upgrade.flag.api.bo.TaskBO;
 
 public interface TaskManager {
 
-    String newTask(TaskBO taskBO);
+    String newTask(@NotNull TaskBO taskBO);
 
-    Integer modifyTask(TaskBO taskBO);
+    Integer modifyTask(@NotNull TaskBO taskBO);
 
-    TaskBO queryTaskByTaskId(String taskId);
+    TaskBO queryTaskByTaskId(@NotNull String taskId);
 
     Integer automaticConvertWeekTask();
 

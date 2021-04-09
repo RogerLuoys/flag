@@ -1,6 +1,5 @@
 package com.luoys.upgrade.flag.manager.impl;
 
-import com.luoys.common.annotation.NotNull;
 import com.luoys.upgrade.flag.api.bo.*;
 import com.luoys.upgrade.flag.dao.mapper.FlagBindMapper;
 import com.luoys.upgrade.flag.dao.po.FlagBindPO;
@@ -14,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Component

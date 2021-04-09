@@ -1,5 +1,6 @@
 package com.luoys.upgrade.flag.dao.mapper;
 
+import com.luoys.common.annotation.NotNull;
 import com.luoys.upgrade.flag.dao.po.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

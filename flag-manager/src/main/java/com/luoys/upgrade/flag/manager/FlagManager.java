@@ -1,5 +1,6 @@
 package com.luoys.upgrade.flag.manager;
 
+import com.luoys.common.annotation.NotNull;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
 
 public interface FlagManager {
@@ -7,13 +8,13 @@ public interface FlagManager {
 
 //    List<FlagPO> queryAllFlags();
 
-    FlagBO queryFlagByFlagId(String flagId);
+    FlagBO queryFlagByFlagId(@NotNull String flagId);
 
-    String newFlag(FlagBO flagBO);
+    String newFlag(@NotNull FlagBO flagBO);
 
-    Integer removeByFlagId(String flagId);
+    Integer removeByFlagId(@NotNull String flagId);
 
-    Integer modifyStatusByFlagId(String flagId,Integer status);
+    Integer modifyStatusByFlagId(@NotNull String flagId, @NotNull Integer status);
 
-    Integer modifyFlagBasic(FlagBO flagBO);
+    Integer modifyFlagBasic(@NotNull FlagBO flagBO);
 }

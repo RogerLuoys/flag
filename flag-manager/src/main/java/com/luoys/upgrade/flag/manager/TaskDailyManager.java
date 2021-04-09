@@ -1,12 +1,13 @@
 package com.luoys.upgrade.flag.manager;
 
+import com.luoys.common.annotation.NotNull;
 import com.luoys.upgrade.flag.api.bo.TaskDailyBO;
 
 public interface TaskDailyManager {
 
-    String newTaskDaily(TaskDailyBO taskDailyBO);
+    String newTaskDaily(@NotNull TaskDailyBO taskDailyBO);
 
-    Integer modifyTaskDailyStatus(String taskDailyId, Integer status, String pointId);
+    Integer modifyTaskDailyStatus(@NotNull String taskDailyId, @NotNull Integer status, @NotNull String pointId);
 
-    Integer modifyTaskDailyComment(String taskDailyId, String comment);
+    Integer modifyTaskDailyComment(@NotNull String taskDailyId, @NotNull String comment);
 }

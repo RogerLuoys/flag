@@ -1,16 +1,17 @@
 package com.luoys.upgrade.flag.manager;
 
+import com.luoys.common.annotation.NotNull;
 import com.luoys.upgrade.flag.api.bo.UserBO;
 
 
 public interface UserManager {
-    Boolean modifyUser(UserBO userBO);
+    Boolean modifyUser(@NotNull UserBO userBO);
 
-    UserBO queryByLoginInfo(String loginName, String passWord);
+    UserBO queryByLoginInfo(@NotNull String loginName, @NotNull String passWord);
 
-    UserBO queryByUserId(String userId);
+    UserBO queryByUserId(@NotNull String userId);
 
 //    Boolean checkUserExist(String loginName);
 
-    Integer newUser(UserBO userBO);
+    Integer newUser(@NotNull UserBO userBO);
 }
