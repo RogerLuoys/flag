@@ -39,6 +39,11 @@ public class PointServiceImpl implements PointService {
     @RequestMapping(value = "/newPointLog", method = RequestMethod.POST)
     public Result<String> newPointLog(@RequestBody PointLogBO pointLogBO) {
         LOG.info("====》新增用户积分记录开始：{}", pointLogBO);
+        if (pointLogBO.getPointId() == null) {
+            return Result.error("pointId不能为空");
+        } else if (pointLogBO.getType() == null) {
+            return Result.error("type不能为空");
+        }
         return Result.ifSuccess(pointManager.newPointLog(pointLogBO));
     }
 }

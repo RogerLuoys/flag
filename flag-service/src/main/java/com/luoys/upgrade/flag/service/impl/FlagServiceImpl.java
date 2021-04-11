@@ -58,6 +58,9 @@ public class FlagServiceImpl implements FlagService {
     @RequestMapping(value = "/modifyFlagBasic", method = RequestMethod.PUT)
     public Result<String> modifyFlagBasic(@RequestBody FlagBO flagBO) {
         LOG.info("====》修改flag基本信息开始：{}", JSON.toJSONString(flagBO));
+        if (flagBO.getFlagId() == null) {
+            return Result.error("flagId不能为空");
+        }
         return Result.ifSuccess(flagManager.modifyFlagBasic(flagBO));
     }
 
