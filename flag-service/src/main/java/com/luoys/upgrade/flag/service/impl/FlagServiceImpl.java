@@ -32,6 +32,11 @@ public class FlagServiceImpl implements FlagService {
     @RequestMapping(value = "/newFlag", method = RequestMethod.POST)
     public Result<String> newFlag(@RequestBody FlagBO flagBO) {
         LOG.info("=====》创建flag开始：{}", JSON.toJSONString(flagBO));
+        if (flagBO.getFlagName() == null) {
+            return Result.error("FlagName不能为空");
+        } else if (flagBO.getOwnerId() == null) {
+            return Result.error("OwnerId不能为空");
+        }
         return Result.ifSuccess(flagManager.newFlag(flagBO));
     }
 

@@ -55,6 +55,9 @@ public class FlagBindServiceImpl implements FlagBindService {
     @RequestMapping(value = "/modifyWitness", method = RequestMethod.PUT)
     public Result<String> modifyWitness(@RequestBody FlagBindBO flagBindBO) {
         LOG.info("====》修改见证人开始：{}", JSON.toJSONString(flagBindBO));
+        if (flagBindBO.getFlagId() == null) {
+            return Result.error("flagId不能为空");
+        }
         return Result.ifSuccess(flagBindManager.modifyWitness(flagBindBO));
     }
 
@@ -62,6 +65,9 @@ public class FlagBindServiceImpl implements FlagBindService {
     @RequestMapping(value = "/queryTaskDailyList", method = RequestMethod.POST)
     public Result<List<TaskDailyBO>> queryTaskDailyList(@RequestBody TaskDailyQueryBO taskDailyQueryBO) {
         LOG.info("====》按用户查询每日任务列表开始：{}", JSON.toJSONString(taskDailyQueryBO));
+        if ( taskDailyQueryBO.getOwnerId() == null && taskDailyQueryBO.getWitnessId() == null) {
+            return Result.error("所有者和见证人不能同时为空");
+        }
         return Result.ifSuccess(flagBindManager.queryUserTaskDaily(taskDailyQueryBO));
     }
 }
