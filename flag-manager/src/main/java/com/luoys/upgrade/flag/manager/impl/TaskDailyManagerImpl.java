@@ -21,7 +21,6 @@ import java.util.Date;
 public class TaskDailyManagerImpl implements TaskDailyManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(TaskDailyManagerImpl.class);
-    private static final Integer COMPLETED = 2;
 
     @Autowired
     private TaskDailyMapper taskDailyMapper;
@@ -79,7 +78,7 @@ public class TaskDailyManagerImpl implements TaskDailyManager {
             LOG.error("----》入参不能为空，修改状态失败");
             return null;
         }
-        if (status == COMPLETED) {
+        if (status == TaskDailyStatusEnum.COMPLETED.getCode()) {
             TaskDailyPO taskDailyPO = taskDailyMapper.selectByTaskDailyId(taskDailyId);
             PointLogPO pointLogPO = new PointLogPO();
             pointLogPO.setPointId(pointId);
