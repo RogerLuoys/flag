@@ -26,7 +26,7 @@ public class TransformTask {
         // 如果任务周期字符串有值，则直接使用；否则将任务周期列表转为字符串（逗号分隔）
         if (null != bo.getCycle()) {
             po.setCycle(bo.getCycle());
-        } else {
+        } else if (null != bo.getCycleList()) {
             StringBuilder cycles = new StringBuilder();
             for (String cycle : bo.getCycleList()) {
                 cycles.append(cycle);
@@ -34,6 +34,8 @@ public class TransformTask {
             }
             cycles.delete(cycles.length() - 1, cycles.length());
             po.setCycle(cycles.toString());
+        } else {
+            po.setCycle(null);
         }
         return po;
     }

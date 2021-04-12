@@ -23,6 +23,17 @@ public class TaskServiceImpl implements TaskService {
     @RequestMapping(value = "/newTask", method = RequestMethod.POST)
     public Result<String> newTask(@RequestBody TaskBO taskBO) {
         LOG.info("=====》创建周期任务开始：{}", JSON.toJSONString(taskBO));
+        if (taskBO.getTaskName() == null) {
+            Result.error("taskName不能为空");
+        } else if (taskBO.getCycleList() == null && taskBO.getCycle() == null) {
+            Result.error("cycleList和cycle不能同时为空");
+        } else if (taskBO.getFlagId() == null) {
+            Result.error("flagId不能为空");
+        } else if (taskBO.getType() == null) {
+            Result.error("type不能为空");
+        } else if (taskBO.getPoint() == null) {
+            Result.error("point不能为空");
+        }
         return Result.ifSuccess(taskManager.newTask(taskBO));
     }
 
@@ -30,6 +41,9 @@ public class TaskServiceImpl implements TaskService {
     @RequestMapping(value = "/modifyTask", method = RequestMethod.PUT)
     public Result<String> modifyTask(@RequestBody TaskBO taskBO) {
         LOG.info("=====》修改周期任务开始：{}", JSON.toJSONString(taskBO));
+        if (taskBO.getTaskId() == null) {
+            return Result.error("taskId不能为空");
+        }
         return Result.ifSuccess(taskManager.modifyTask(taskBO));
     }
 

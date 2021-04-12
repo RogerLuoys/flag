@@ -46,8 +46,15 @@ public class TemplateServiceImpl implements TemplateService {
     @RequestMapping(value = "/useFlagTemplate", method = RequestMethod.POST)
     public Result<String> useFlagTemplate(@RequestBody FlagTemplateBO flagTemplateBO) {
         LOG.info("====》使用模板开始：{}", flagTemplateBO);
+        if (flagTemplateBO.getOwnerId() == null) {
+            Result.error("ownerId不能为空");
+        } else if (flagTemplateBO.getFlagName() == null) {
+            Result.error("flagName不能为空");
+        }
         FlagBO flagBO = TransformFlagTemplate.transformTemplateBO2FlagBO(flagTemplateBO);
-        flagBO.setTaskList(TransformTaskTemplate.transformTaskTemplateBO2TaskBO(flagTemplateBO.getTaskTemplateList()));
+        if (flagTemplateBO.getTaskTemplateList() != null) {
+            flagBO.setTaskList(TransformTaskTemplate.transformTaskTemplateBO2TaskBO(flagTemplateBO.getTaskTemplateList()));
+        }
         LOG.info("====》模板转换成功，新建flag：{}", flagBO);
         return Result.ifSuccess(flagManager.newFlag(flagBO));
     }
