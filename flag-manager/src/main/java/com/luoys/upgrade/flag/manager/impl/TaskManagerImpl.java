@@ -21,7 +21,7 @@ import java.util.List;
 @Component
 public class TaskManagerImpl implements TaskManager {
 
-    private static Logger LOG = LoggerFactory.getLogger(TaskManagerImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TaskManagerImpl.class);
 //    private final Integer WEEKLY_CYCLE = 2;
 
     @Autowired
@@ -82,9 +82,9 @@ public class TaskManagerImpl implements TaskManager {
             taskDailyPO.setFlagId(item.getFlagId());
             taskDailyPO.setTaskDailyName(item.getTaskName());
             taskDailyPO.setPoint(item.getPoint());
-            for (int i = 0; i < cycles.length; i++) {
-                taskDailyPO.setStartTime(TimeUtil.getWeekCycleStartTime(cycles[i]));
-                taskDailyPO.setEndTime(TimeUtil.getWeekCycleEndTime(cycles[i]));
+            for (String cycle : cycles) {
+                taskDailyPO.setStartTime(TimeUtil.getWeekCycleStartTime(cycle));
+                taskDailyPO.setEndTime(TimeUtil.getWeekCycleEndTime(cycle));
                 taskDailyPO.setTaskDailyId(NumberSender.createTaskDailyId());
                 taskDailyPO.setStatus(TaskDailyStatusEnum.IN_PROGRESS.getCode());
                 taskDailyMapper.insert(taskDailyPO);

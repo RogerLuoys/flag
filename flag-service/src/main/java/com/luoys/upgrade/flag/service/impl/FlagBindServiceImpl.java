@@ -45,7 +45,7 @@ public class FlagBindServiceImpl implements FlagBindService {
     public Result<List<UserReportBO>> queryReportList(
             @RequestParam("ownerId") String ownerId, @RequestParam(value = "status", required = false) Integer status) {
         LOG.info("====》按用户查询报告开始：ownerId={}", ownerId);
-        if (ownerId == null || ownerId == "") {
+        if (ownerId == null || ownerId.equals("")) {
             return Result.error("所有者不能为空");
         }
         return Result.ifSuccess(flagBindManager.queryUserReport(ownerId, status));

@@ -5,7 +5,6 @@ import com.luoys.common.api.Result;
 import com.luoys.upgrade.flag.api.bo.UserBO;
 import com.luoys.upgrade.flag.api.enums.PointStatusEnum;
 import com.luoys.upgrade.flag.dao.mapper.PointMapper;
-import com.luoys.upgrade.flag.dao.mapper.UserMapper;
 import com.luoys.upgrade.flag.dao.po.PointPO;
 import com.luoys.upgrade.flag.manager.UserManager;
 import com.luoys.upgrade.flag.manager.transform.TransformUser;

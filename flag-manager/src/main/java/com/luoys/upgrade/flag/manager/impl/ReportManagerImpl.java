@@ -29,7 +29,7 @@ public class ReportManagerImpl implements ReportManager {
 
     @Override
     public ReportBO queryReportByFlagId(String flagId) {
-        if (flagId == null || flagId == "") {
+        if (flagId == null || flagId.equals("")) {
             LOG.error("----》查询报告详情时，flagId不能为空");
             return null;
         }

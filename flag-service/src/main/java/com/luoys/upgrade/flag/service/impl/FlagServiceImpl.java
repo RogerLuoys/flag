@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.luoys.common.api.Result;
 import com.luoys.upgrade.flag.api.bo.FlagBO;
 import com.luoys.upgrade.flag.api.service.FlagService;
-import com.luoys.upgrade.flag.manager.FlagBindManager;
 import com.luoys.upgrade.flag.manager.FlagManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +17,6 @@ public class FlagServiceImpl implements FlagService {
 
     @Autowired
     private FlagManager flagManager;
-    @Autowired
-    private FlagBindManager flagBindManager;
 
     @Override
     @RequestMapping(value = "/queryFlagDetail", method = RequestMethod.GET)

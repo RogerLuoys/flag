@@ -28,7 +28,7 @@ public class FlagManagerImpl implements FlagManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(FlagManagerImpl.class);
 
-    private final String DEFAULT_CREATOR = "1";
+    private static final String DEFAULT_CREATOR = "1";
 
 
     @Autowired
@@ -151,21 +151,6 @@ public class FlagManagerImpl implements FlagManager {
                 LOG.info("====》无需更新周期任务状态");
                 return 1;
         }
-//        int isTaskModified = taskMapper.countTaskByFlagId(flagId) > 0 ? taskMapper.updateStatusByFlagId(flagId, status) : 0;
-//        if (isTaskModified == 0) {
-//            LOG.error("---->更新Flag状态失败");
-//            return null;
-//        }
-//
-//        if (isFlagModified == 1 && isTaskModified == 1) {
-//            return 1;
-//        } else if (isFlagModified == 1 && isTaskModified == 2) {
-//            LOG.info("---->关联表无需更新，flagId：{}", flagId);
-//            return 1;
-//        } else {
-//            LOG.error("---->关联表未更新成功，flagId：{}", flagId);
-//            return null;
-//        }
     }
 
     @Override

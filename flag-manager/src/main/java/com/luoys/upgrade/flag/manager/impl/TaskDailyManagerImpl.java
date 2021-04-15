@@ -40,7 +40,7 @@ public class TaskDailyManagerImpl implements TaskDailyManager {
     @Override
     public String newTaskDaily(TaskDailyBO taskDailyBO) {
         // 未关联flagId，则需要新增flag相关数据
-        if (taskDailyBO.getFlagId() == null || taskDailyBO.getFlagId() == "") {
+        if (taskDailyBO.getFlagId() == null || taskDailyBO.getFlagId().equals("")) {
             taskDailyBO.setFlagId(NumberSender.createFlagId());
             FlagPO flagPO = new FlagPO();
             flagPO.setFlagId(taskDailyBO.getFlagId());
@@ -78,7 +78,7 @@ public class TaskDailyManagerImpl implements TaskDailyManager {
             LOG.error("----》入参不能为空，修改状态失败");
             return null;
         }
-        if (status == TaskDailyStatusEnum.COMPLETED.getCode()) {
+        if (status.equals(TaskDailyStatusEnum.COMPLETED.getCode())) {
             TaskDailyPO taskDailyPO = taskDailyMapper.selectByTaskDailyId(taskDailyId);
             PointLogPO pointLogPO = new PointLogPO();
             pointLogPO.setPointId(pointId);

@@ -24,15 +24,15 @@ public class TaskServiceImpl implements TaskService {
     public Result<String> newTask(@RequestBody TaskBO taskBO) {
         LOG.info("=====》创建周期任务开始：{}", JSON.toJSONString(taskBO));
         if (taskBO.getTaskName() == null) {
-            Result.error("taskName不能为空");
+            return Result.error("taskName不能为空");
         } else if (taskBO.getCycleList() == null && taskBO.getCycle() == null) {
-            Result.error("cycleList和cycle不能同时为空");
+            return Result.error("cycleList和cycle不能同时为空");
         } else if (taskBO.getFlagId() == null) {
-            Result.error("flagId不能为空");
+            return Result.error("flagId不能为空");
         } else if (taskBO.getType() == null) {
-            Result.error("type不能为空");
+            return Result.error("type不能为空");
         } else if (taskBO.getPoint() == null) {
-            Result.error("point不能为空");
+            return Result.error("point不能为空");
         }
         return Result.ifSuccess(taskManager.newTask(taskBO));
     }
