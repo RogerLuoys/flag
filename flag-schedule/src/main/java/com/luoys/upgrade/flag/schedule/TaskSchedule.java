@@ -22,7 +22,7 @@ public class TaskSchedule {
     private TaskManager taskManager;
 
     // 每周日凌晨1点执行
-    @Scheduled(cron = "0 0 1 ? * 7")
+//    @Scheduled(cron = "0 0 1 ? * 7")
     // 每5分钟执行一次，测试用
 //    @Scheduled(cron = "0 0/5 * * * ?")
     public void automaticConvertWeekTask() {

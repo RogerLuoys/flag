@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * MapperScan：扫描Mapper
  */
 @SpringBootApplication
-@EnableScheduling
+//@EnableScheduling
 @ComponentScan(basePackages = "com.luoys.upgrade.flag")
 @MapperScan("com.luoys.upgrade.flag.dao")
 public class ApplicationStarter {
